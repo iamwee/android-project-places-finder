@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:icon="@drawable/ic_action_profile"
+            android:id="@+id/nav_profile"
+            android:title="@string/menu_profile" />
+
+        <item
+            android:icon="@drawable/ic_action_add_black"
+            android:id="@+id/nav_suggest_place"
+            android:title="@string/menu_suggest_place" />
+    </group>
+
+    <item android:title="@string/settings">
+        <menu>
+            <item
+                android:id="@+id/nav_send_feed_back"
+                android:icon="@drawable/ic_menu_send"
+                android:title="@string/menu_send_feedback" />
+            <item
+                android:icon="@drawable/ic_menu_settings"
+                android:id="@+id/nav_settings"
+                android:title="@string/settings" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_action_logout_black"
+                android:title="@string/menu_logout" />
+        </menu>
+    </item>
+
+</menu>
