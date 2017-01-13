@@ -19,4 +19,7 @@ public interface ApiService {
 
     @POST("auth/logout")
     Call<ServerResponse> logout(@Body RequestBody body);
+
+    @POST("user")
+    Call<ServerResponse> createAccount(@Body RequestBody body);
 }

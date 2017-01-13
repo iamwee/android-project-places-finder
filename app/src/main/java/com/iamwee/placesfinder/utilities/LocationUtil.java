@@ -13,7 +13,7 @@ import com.iamwee.placesfinder.R;
  * Created by Zeon on 2/1/2560.
  */
 
-public class LocationUtility {
+public class LocationUtil {
 
     public static boolean isLocationAvailable(Context context) {
         LocationManager manager = (LocationManager)

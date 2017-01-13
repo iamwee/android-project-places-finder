@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 import com.iamwee.placesfinder.common.event.OpenActivity;
+import com.rd.PageIndicatorView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -17,8 +18,7 @@ import org.greenrobot.eventbus.EventBus;
  * Created by Zeon on 2/1/2560.
  */
 
-public class WalkThroughFragment
-        extends PlacesFinderFragment<WalkThroughContractor.Presenter>
+public class WalkThroughFragment extends PlacesFinderFragment<WalkThroughContractor.Presenter>
         implements WalkThroughContractor.View, View.OnClickListener {
 
     public WalkThroughFragment() {
@@ -26,8 +26,8 @@ public class WalkThroughFragment
     }
 
     public static WalkThroughFragment newInstance() {
-        WalkThroughFragment fragment = new WalkThroughFragment();
         Bundle args = new Bundle();
+        WalkThroughFragment fragment = new WalkThroughFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,6 +67,10 @@ public class WalkThroughFragment
     protected void setupView(View rootView) {
         ViewPager pager = (ViewPager) rootView.findViewById(R.id.view_pager);
         pager.setAdapter(new WalkThroughPagerAdapter());
+        PageIndicatorView pageIndicatorView = (PageIndicatorView)
+                rootView.findViewById(R.id.page_indicator_view);
+        pageIndicatorView.setViewPager(pager);
+
 
         rootView.findViewById(R.id.btn_create_account).setOnClickListener(this);
         rootView.findViewById(R.id.btn_login).setOnClickListener(this);

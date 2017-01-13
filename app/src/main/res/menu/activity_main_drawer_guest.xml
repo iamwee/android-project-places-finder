@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<item android:title="@string/settings">
+    <menu>
+        <item
+            android:id="@+id/nav_send_feed_back"
+            android:icon="@drawable/ic_menu_send"
+            android:title="@string/menu_send_feedback" />
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_menu_settings"
+            android:title="@string/settings" />
+    </menu>
+</item>
+
+</menu>

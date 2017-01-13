@@ -1,4 +1,4 @@
-package com.iamwee.placesfinder.template;
+package com.iamwee.placesfinder.view.main.pager.recent;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,15 +10,15 @@ import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 
 
-public class TemplateFragment extends PlacesFinderFragment<TemplateContractor.Presenter>
-        implements TemplateContractor.View{
+public class RecentFragment extends PlacesFinderFragment<RecentContractor.Presenter>
+        implements RecentContractor.View{
 
-    public TemplateFragment() {
+    public RecentFragment() {
 
     }
 
-    public static TemplateFragment newInstance(){
-        TemplateFragment fragment = new TemplateFragment();
+    public static RecentFragment newInstance(){
+        RecentFragment fragment = new RecentFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -27,7 +27,7 @@ public class TemplateFragment extends PlacesFinderFragment<TemplateContractor.Pr
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TemplatePresenter.newInstance(this);
+        RecentPresenter.newInstance(this);
     }
 
     @Nullable
@@ -35,7 +35,7 @@ public class TemplateFragment extends PlacesFinderFragment<TemplateContractor.Pr
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_recently, container, false);
         initView(rootView);
         setupView(rootView);
         return rootView;

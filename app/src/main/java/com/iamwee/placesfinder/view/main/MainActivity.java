@@ -10,9 +10,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
+import com.iamwee.placesfinder.utilities.SessionUtil;
 import com.iamwee.placesfinder.view.logout.LogoutActivity;
 
 public class MainActivity extends PlacesFinderActivity
@@ -49,7 +51,7 @@ public class MainActivity extends PlacesFinderActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view_logged_in);
         navigationView.setNavigationItemSelectedListener(this);
     }
 

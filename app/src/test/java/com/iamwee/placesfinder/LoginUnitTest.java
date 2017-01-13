@@ -12,6 +12,6 @@ import org.junit.Test;
 public class LoginUnitTest {
     @Test
     public void shouldEnterEmailAndPassword(){
-        LoginPresenter presenter = new LoginPresenter();
+
     }
 }

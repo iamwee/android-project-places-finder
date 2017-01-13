@@ -9,7 +9,7 @@ import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.dao.LoginResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
 import com.iamwee.placesfinder.utilities.Contextor;
-import com.iamwee.placesfinder.utilities.NetworkUtility;
+import com.iamwee.placesfinder.utilities.NetworkUtil;
 import com.iamwee.placesfinder.utilities.SessionUtil;
 
 import java.io.IOException;
@@ -22,20 +22,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-/**
- * Created by Zeon on 2/1/2560.
- */
-
 public class LoginPresenter implements LoginContractor.Presenter,
         Callback<LoginResponse> {
 
     private LoginContractor.View view;
     private Call<LoginResponse> call;
 
-    public LoginPresenter() {
-
-    }
 
     private LoginPresenter(LoginContractor.View view) {
         this.view = view;
@@ -58,7 +50,7 @@ public class LoginPresenter implements LoginContractor.Presenter,
 
     @Override
     public Bundle onSaveInstanceState() {
-        return null;
+        return new Bundle();
     }
 
     @Override
@@ -79,7 +71,7 @@ public class LoginPresenter implements LoginContractor.Presenter,
                     .getContext()
                     .getString(R.string.msg_please_enter_email_password));
             return;
-        } else if (!NetworkUtility.isNetworkAvailable(Contextor.getInstance().getContext())) {
+        } else if (!NetworkUtil.isNetworkAvailable(Contextor.getInstance().getContext())) {
             view.onNetworkConnectionFailure();
             return;
         }
@@ -90,7 +82,7 @@ public class LoginPresenter implements LoginContractor.Presenter,
 
         call = HttpManager.getInstance().getServices().login(body);
         call.enqueue(this);
-        view.onShowProgressDialog();
+        view.onExecuting();
     }
 
 
@@ -112,7 +104,7 @@ public class LoginPresenter implements LoginContractor.Presenter,
                 e.printStackTrace();
             }
         }
-        view.onDismissProgressDialog();
+        view.onPostExecute();
     }
 
     @Override
@@ -128,7 +120,7 @@ public class LoginPresenter implements LoginContractor.Presenter,
         } else {
             t.printStackTrace();
         }
-        view.onDismissProgressDialog();
+        view.onPostExecute();
     }
 
 

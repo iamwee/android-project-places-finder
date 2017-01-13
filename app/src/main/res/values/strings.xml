@@ -6,7 +6,6 @@
 
     <string name="action_settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="msg_create_account">Create Account</string>
     <string name="msg_login">Login</string>
@@ -26,4 +25,10 @@
     <string name="menu_suggest_place">Suggest Place</string>
     <string name="menu_send_feedback">Send feedback</string>
     <string name="msg_cannot_connect_to_server">Cannot connect to the server, please try again later.</string>
+    <string name="msg_logging_out">Logging out . . .</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="code_name">Code name</string>
+    <string name="back_to_login">Back to Login</string>
+    <string name="enter_these_form_to_create_new_account">Enter these form to create new account.</string>
+    <string name="msg_loading">Loading</string>
 </resources>

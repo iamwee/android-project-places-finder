@@ -23,7 +23,7 @@
         </activity>
         <activity
             android:name=".view.main.MainActivity"
-            android:label="@string/app_name"
+            android:label=""
             android:theme="@style/AppTheme.NoActionBar.Drawer" />
         <activity android:name=".view.walk_through.WalkThroughActivity" />
         <activity android:name=".view.login.LoginActivity" />
@@ -33,7 +33,7 @@
             android:name="io.fabric.ApiKey"
             android:value="26cd6b1d9e2b02c9a7541f95f4d61ec26321f8d6" />
 
-        <activity android:name=".view.logout.LogoutActivity"></activity>
+        <activity android:name=".view.logout.LogoutActivity" />
     </application>
 
 </manifest>

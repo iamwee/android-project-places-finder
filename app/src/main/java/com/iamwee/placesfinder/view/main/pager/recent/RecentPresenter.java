@@ -1,4 +1,4 @@
-package com.iamwee.placesfinder.view.main;
+package com.iamwee.placesfinder.view.main.pager.recent;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,17 +7,17 @@ import android.os.Bundle;
  * Created by Zeon on 2/1/2560.
  */
 
-class MainPresenter implements MainContractor.Presenter {
+class RecentPresenter implements RecentContractor.Presenter {
 
-    private MainContractor.View view;
+    private RecentContractor.View view;
 
-    private MainPresenter(MainContractor.View view) {
+    private RecentPresenter(RecentContractor.View view){
         this.view = view;
         this.view.setPresenter(this);
     }
 
-    static MainPresenter newInstance(MainContractor.View view) {
-        return new MainPresenter(view);
+    static RecentPresenter newInstance(RecentContractor.View view){
+        return new RecentPresenter(view);
     }
 
     @Override
@@ -32,7 +32,7 @@ class MainPresenter implements MainContractor.Presenter {
 
     @Override
     public Bundle onSaveInstanceState() {
-        return new Bundle();
+        return null;
     }
 
     @Override

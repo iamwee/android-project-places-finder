@@ -43,7 +43,7 @@ class LogoutPresenter implements LogoutContractor.Presenter, Callback<ServerResp
 
     @Override
     public Bundle onSaveInstanceState() {
-        return null;
+        return new Bundle();
     }
 
     @Override

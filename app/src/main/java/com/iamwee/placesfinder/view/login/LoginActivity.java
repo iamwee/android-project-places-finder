@@ -17,7 +17,7 @@ public class LoginActivity extends PlacesFinderActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, LoginFragment.newInstance())
                     .commit();
@@ -47,9 +47,14 @@ public class LoginActivity extends PlacesFinderActivity {
     }
 
     @Subscribe
-    public void onOpenActivity(OpenActivity event){
-        if(event.getStatus() == OpenActivity.MAIN_ACTIVITY){
-            openActivity(new Intent(this, MainActivity.class), true);
+    public void onOpenActivity(OpenActivity event) {
+        //TODO: Fix issue : after login success it not finish current activity
+        if (event.getStatus() == OpenActivity.MAIN_ACTIVITY) {
+            if (event.isDelay()) {
+                openActivity(new Intent(this, MainActivity.class), event.isFinish());
+            } else {
+                openActivityNonDelay(new Intent(this, MainActivity.class), event.isFinish());
+            }
         }
     }
 }

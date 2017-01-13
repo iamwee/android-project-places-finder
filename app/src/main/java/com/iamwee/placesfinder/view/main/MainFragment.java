@@ -3,6 +3,9 @@ package com.iamwee.placesfinder.view.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.Toast;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
+import com.iamwee.placesfinder.view.main.pager.MainPagerAdapter;
 
 public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
         implements MainContractor.View {
@@ -50,14 +54,16 @@ public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
 
     @Override
     protected void setupView(View rootView) {
-
+        ViewPager vpMain = (ViewPager) rootView.findViewById(R.id.vp_main);
+        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_layout);
+        vpMain.setAdapter(new MainPagerAdapter(getChildFragmentManager()));
+        tabLayout.setupWithViewPager(vpMain);
     }
 
     @Override
     public void onStart() {
         super.onStart();
         presenter().onStart();
-        presenter().show();
     }
 
     @Override
@@ -75,7 +81,7 @@ public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(savedInstanceState != null)
+        if (savedInstanceState != null)
             presenter().onRestoreInstanceState(savedInstanceState.getBundle("presenter"));
     }
 
@@ -87,5 +93,15 @@ public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
     @Override
     public void onShowToast(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onExecuting() {
+
+    }
+
+    @Override
+    public void onPostExecute() {
+
     }
 }

@@ -3,21 +3,25 @@ package com.iamwee.placesfinder.view.login;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 import com.iamwee.placesfinder.common.event.OpenActivity;
 import com.iamwee.placesfinder.utilities.DialogHelper;
+import com.iamwee.placesfinder.utilities.SessionUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
 
 public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presenter>
-        implements LoginContractor.View, View.OnClickListener, DialogHelper.Callback {
+        implements LoginContractor.View, View.OnClickListener, DialogHelper.Callback, TextView.OnEditorActionListener {
 
     private TextInputEditText edtEmail;
     private TextInputEditText edtPassword;
@@ -68,6 +72,8 @@ public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presente
 
     @Override
     protected void setupView(View rootView) {
+        edtEmail.setText(SessionUtil.getEmailThatLoggedIn());
+        edtPassword.setOnEditorActionListener(this);
         rootView.findViewById(R.id.btn_login).setOnClickListener(this);
         rootView.findViewById(R.id.btn_login_as_guest).setOnClickListener(this);
     }
@@ -84,18 +90,24 @@ public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presente
     }
 
     @Override
-    public void onShowProgressDialog() {
+    public void onExecuting() {
         DialogHelper.show(getActivity(), this);
     }
 
     @Override
-    public void onDismissProgressDialog() {
+    public void onPostExecute() {
         DialogHelper.dismiss();
     }
 
     @Override
     public void onLoginSuccess() {
-        EventBus.getDefault().post(new OpenActivity(OpenActivity.MAIN_ACTIVITY));
+        SessionUtil.saveEmailThatLoggedIn(edtEmail.getText().toString());
+        EventBus.getDefault().post(new OpenActivity(OpenActivity.MAIN_ACTIVITY, true, false));
+    }
+
+    @Override
+    public void onLoginAsGuest() {
+        EventBus.getDefault().post(new OpenActivity(OpenActivity.MAIN_ACTIVITY, true, true));
     }
 
     @Override
@@ -106,5 +118,14 @@ public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presente
     @Override
     public void onProgressDialogCancelled() {
         presenter().cancelCallLogin();
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            presenter().login(edtEmail.getText().toString(),
+                    edtPassword.getText().toString());
+        }
+        return false;
     }
 }

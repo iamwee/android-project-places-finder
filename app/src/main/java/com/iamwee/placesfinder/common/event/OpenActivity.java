@@ -12,9 +12,30 @@ public class OpenActivity {
     public static final int SPLASH_SCREEN_ACTIVITY = 4;
 
     private int status;
+    private boolean finish;
+    private boolean delay;
 
     public OpenActivity(int status) {
         this.status = status;
+        this.finish = false;
+        this.delay = true;
+    }
+
+    public OpenActivity(int status, boolean finish) {
+        this.status = status;
+        this.finish = finish;
+        this.delay = true;
+    }
+
+    public OpenActivity(boolean delay, int status) {
+        this.delay = delay;
+        this.status = status;
+    }
+
+    public OpenActivity(int status, boolean finish, boolean delay) {
+        this.status = status;
+        this.finish = finish;
+        this.delay = delay;
     }
 
     public int getStatus() {
@@ -23,5 +44,21 @@ public class OpenActivity {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public boolean isFinish() {
+        return finish;
+    }
+
+    public void setFinish(boolean finish) {
+        this.finish = finish;
+    }
+
+    public boolean isDelay() {
+        return delay;
+    }
+
+    public void setDelay(boolean delay) {
+        this.delay = delay;
     }
 }

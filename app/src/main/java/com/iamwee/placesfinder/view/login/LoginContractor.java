@@ -1,7 +1,7 @@
 package com.iamwee.placesfinder.view.login;
 
 import com.iamwee.placesfinder.BasePresenter;
-import com.iamwee.placesfinder.BaseView;
+import com.iamwee.placesfinder.ServiceView;
 
 /**
  * Created by Zeon on 2/1/2560.
@@ -16,13 +16,11 @@ interface LoginContractor {
         void cancelCallLogin();
     }
 
-    interface View extends BaseView<Presenter> {
-
-        void onShowProgressDialog();
-
-        void onDismissProgressDialog();
+    interface View extends ServiceView<Presenter> {
 
         void onLoginSuccess();
+
+        void onLoginAsGuest();
 
         void onLoginFailure(String message);
     }

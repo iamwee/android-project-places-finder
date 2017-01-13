@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
+import com.iamwee.placesfinder.R;
+
 /**
  * Created by Zeon on 2/1/2560.
  */
@@ -19,7 +21,7 @@ public class DialogHelper {
 
     public static void show(Context context, final Callback callback) {
         dialog = new ProgressDialog(context);
-        dialog.setMessage("Loading");
+        dialog.setMessage(context.getString(R.string.msg_loading));
         dialog.setButton(AlertDialog.BUTTON_NEGATIVE,
                 context.getString(android.R.string.cancel),
                 new DialogInterface.OnClickListener() {

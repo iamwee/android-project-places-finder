@@ -1,7 +1,7 @@
 package com.iamwee.placesfinder.view.register;
 
 import com.iamwee.placesfinder.BasePresenter;
-import com.iamwee.placesfinder.BaseView;
+import com.iamwee.placesfinder.ServiceView;
 
 /**
  * Created by Zeon on 2/1/2560.
@@ -11,9 +11,25 @@ interface RegisterContractor {
 
     interface Presenter extends BasePresenter {
 
+        void createAccount(String email, String password,
+                           String confirmPassword,
+                           String codeName);
+
+        boolean isEmailValidated(String email);
+
+        boolean isPasswordAndConfirmPasswordMatched(String password, String confirmPassword);
+
+        boolean isPasswordValidated(String password);
+
+        boolean isCodeNameValidated(String codeName);
+
+        void cancelCall();
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View extends ServiceView<Presenter> {
+
+        void onCreateAccountSuccess();
+
 
     }
 }

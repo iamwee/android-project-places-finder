@@ -59,7 +59,7 @@ abstract public class PlacesFinderActivity extends AppCompatActivity {
 
     protected void openActivity(final Intent intent, long duration,
                                 final boolean hasFinish) {
-
+        if (isDelaying) return;
         new Handler(getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
