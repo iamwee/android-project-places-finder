@@ -1,4 +1,4 @@
-package com.iamwee.placesfinder.view.main.pager.profile;
+package com.iamwee.placesfinder.view.profile;
 
 import com.iamwee.placesfinder.BasePresenter;
 import com.iamwee.placesfinder.BaseView;
@@ -11,6 +11,7 @@ interface ProfileContractor {
 
     interface Presenter extends BasePresenter {
 
+        void getCurrentProfile();
     }
 
     interface View extends BaseView<Presenter> {

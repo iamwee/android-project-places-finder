@@ -31,4 +31,8 @@
     <string name="back_to_login">Back to Login</string>
     <string name="enter_these_form_to_create_new_account">Enter these form to create new account.</string>
     <string name="msg_loading">Loading</string>
+    <string name="new_password">New Password</string>
+    <string name="change_password">Change Password</string>
+    <string name="action_save">Save</string>
+    <string name="search_title">Search</string>
 </resources>

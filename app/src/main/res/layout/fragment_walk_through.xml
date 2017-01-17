@@ -24,14 +24,14 @@
             android:layout_margin="@dimen/activity_vertical_margin"
             app:piv_animationType="slide"
             app:piv_selectedColor="@color/colorPrimaryDark"
-            app:piv_unselectedColor="@color/colorAccent" />
+            app:piv_unselectedColor="@color/colorControlHighlight" />
 
         <Button
             android:id="@+id/btn_create_account"
             android:layout_width="match_parent"
             android:layout_height="@dimen/button_height"
             android:text="@string/msg_create_account"
-            android:theme="@style/AppTheme.Button" />
+            android:theme="@style/AppTheme.Button.Gray" />
 
         <Button
             android:id="@+id/btn_login"

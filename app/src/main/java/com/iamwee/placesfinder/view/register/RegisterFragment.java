@@ -96,7 +96,7 @@ public class RegisterFragment extends PlacesFinderFragment<RegisterContractor.Pr
         if (id == R.id.btn_back_to_login) {
             EventBus.getDefault().post(new OpenActivity(OpenActivity.LOGIN_ACTIVITY));
         } else if (id == R.id.btn_create_account) {
-            presenter().createAccount(getEmailText(),
+            getPresenter().createAccount(getEmailText(),
                     getPasswordText(),
                     getConfirmPasswordText(),
                     getCodeNameText());
@@ -121,7 +121,7 @@ public class RegisterFragment extends PlacesFinderFragment<RegisterContractor.Pr
 
     @Override
     public void onProgressDialogCancelled() {
-        presenter().cancelCall();
+        getPresenter().cancelCall();
     }
 
     @Override

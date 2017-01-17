@@ -2,6 +2,7 @@ package com.iamwee.placesfinder.manager;
 
 import com.iamwee.placesfinder.dao.LoginResponse;
 import com.iamwee.placesfinder.dao.ServerResponse;
+import com.iamwee.placesfinder.dao.UserProfile;
 
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ import retrofit2.http.Path;
  * Created by Zeon on 2/1/2560.
  */
 
-interface ApiService {
+public interface ApiService {
 
     @POST("auth/login")
     Call<LoginResponse> login(@Body RequestBody body);
@@ -29,13 +30,13 @@ interface ApiService {
     Call<ServerResponse> createAccount(@Body RequestBody body);
 
     @POST("user/profile")
-    Call<Objects> getCurrentProfile(@Body RequestBody body);
+    Call<UserProfile> getCurrentProfile(@Body RequestBody body);
 
     @PUT("user/profile/update")
-    Call<Objects> updateProfile(@Body RequestBody body);
+    Call<ServerResponse> updateProfile(@Body RequestBody body);
 
     @PUT("user/password")
-    Call<Objects> changePassword(@Body RequestBody body);
+    Call<ServerResponse> changePassword(@Body RequestBody body);
 
     @GET("place")
     Call<Objects> getAllPlace();

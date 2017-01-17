@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TitleView">
+        <attr name="tv_title" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="PlaceView">
+
+    </declare-styleable>
+
+</resources>

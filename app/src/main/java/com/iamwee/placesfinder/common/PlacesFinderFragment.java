@@ -14,7 +14,7 @@ abstract public class PlacesFinderFragment<T extends BasePresenter>
 
     private T presenter;
 
-    public T presenter(){
+    public T getPresenter(){
         return this.presenter;
     }
 

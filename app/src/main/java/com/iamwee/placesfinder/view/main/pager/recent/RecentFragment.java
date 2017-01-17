@@ -2,6 +2,8 @@ package com.iamwee.placesfinder.view.main.pager.recent;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +13,15 @@ import com.iamwee.placesfinder.common.PlacesFinderFragment;
 
 
 public class RecentFragment extends PlacesFinderFragment<RecentContractor.Presenter>
-        implements RecentContractor.View{
+        implements RecentContractor.View {
+
+    private RecyclerView rvRecentPlace;
 
     public RecentFragment() {
 
     }
 
-    public static RecentFragment newInstance(){
+    public static RecentFragment newInstance() {
         RecentFragment fragment = new RecentFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -53,11 +57,12 @@ public class RecentFragment extends PlacesFinderFragment<RecentContractor.Presen
 
     @Override
     protected void initView(View rootView) {
-
+        rvRecentPlace = (RecyclerView) rootView.findViewById(R.id.rv_recent_place);
+        rvRecentPlace.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Override
     protected void setupView(View rootView) {
-
+        rvRecentPlace.setAdapter(new PlaceRecentAdapter());
     }
 }

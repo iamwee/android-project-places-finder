@@ -82,7 +82,7 @@ public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presente
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.btn_login) {
-            presenter().login(edtEmail.getText().toString(),
+            getPresenter().login(edtEmail.getText().toString(),
                     edtPassword.getText().toString());
         } else if (id == R.id.btn_login_as_guest) {
             onLoginSuccess();
@@ -117,13 +117,13 @@ public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presente
 
     @Override
     public void onProgressDialogCancelled() {
-        presenter().cancelCallLogin();
+        getPresenter().cancelCallLogin();
     }
 
     @Override
     public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
-            presenter().login(edtEmail.getText().toString(),
+            getPresenter().login(edtEmail.getText().toString(),
                     edtPassword.getText().toString());
         }
         return false;

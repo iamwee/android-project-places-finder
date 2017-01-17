@@ -30,6 +30,10 @@
         <item name="colorControlHighlight">@color/colorSecondaryDark</item>
     </style>
 
+    <style name="AppTheme.CardControlHighlight">
+        <item name="colorControlHighlight">@color/colorPlaceBackground</item>
+    </style>
+
     <style name="AppTheme.NoActionBar.Drawer" />
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

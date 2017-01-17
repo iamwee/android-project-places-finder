@@ -10,12 +10,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
-import com.iamwee.placesfinder.utilities.SessionUtil;
 import com.iamwee.placesfinder.view.logout.LogoutActivity;
+import com.iamwee.placesfinder.view.profile.ProfileActivity;
+import com.iamwee.placesfinder.view.search.SearchActivity;
+
+import java.io.LineNumberReader;
 
 public class MainActivity extends PlacesFinderActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -68,7 +70,7 @@ public class MainActivity extends PlacesFinderActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.activity_main_menu, menu);
         return true;
     }
 
@@ -79,6 +81,8 @@ public class MainActivity extends PlacesFinderActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        } else if (id == R.id.action_search) {
+            openActivity(new Intent(this, SearchActivity.class));
         }
 
         return super.onOptionsItemSelected(item);
@@ -91,7 +95,7 @@ public class MainActivity extends PlacesFinderActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            // Handle the camera action
+            openActivity(new Intent(this, ProfileActivity.class));
         } else if (id == R.id.nav_suggest_place) {
 
         } else if (id == R.id.nav_settings) {
@@ -104,4 +108,5 @@ public class MainActivity extends PlacesFinderActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

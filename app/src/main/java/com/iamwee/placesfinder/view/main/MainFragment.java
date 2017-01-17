@@ -3,7 +3,6 @@ package com.iamwee.placesfinder.view.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -63,26 +62,26 @@ public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
     @Override
     public void onStart() {
         super.onStart();
-        presenter().onStart();
+        getPresenter().onStart();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        presenter().onStop();
+        getPresenter().onStop();
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBundle("presenter", presenter().onSaveInstanceState());
+        outState.putBundle("getPresenter", getPresenter().onSaveInstanceState());
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null)
-            presenter().onRestoreInstanceState(savedInstanceState.getBundle("presenter"));
+            getPresenter().onRestoreInstanceState(savedInstanceState.getBundle("getPresenter"));
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.iamwee.placesfinder.view.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.iamwee.placesfinder.R;
@@ -25,6 +26,7 @@ import retrofit2.Response;
 public class LoginPresenter implements LoginContractor.Presenter,
         Callback<LoginResponse> {
 
+    private static final String TAG = "LoginPresenter";
     private LoginContractor.View view;
     private Call<LoginResponse> call;
 
@@ -93,6 +95,7 @@ public class LoginPresenter implements LoginContractor.Presenter,
 
     @Override
     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+        Log.e(TAG, "onResponse: " + response.body());
         if (response.isSuccessful()) {
             SessionUtil.createSession(response.body());
             view.onLoginSuccess();

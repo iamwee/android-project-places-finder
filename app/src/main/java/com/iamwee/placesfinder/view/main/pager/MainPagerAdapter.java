@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 import com.iamwee.placesfinder.view.main.pager.placesmap.PlacesMapFragment;
-import com.iamwee.placesfinder.view.main.pager.profile.ProfileFragment;
 import com.iamwee.placesfinder.view.main.pager.recent.RecentFragment;
 
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         if (position == 0) {
-            return "Recently";
+            return "Recent";
         } else if (position == 1) {
             return "Nearby";
         }

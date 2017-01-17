@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpManager {
 
-    private static final String DEV_BASE_URL = "http://10.0.2.2/places-finder/public/api/";
+    private static final String DEV_BASE_URL = "http://10.0.2.2/places_finder_api/public/api/";
     private static final String PRODUCTION_BASE_URL = "http://27.254.63.25/places-finder/public/api/";
 
 

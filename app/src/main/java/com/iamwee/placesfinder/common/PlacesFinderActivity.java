@@ -14,13 +14,13 @@ import com.iamwee.placesfinder.R;
  * Created by Zeon on 2/1/2560.
  */
 
-abstract public class PlacesFinderActivity extends AppCompatActivity {
+public class PlacesFinderActivity extends AppCompatActivity {
 
-    public static final long SHORT_DELAY = 250;
+    public static final long SHORT_DELAY = 200;
     public static final long DELAY = 400;
     public static final long LONG_DELAY = 1000;
 
-    private boolean isDelaying = false;
+    private boolean delay = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,9 +31,11 @@ abstract public class PlacesFinderActivity extends AppCompatActivity {
         }
     }
 
-    protected abstract void initView();
+    protected void initView() {
+    }
 
-    protected abstract void setupView();
+    protected void setupView() {
+    }
 
     protected void openActivity(Intent intent) {
         openActivity(intent, SHORT_DELAY, false);
@@ -59,19 +61,24 @@ abstract public class PlacesFinderActivity extends AppCompatActivity {
 
     protected void openActivity(final Intent intent, long duration,
                                 final boolean hasFinish) {
-        if (isDelaying) return;
+        if (isDelay()) return;
         new Handler(getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
                 startActivity(intent);
                 if (hasFinish) finish();
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                toggle();
             }
         }, duration);
         toggle();
     }
 
+    private boolean isDelay() {
+        return this.delay;
+    }
+
     private void toggle() {
-        isDelaying = !isDelaying;
+        delay = !delay;
     }
 }
