@@ -76,6 +76,7 @@ public class LoginPresenter implements LoginContractor.Presenter,
             return;
         }
         RequestBody body = new FormBody.Builder()
+                .add("grant_type", "password")
                 .add("email", email)
                 .add("password", password)
                 .build();
