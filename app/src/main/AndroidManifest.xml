@@ -37,7 +37,9 @@
             android:name=".view.logout.LogoutActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".view.profile.ProfileActivity" />
-        <activity android:name=".view.search.SearchActivity"></activity>
+        <activity
+            android:name=".view.search.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

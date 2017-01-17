@@ -4,12 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/view_place_item_search"/>
-    <include layout="@layout/view_place_item_search"/>
-    <include layout="@layout/view_place_item_search"/>
-    <include layout="@layout/view_place_item_search"/>
-    <include layout="@layout/view_place_item_search"/>
-    <include layout="@layout/view_place_item_search"/>
-    <include layout="@layout/view_place_item_search"/>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/rv_place_search"
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
