@@ -114,11 +114,11 @@ public class LoginPresenter implements LoginContractor.Presenter,
     @Override
     public void onFailure(Call<LoginResponse> call, Throwable t) {
         if (t instanceof ConnectException) {
-            view.onShowToast(Contextor.getInstance()
+            view.onShowToastMessage(Contextor.getInstance()
                     .getContext()
                     .getString(R.string.msg_cannot_connect_to_server));
         } else if (t instanceof SocketTimeoutException) {
-            view.onShowToast(Contextor.getInstance()
+            view.onShowToastMessage(Contextor.getInstance()
                     .getContext()
                     .getString(R.string.msg_cannot_connect_to_server));
         } else {
@@ -131,6 +131,6 @@ public class LoginPresenter implements LoginContractor.Presenter,
     @Override
     public void cancelCallLogin() {
         if (call.isExecuted()) call.cancel();
-        view.onShowToast(Contextor.getInstance().getContext().getString(R.string.msg_cancelled));
+        view.onShowToastMessage(Contextor.getInstance().getContext().getString(R.string.msg_cancelled));
     }
 }

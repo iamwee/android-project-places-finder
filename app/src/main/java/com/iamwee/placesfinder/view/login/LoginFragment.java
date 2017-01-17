@@ -60,7 +60,7 @@ public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presente
     }
 
     @Override
-    public void onShowToast(String message) {
+    public void onShowToastMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 

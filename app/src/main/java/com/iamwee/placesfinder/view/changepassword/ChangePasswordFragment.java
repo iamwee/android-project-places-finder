@@ -1,4 +1,4 @@
-package com.iamwee.placesfinder.view.main.pager.placesmap;
+package com.iamwee.placesfinder.view.changepassword;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,17 +9,18 @@ import android.view.ViewGroup;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 
+/**
+ * Created by zeon on 1/17/17.
+ */
 
-public class PlacesMapFragment extends PlacesFinderFragment<PlacesMapContractor.Presenter>
-        implements PlacesMapContractor.View{
+public class ChangePasswordFragment extends PlacesFinderFragment {
 
-    public PlacesMapFragment() {
-
+    public ChangePasswordFragment() {
     }
 
-    public static PlacesMapFragment newInstance(){
-        PlacesMapFragment fragment = new PlacesMapFragment();
+    public static ChangePasswordFragment newInstance() {
         Bundle args = new Bundle();
+        ChangePasswordFragment fragment = new ChangePasswordFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -34,20 +35,20 @@ public class PlacesMapFragment extends PlacesFinderFragment<PlacesMapContractor.
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_places_map, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_change_password, container, false);
         initView(rootView);
         setupView(rootView);
         return rootView;
     }
 
     @Override
-    public void onNetworkConnectionFailure() {
-
+    public void onStart() {
+        super.onStart();
     }
 
     @Override
-    public void onShowToastMessage(String message) {
-
+    public void onStop() {
+        super.onStop();
     }
 
     @Override

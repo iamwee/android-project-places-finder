@@ -63,6 +63,7 @@ public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
     public void onStart() {
         super.onStart();
         getPresenter().onStart();
+        getPresenter().getCurrentProfile();
     }
 
     @Override
@@ -90,7 +91,7 @@ public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
     }
 
     @Override
-    public void onShowToast(String message) {
+    public void onShowToastMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 

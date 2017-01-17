@@ -72,16 +72,16 @@ public class RegisterPresenter implements RegisterContractor.Presenter, Callback
                               String codeName) {
 
         if (!isEmailValidated(email)) {
-            view.onShowToast(email + " Doesn't match.");
+            view.onShowToastMessage(email + " Doesn't match.");
         } else if (!isPasswordValidated(password)) {
-            view.onShowToast("Please enter password.");
+            view.onShowToastMessage("Please enter password.");
         } else if (!isPasswordValidated(confirmPassword)) {
-            view.onShowToast("Please enter confirm password.");
+            view.onShowToastMessage("Please enter confirm password.");
         } else if (!isPasswordAndConfirmPasswordMatched(password,
                 confirmPassword)) {
-            view.onShowToast("Password and Confirm password must match.");
+            view.onShowToastMessage("Password and Confirm password must match.");
         } else if (!isCodeNameValidated(codeName)) {
-            view.onShowToast("Please enter your code name");
+            view.onShowToastMessage("Please enter your code name");
         } else {
             RequestBody body = new FormBody.Builder()
                     .add("email", email)
@@ -126,7 +126,7 @@ public class RegisterPresenter implements RegisterContractor.Presenter, Callback
             try {
                 ServerResponse serverResponse = new Gson()
                         .fromJson(response.errorBody().string(), ServerResponse.class);
-                view.onShowToast(serverResponse.getMessage());
+                view.onShowToastMessage(serverResponse.getMessage());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -137,11 +137,11 @@ public class RegisterPresenter implements RegisterContractor.Presenter, Callback
     @Override
     public void onFailure(Call<ServerResponse> call, Throwable t) {
         if (t instanceof ConnectException) {
-            view.onShowToast(Contextor.getInstance()
+            view.onShowToastMessage(Contextor.getInstance()
                     .getContext()
                     .getString(R.string.msg_cannot_connect_to_server));
         } else if (t instanceof SocketTimeoutException) {
-            view.onShowToast(Contextor.getInstance()
+            view.onShowToastMessage(Contextor.getInstance()
                     .getContext()
                     .getString(R.string.msg_cannot_connect_to_server));
         } else {
@@ -153,6 +153,6 @@ public class RegisterPresenter implements RegisterContractor.Presenter, Callback
     @Override
     public void cancelCall() {
         if (createAccountCall != null && createAccountCall.isExecuted()) createAccountCall.cancel();
-        view.onShowToast(Contextor.getInstance().getContext().getString(R.string.msg_cancelled));
+        view.onShowToastMessage(Contextor.getInstance().getContext().getString(R.string.msg_cancelled));
     }
 }

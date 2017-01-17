@@ -10,5 +10,5 @@ public interface BaseView<T> {
 
     void onNetworkConnectionFailure();
 
-    void onShowToast(String message);
+    void onShowToastMessage(String message);
 }

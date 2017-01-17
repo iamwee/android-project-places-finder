@@ -51,7 +51,7 @@ public class RecentFragment extends PlacesFinderFragment<RecentContractor.Presen
     }
 
     @Override
-    public void onShowToast(String message) {
+    public void onShowToastMessage(String message) {
 
     }
 

@@ -10,6 +10,8 @@ public class OpenActivity {
     public static final int LOGIN_ACTIVITY = 2;
     public static final int REGISTER_ACTIVITY = 3;
     public static final int SPLASH_SCREEN_ACTIVITY = 4;
+    public static final int CHANGE_PASSWORD = 5;
+    public static final int FINISH = 99;
 
     private int status;
     private boolean finish;

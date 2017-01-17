@@ -39,6 +39,16 @@ public class PlaceView extends FrameLayout {
         initWithStyleable(attrs);
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int height = width * 2 / 3;
+        int newHeightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+
+        super.onMeasure(widthMeasureSpec, newHeightMeasureSpec);
+        setMeasuredDimension(width, height);
+    }
+
     private void init() {
         inflate(getContext(), R.layout.widget_place_view, this);
     }

@@ -50,7 +50,7 @@ public class LogoutFragment extends PlacesFinderFragment<LogoutContractor.Presen
     }
 
     @Override
-    public void onShowToast(String message) {
+    public void onShowToastMessage(String message) {
 
     }
 

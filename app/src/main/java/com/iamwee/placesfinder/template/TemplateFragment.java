@@ -47,7 +47,7 @@ public class TemplateFragment extends PlacesFinderFragment<TemplateContractor.Pr
     }
 
     @Override
-    public void onShowToast(String message) {
+    public void onShowToastMessage(String message) {
 
     }
 

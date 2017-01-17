@@ -10,6 +10,7 @@ import com.iamwee.placesfinder.ServiceView;
 interface MainContractor {
     interface Presenter extends BasePresenter {
 
+        void getCurrentProfile();
     }
 
     interface View extends ServiceView<Presenter> {

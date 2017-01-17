@@ -54,7 +54,7 @@ public class WalkThroughFragment extends PlacesFinderFragment<WalkThroughContrac
     }
 
     @Override
-    public void onShowToast(String message) {
+    public void onShowToastMessage(String message) {
 
     }
 
