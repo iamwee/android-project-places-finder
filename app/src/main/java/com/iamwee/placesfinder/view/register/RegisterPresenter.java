@@ -7,8 +7,8 @@ import com.google.gson.Gson;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
-import com.iamwee.placesfinder.utilities.Contextor;
-import com.iamwee.placesfinder.utilities.NetworkUtil;
+import com.iamwee.placesfinder.util.Contextor;
+import com.iamwee.placesfinder.util.NetworkUtil;
 
 import java.io.IOException;
 
@@ -77,7 +77,7 @@ class RegisterPresenter implements RegisterContractor.Presenter, Callback<Server
                     .add("code_name", codeName)
                     .build();
 
-            createAccountCall = HttpManager.getInstance().getServices().createAccount(body);
+            createAccountCall = HttpManager.getServices().createAccount(body);
             createAccountCall.enqueue(this);
             view.onServiceExecuting();
 

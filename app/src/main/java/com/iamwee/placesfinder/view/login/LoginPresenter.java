@@ -1,16 +1,15 @@
 package com.iamwee.placesfinder.view.login;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.dao.LoginResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
-import com.iamwee.placesfinder.utilities.Contextor;
-import com.iamwee.placesfinder.utilities.NetworkUtil;
-import com.iamwee.placesfinder.utilities.SessionUtil;
+import com.iamwee.placesfinder.util.Contextor;
+import com.iamwee.placesfinder.util.NetworkUtil;
+import com.iamwee.placesfinder.util.SessionUtil;
 
 import java.io.IOException;
 
@@ -74,7 +73,7 @@ class LoginPresenter implements LoginContractor.Presenter,
                 .add("password", password)
                 .build();
 
-        call = HttpManager.getInstance().getServices().login(body);
+        call = HttpManager.getServices().login(body);
         call.enqueue(this);
         view.onServiceExecuting();
     }

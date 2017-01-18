@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 import com.iamwee.placesfinder.event.OpenActivity;
-import com.iamwee.placesfinder.utilities.DialogHelper;
+import com.iamwee.placesfinder.util.ProgressDialogHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -21,7 +21,7 @@ import org.greenrobot.eventbus.EventBus;
 public class RegisterFragment extends PlacesFinderFragment<RegisterContractor.Presenter>
         implements RegisterContractor.View,
         View.OnClickListener,
-        DialogHelper.Callback {
+        ProgressDialogHelper.Callback {
 
     private TextInputEditText edtEmail;
     private TextInputEditText edtPassword;
@@ -68,12 +68,12 @@ public class RegisterFragment extends PlacesFinderFragment<RegisterContractor.Pr
 
     @Override
     public void onServiceExecuting() {
-        DialogHelper.show(getActivity(), this);
+        ProgressDialogHelper.show(getActivity(), this);
     }
 
     @Override
     public void onServicePostExecute() {
-        DialogHelper.dismiss();
+        ProgressDialogHelper.dismiss();
     }
 
     @Override

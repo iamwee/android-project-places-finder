@@ -1,4 +1,4 @@
-package com.iamwee.placesfinder.utilities;
+package com.iamwee.placesfinder.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -62,16 +62,14 @@ public class SessionUtil {
         getSharedPreferenceWithEdit(USER_PREF).putString(USER_PREF_DATA, json).apply();
     }
 
+    private static SharedPreferences.Editor getSharedPreferenceWithEdit(String prefName) {
+        return getSharedPreference(prefName).edit();
+    }
+
     private static SharedPreferences getSharedPreference(String prefName) {
         return Contextor.getInstance()
                 .getContext()
                 .getSharedPreferences(prefName, Context.MODE_PRIVATE);
-    }
-
-    private static SharedPreferences.Editor getSharedPreferenceWithEdit(String prefName) {
-        return Contextor.getInstance()
-                .getContext()
-                .getSharedPreferences(prefName, Context.MODE_PRIVATE).edit();
     }
 
 }

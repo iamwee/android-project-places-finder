@@ -5,9 +5,9 @@ import android.os.Bundle;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.dao.UserProfile;
 import com.iamwee.placesfinder.manager.HttpManager;
-import com.iamwee.placesfinder.utilities.GsonUtil;
-import com.iamwee.placesfinder.utilities.NetworkUtil;
-import com.iamwee.placesfinder.utilities.SessionUtil;
+import com.iamwee.placesfinder.util.GsonUtil;
+import com.iamwee.placesfinder.util.NetworkUtil;
+import com.iamwee.placesfinder.util.SessionUtil;
 
 import java.io.IOException;
 
@@ -59,7 +59,7 @@ class MainPresenter implements MainContractor.Presenter, Callback<UserProfile> {
                 .add("token", SessionUtil.getToken())
                 .build();
 
-        call = HttpManager.getInstance().getServices().getCurrentProfile(body);
+        call = HttpManager.getServices().getCurrentProfile(body);
         call.enqueue(this);
     }
 

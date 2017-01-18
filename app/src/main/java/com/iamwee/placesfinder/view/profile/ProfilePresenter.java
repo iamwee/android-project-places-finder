@@ -1,13 +1,12 @@
 package com.iamwee.placesfinder.view.profile;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
-import com.iamwee.placesfinder.utilities.GsonUtil;
-import com.iamwee.placesfinder.utilities.NetworkUtil;
-import com.iamwee.placesfinder.utilities.SessionUtil;
+import com.iamwee.placesfinder.util.GsonUtil;
+import com.iamwee.placesfinder.util.NetworkUtil;
+import com.iamwee.placesfinder.util.SessionUtil;
 
 import java.io.IOException;
 
@@ -59,7 +58,7 @@ class ProfilePresenter implements ProfileContractor.Presenter, Callback<ServerRe
                 .add("code_name", codeName)
                 .build();
 
-        call = HttpManager.getInstance().getServices().updateProfile(body);
+        call = HttpManager.getServices().updateProfile(body);
         call.enqueue(this);
         view.onServiceExecuting();
     }

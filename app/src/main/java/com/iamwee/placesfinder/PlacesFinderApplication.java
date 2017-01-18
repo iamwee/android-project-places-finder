@@ -3,7 +3,7 @@ package com.iamwee.placesfinder;
 import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
-import com.iamwee.placesfinder.utilities.Contextor;
+import com.iamwee.placesfinder.util.Contextor;
 
 import io.fabric.sdk.android.Fabric;
 

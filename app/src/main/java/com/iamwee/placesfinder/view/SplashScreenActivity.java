@@ -7,7 +7,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
-import com.iamwee.placesfinder.utilities.SessionUtil;
+import com.iamwee.placesfinder.util.SessionUtil;
 import com.iamwee.placesfinder.view.main.MainActivity;
 import com.iamwee.placesfinder.view.walk_through.WalkThroughActivity;
 

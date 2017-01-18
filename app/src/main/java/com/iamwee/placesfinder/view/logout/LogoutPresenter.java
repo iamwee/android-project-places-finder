@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
-import com.iamwee.placesfinder.utilities.SessionUtil;
+import com.iamwee.placesfinder.util.SessionUtil;
 
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
@@ -57,7 +57,7 @@ class LogoutPresenter implements LogoutContractor.Presenter, Callback<ServerResp
                 .add("secret", SessionUtil.getSecretCode())
                 .build();
 
-        HttpManager.getInstance().getServices().logout(body).enqueue(this);
+        HttpManager.getServices().logout(body).enqueue(this);
     }
 
     @Override

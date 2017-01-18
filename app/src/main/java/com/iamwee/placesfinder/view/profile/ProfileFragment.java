@@ -15,14 +15,14 @@ import android.widget.Toast;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 import com.iamwee.placesfinder.event.OpenActivity;
-import com.iamwee.placesfinder.utilities.DialogHelper;
-import com.iamwee.placesfinder.utilities.SessionUtil;
+import com.iamwee.placesfinder.util.ProgressDialogHelper;
+import com.iamwee.placesfinder.util.SessionUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
 
 public class ProfileFragment extends PlacesFinderFragment<ProfileContractor.Presenter>
-        implements ProfileContractor.View, DialogHelper.Callback, View.OnClickListener {
+        implements ProfileContractor.View, ProgressDialogHelper.Callback, View.OnClickListener {
 
     private EditText edtCodeName;
     private TextView tvEmail;
@@ -118,12 +118,12 @@ public class ProfileFragment extends PlacesFinderFragment<ProfileContractor.Pres
 
     @Override
     public void onServiceExecuting() {
-        DialogHelper.show(getActivity(), this);
+        ProgressDialogHelper.show(getActivity(), this);
     }
 
     @Override
     public void onServicePostExecute() {
-        DialogHelper.dismiss();
+        ProgressDialogHelper.dismiss();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.iamwee.placesfinder.utilities;
+package com.iamwee.placesfinder.util;
 
 import com.google.gson.Gson;
 

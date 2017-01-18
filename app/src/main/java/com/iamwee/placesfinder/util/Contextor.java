@@ -1,11 +1,8 @@
-package com.iamwee.placesfinder.utilities;
+package com.iamwee.placesfinder.util;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
 
 public class Contextor {
 

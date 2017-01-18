@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 import com.iamwee.placesfinder.event.OpenActivity;
-import com.iamwee.placesfinder.utilities.DialogHelper;
+import com.iamwee.placesfinder.util.ProgressDialogHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -20,7 +20,7 @@ import org.greenrobot.eventbus.EventBus;
  */
 
 public class ChangePasswordFragment extends PlacesFinderFragment<ChangePasswordContractor.Presenter>
-        implements ChangePasswordContractor.View, View.OnClickListener, DialogHelper.Callback {
+        implements ChangePasswordContractor.View, View.OnClickListener, ProgressDialogHelper.Callback {
 
     private TextInputEditText edtNewPassword;
     private TextInputEditText edtConfirmPassword;
@@ -76,12 +76,12 @@ public class ChangePasswordFragment extends PlacesFinderFragment<ChangePasswordC
 
     @Override
     public void onServiceExecuting() {
-        DialogHelper.show(getActivity(), this);
+        ProgressDialogHelper.show(getActivity(), this);
     }
 
     @Override
     public void onServicePostExecute() {
-        DialogHelper.dismiss();
+        ProgressDialogHelper.dismiss();
     }
 
     @Override

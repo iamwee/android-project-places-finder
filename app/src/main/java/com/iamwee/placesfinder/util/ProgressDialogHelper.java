@@ -1,4 +1,4 @@
-package com.iamwee.placesfinder.utilities;
+package com.iamwee.placesfinder.util;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -11,7 +11,7 @@ import com.iamwee.placesfinder.R;
  * Created by Zeon on 2/1/2560.
  */
 
-public class DialogHelper {
+public class ProgressDialogHelper {
 
     public interface Callback {
         void onProgressDialogCancelled();
@@ -37,6 +37,5 @@ public class DialogHelper {
         if (dialog != null && dialog.isShowing()) dialog.dismiss();
         dialog = null;
     }
-
 
 }

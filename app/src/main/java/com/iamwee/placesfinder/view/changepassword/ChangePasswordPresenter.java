@@ -4,9 +4,9 @@ import android.os.Bundle;
 
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
-import com.iamwee.placesfinder.utilities.GsonUtil;
-import com.iamwee.placesfinder.utilities.NetworkUtil;
-import com.iamwee.placesfinder.utilities.SessionUtil;
+import com.iamwee.placesfinder.util.GsonUtil;
+import com.iamwee.placesfinder.util.NetworkUtil;
+import com.iamwee.placesfinder.util.SessionUtil;
 
 import java.io.IOException;
 
@@ -65,7 +65,7 @@ class ChangePasswordPresenter implements ChangePasswordContractor.Presenter, Cal
                     .add("confirm_password", confirmPassword)
                     .build();
 
-            call = HttpManager.getInstance().getServices().changePassword(body);
+            call = HttpManager.getServices().changePassword(body);
             call.enqueue(this);
             view.onServiceExecuting();
 
