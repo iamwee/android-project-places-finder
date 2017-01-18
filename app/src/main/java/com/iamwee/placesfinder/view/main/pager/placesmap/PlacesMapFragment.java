@@ -11,13 +11,13 @@ import com.iamwee.placesfinder.common.PlacesFinderFragment;
 
 
 public class PlacesMapFragment extends PlacesFinderFragment<PlacesMapContractor.Presenter>
-        implements PlacesMapContractor.View{
+        implements PlacesMapContractor.View {
 
     public PlacesMapFragment() {
 
     }
 
-    public static PlacesMapFragment newInstance(){
+    public static PlacesMapFragment newInstance() {
         PlacesMapFragment fragment = new PlacesMapFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);

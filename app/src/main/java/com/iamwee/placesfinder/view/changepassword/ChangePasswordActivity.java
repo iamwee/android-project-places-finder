@@ -17,7 +17,7 @@ public class ChangePasswordActivity extends PlacesFinderActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, ChangePasswordFragment.newInstance())
                     .commit();
@@ -37,7 +37,11 @@ public class ChangePasswordActivity extends PlacesFinderActivity {
     }
 
     @Subscribe
-    public void onFragmentEvent(OpenActivity event){
-
+    public void onFragmentEvent(OpenActivity event) {
+        switch (event.getStatus()) {
+            case OpenActivity.FINISH:
+                finish();
+                break;
+        }
     }
 }

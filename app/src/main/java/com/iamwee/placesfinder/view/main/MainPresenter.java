@@ -81,8 +81,6 @@ class MainPresenter implements MainContractor.Presenter, Callback<UserProfile> {
 
     @Override
     public void onFailure(Call<UserProfile> call, Throwable t) {
-        String error = NetworkUtil.analyzeNetworkException(t);
-        if (error != null) view.onShowToastMessage(error);
-        else t.printStackTrace();
+
     }
 }
