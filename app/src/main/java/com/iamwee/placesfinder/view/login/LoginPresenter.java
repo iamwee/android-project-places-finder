@@ -1,6 +1,5 @@
 package com.iamwee.placesfinder.view.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -14,8 +13,6 @@ import com.iamwee.placesfinder.utilities.NetworkUtil;
 import com.iamwee.placesfinder.utilities.SessionUtil;
 
 import java.io.IOException;
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
 
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
@@ -23,10 +20,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginPresenter implements LoginContractor.Presenter,
+class LoginPresenter implements LoginContractor.Presenter,
         Callback<LoginResponse> {
 
-    private static final String TAG = "LoginPresenter";
     private LoginContractor.View view;
     private Call<LoginResponse> call;
 
@@ -61,11 +57,6 @@ public class LoginPresenter implements LoginContractor.Presenter,
     }
 
     @Override
-    public void onResult(int requestCode, int resultCode, Intent data) {
-
-    }
-
-    @Override
     public void login(String email, String password) {
         if (!isFormValidated(email, password)) {
             view.onLoginFailure(Contextor
@@ -85,7 +76,7 @@ public class LoginPresenter implements LoginContractor.Presenter,
 
         call = HttpManager.getInstance().getServices().login(body);
         call.enqueue(this);
-        view.onExecuting();
+        view.onServiceExecuting();
     }
 
 
@@ -95,7 +86,6 @@ public class LoginPresenter implements LoginContractor.Presenter,
 
     @Override
     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-        Log.e(TAG, "onResponse: " + response.body());
         if (response.isSuccessful()) {
             SessionUtil.createSession(response.body());
             view.onLoginSuccess();
@@ -108,23 +98,15 @@ public class LoginPresenter implements LoginContractor.Presenter,
                 e.printStackTrace();
             }
         }
-        view.onPostExecute();
+        view.onServicePostExecute();
     }
 
     @Override
     public void onFailure(Call<LoginResponse> call, Throwable t) {
-        if (t instanceof ConnectException) {
-            view.onShowToastMessage(Contextor.getInstance()
-                    .getContext()
-                    .getString(R.string.msg_cannot_connect_to_server));
-        } else if (t instanceof SocketTimeoutException) {
-            view.onShowToastMessage(Contextor.getInstance()
-                    .getContext()
-                    .getString(R.string.msg_cannot_connect_to_server));
-        } else {
-            t.printStackTrace();
-        }
-        view.onPostExecute();
+        String error = NetworkUtil.analyzeNetworkException(t);
+        if(error != null) view.onShowToastMessage(error);
+        else t.printStackTrace();
+        view.onServicePostExecute();
     }
 
 

@@ -9,12 +9,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
-import com.iamwee.placesfinder.common.event.OpenActivity;
+import com.iamwee.placesfinder.event.OpenActivity;
 import com.iamwee.placesfinder.utilities.DialogHelper;
+import com.iamwee.placesfinder.utilities.SessionUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -23,6 +25,7 @@ public class ProfileFragment extends PlacesFinderFragment<ProfileContractor.Pres
         implements ProfileContractor.View, DialogHelper.Callback, View.OnClickListener {
 
     private EditText edtCodeName;
+    private TextView tvEmail;
 
     public ProfileFragment() {
 
@@ -78,10 +81,13 @@ public class ProfileFragment extends PlacesFinderFragment<ProfileContractor.Pres
     @Override
     protected void initView(View rootView) {
         edtCodeName = (EditText) rootView.findViewById(R.id.edt_code_name);
+        tvEmail = (TextView) rootView.findViewById(R.id.tv_email);
     }
 
     @Override
     protected void setupView(View rootView) {
+        edtCodeName.setText(SessionUtil.getUserProfile().getCodeName());
+        tvEmail.setText(SessionUtil.getUserProfile().getEmail());
         rootView.findViewById(R.id.btn_change_password).setOnClickListener(this);
     }
 
@@ -111,12 +117,12 @@ public class ProfileFragment extends PlacesFinderFragment<ProfileContractor.Pres
     }
 
     @Override
-    public void onExecuting() {
+    public void onServiceExecuting() {
         DialogHelper.show(getActivity(), this);
     }
 
     @Override
-    public void onPostExecute() {
+    public void onServicePostExecute() {
         DialogHelper.dismiss();
     }
 
@@ -128,7 +134,7 @@ public class ProfileFragment extends PlacesFinderFragment<ProfileContractor.Pres
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if(id == R.id.btn_change_password) {
+        if (id == R.id.btn_change_password) {
             EventBus.getDefault().post(new OpenActivity(OpenActivity.CHANGE_PASSWORD));
         }
     }

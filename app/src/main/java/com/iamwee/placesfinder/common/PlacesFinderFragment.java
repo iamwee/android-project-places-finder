@@ -3,7 +3,7 @@ package com.iamwee.placesfinder.common;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.iamwee.placesfinder.BasePresenter;
+import com.iamwee.placesfinder.base.BasePresenter;
 
 /**
  * Created by Zeon on 2/1/2560.

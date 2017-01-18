@@ -1,14 +1,12 @@
 package com.iamwee.placesfinder.view.profile;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
-import com.iamwee.placesfinder.common.event.OpenActivity;
+import com.iamwee.placesfinder.event.OpenActivity;
 import com.iamwee.placesfinder.view.changepassword.ChangePasswordActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -43,10 +41,13 @@ public class ProfileActivity extends PlacesFinderActivity {
 
     @Subscribe
     public void onFragmentCallback(OpenActivity event) {
-        if (event.getStatus() == OpenActivity.CHANGE_PASSWORD) {
-            openActivity(new Intent(this, ChangePasswordActivity.class));
-        } else {
-            finish();
+        switch (event.getStatus()){
+            case OpenActivity.CHANGE_PASSWORD :
+                openActivity(new Intent(this, ChangePasswordActivity.class));
+                break;
+            case OpenActivity.FINISH:
+                finish();
+                break;
         }
     }
 

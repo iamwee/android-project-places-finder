@@ -1,7 +1,7 @@
 package com.iamwee.placesfinder.view.main.pager.recent;
 
-import com.iamwee.placesfinder.BasePresenter;
-import com.iamwee.placesfinder.BaseView;
+import com.iamwee.placesfinder.base.BasePresenter;
+import com.iamwee.placesfinder.base.BaseView;
 
 /**
  * Created by Zeon on 2/1/2560.

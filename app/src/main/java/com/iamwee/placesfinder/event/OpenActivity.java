@@ -1,4 +1,4 @@
-package com.iamwee.placesfinder.common.event;
+package com.iamwee.placesfinder.event;
 
 /**
  * Created by Zeon on 2/1/2560.

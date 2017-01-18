@@ -1,4 +1,4 @@
-package com.iamwee.placesfinder;
+package com.iamwee.placesfinder.base;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,5 @@ public interface BasePresenter {
     Bundle onSaveInstanceState();
 
     void onRestoreInstanceState(Bundle savedState);
-
-    void onResult(int requestCode, int resultCode, Intent data);
 
 }

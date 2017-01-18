@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
-import com.iamwee.placesfinder.common.event.OpenActivity;
+import com.iamwee.placesfinder.event.OpenActivity;
 import com.iamwee.placesfinder.utilities.DialogHelper;
 import com.iamwee.placesfinder.utilities.SessionUtil;
 
@@ -90,12 +90,12 @@ public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presente
     }
 
     @Override
-    public void onExecuting() {
+    public void onServiceExecuting() {
         DialogHelper.show(getActivity(), this);
     }
 
     @Override
-    public void onPostExecute() {
+    public void onServicePostExecute() {
         DialogHelper.dismiss();
     }
 

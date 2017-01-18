@@ -1,8 +1,7 @@
 package com.iamwee.placesfinder.view.profile;
 
-import com.iamwee.placesfinder.BasePresenter;
-import com.iamwee.placesfinder.BaseView;
-import com.iamwee.placesfinder.ServiceView;
+import com.iamwee.placesfinder.base.BasePresenter;
+import com.iamwee.placesfinder.base.ServiceView;
 
 /**
  * Created by Zeon on 2/1/2560.

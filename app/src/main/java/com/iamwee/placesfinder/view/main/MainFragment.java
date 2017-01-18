@@ -75,14 +75,14 @@ public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBundle("getPresenter", getPresenter().onSaveInstanceState());
+        outState.putBundle("presenter", getPresenter().onSaveInstanceState());
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null)
-            getPresenter().onRestoreInstanceState(savedInstanceState.getBundle("getPresenter"));
+            getPresenter().onRestoreInstanceState(savedInstanceState.getBundle("presenter"));
     }
 
     @Override
@@ -96,12 +96,12 @@ public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
     }
 
     @Override
-    public void onExecuting() {
+    public void onServiceExecuting() {
 
     }
 
     @Override
-    public void onPostExecute() {
+    public void onServicePostExecute() {
 
     }
 }

@@ -1,6 +1,5 @@
 package com.iamwee.placesfinder.view.main.pager.recent;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 /**
@@ -37,11 +36,6 @@ class RecentPresenter implements RecentContractor.Presenter {
 
     @Override
     public void onRestoreInstanceState(Bundle savedState) {
-
-    }
-
-    @Override
-    public void onResult(int requestCode, int resultCode, Intent data) {
 
     }
 }

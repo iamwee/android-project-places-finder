@@ -1,4 +1,4 @@
-package com.iamwee.placesfinder;
+package com.iamwee.placesfinder.base;
 
 /**
  * Created by Zeon on 2/1/2560.

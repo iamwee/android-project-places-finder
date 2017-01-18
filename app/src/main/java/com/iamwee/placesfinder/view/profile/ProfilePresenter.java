@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
 import com.iamwee.placesfinder.utilities.GsonUtil;
+import com.iamwee.placesfinder.utilities.NetworkUtil;
 import com.iamwee.placesfinder.utilities.SessionUtil;
 
 import java.io.IOException;
@@ -51,11 +52,6 @@ class ProfilePresenter implements ProfileContractor.Presenter, Callback<ServerRe
     }
 
     @Override
-    public void onResult(int requestCode, int resultCode, Intent data) {
-
-    }
-
-    @Override
     public void saveProfile(String codeName) {
         RequestBody body = new FormBody.Builder()
                 .add("secret", SessionUtil.getSecretCode())
@@ -65,6 +61,7 @@ class ProfilePresenter implements ProfileContractor.Presenter, Callback<ServerRe
 
         call = HttpManager.getInstance().getServices().updateProfile(body);
         call.enqueue(this);
+        view.onServiceExecuting();
     }
 
     @Override
@@ -87,10 +84,14 @@ class ProfilePresenter implements ProfileContractor.Presenter, Callback<ServerRe
                 e.printStackTrace();
             }
         }
+        view.onServicePostExecute();
     }
 
     @Override
     public void onFailure(Call<ServerResponse> call, Throwable t) {
-
+        String error = NetworkUtil.analyzeNetworkException(t);
+        if(error != null) view.onShowToastMessage(error);
+        else t.printStackTrace();
+        view.onServicePostExecute();
     }
 }

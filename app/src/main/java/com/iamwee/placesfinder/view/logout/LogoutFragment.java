@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
-import com.iamwee.placesfinder.common.event.OpenActivity;
+import com.iamwee.placesfinder.event.OpenActivity;
 
 import org.greenrobot.eventbus.EventBus;
 

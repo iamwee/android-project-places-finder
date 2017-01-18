@@ -1,6 +1,5 @@
 package com.iamwee.placesfinder.view.logout;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.iamwee.placesfinder.dao.ServerResponse;
@@ -48,11 +47,6 @@ class LogoutPresenter implements LogoutContractor.Presenter, Callback<ServerResp
 
     @Override
     public void onRestoreInstanceState(Bundle savedState) {
-
-    }
-
-    @Override
-    public void onResult(int requestCode, int resultCode, Intent data) {
 
     }
 

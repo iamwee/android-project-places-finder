@@ -1,11 +1,15 @@
 package com.iamwee.placesfinder.view.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 
+import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.dao.UserProfile;
 import com.iamwee.placesfinder.manager.HttpManager;
+import com.iamwee.placesfinder.utilities.GsonUtil;
+import com.iamwee.placesfinder.utilities.NetworkUtil;
 import com.iamwee.placesfinder.utilities.SessionUtil;
+
+import java.io.IOException;
 
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
@@ -13,14 +17,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
 
 class MainPresenter implements MainContractor.Presenter, Callback<UserProfile> {
 
     private MainContractor.View view;
-    private Call<UserProfile> getCurrentProfileCall;
+    private Call<UserProfile> call;
 
     private MainPresenter(MainContractor.View view) {
         this.view = view;
@@ -38,7 +39,7 @@ class MainPresenter implements MainContractor.Presenter, Callback<UserProfile> {
 
     @Override
     public void onStop() {
-
+        if(call != null && call.isExecuted()) call.cancel();
     }
 
     @Override
@@ -52,28 +53,36 @@ class MainPresenter implements MainContractor.Presenter, Callback<UserProfile> {
     }
 
     @Override
-    public void onResult(int requestCode, int resultCode, Intent data) {
-
-    }
-
-    @Override
     public void getCurrentProfile() {
         RequestBody body = new FormBody.Builder()
                 .add("secret", SessionUtil.getSecretCode())
                 .add("token", SessionUtil.getToken())
                 .build();
 
-        getCurrentProfileCall = HttpManager.getInstance().getServices().getCurrentProfile(body);
-        getCurrentProfileCall.enqueue(this);
+        call = HttpManager.getInstance().getServices().getCurrentProfile(body);
+        call.enqueue(this);
     }
 
     @Override
     public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
-
+        if (response.isSuccessful()) {
+            SessionUtil.saveUserProfile(response.body());
+        } else {
+            try {
+                String message = GsonUtil.getInstance()
+                        .fromJson(response.errorBody().string(), ServerResponse.class)
+                        .getMessage();
+                view.onShowToastMessage(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void onFailure(Call<UserProfile> call, Throwable t) {
-
+        String error = NetworkUtil.analyzeNetworkException(t);
+        if (error != null) view.onShowToastMessage(error);
+        else t.printStackTrace();
     }
 }

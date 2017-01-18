@@ -1,6 +1,5 @@
 package com.iamwee.placesfinder.view.register;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 
@@ -9,10 +8,9 @@ import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
 import com.iamwee.placesfinder.utilities.Contextor;
+import com.iamwee.placesfinder.utilities.NetworkUtil;
 
 import java.io.IOException;
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
 
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
@@ -20,17 +18,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
 
-public class RegisterPresenter implements RegisterContractor.Presenter, Callback<ServerResponse> {
+class RegisterPresenter implements RegisterContractor.Presenter, Callback<ServerResponse> {
 
     private RegisterContractor.View view;
     private Call<ServerResponse> createAccountCall;
-
-    public RegisterPresenter() {
-    }
 
     private RegisterPresenter(RegisterContractor.View view) {
         this.view = view;
@@ -62,11 +54,6 @@ public class RegisterPresenter implements RegisterContractor.Presenter, Callback
     }
 
     @Override
-    public void onResult(int requestCode, int resultCode, Intent data) {
-
-    }
-
-    @Override
     public void createAccount(String email, String password,
                               String confirmPassword,
                               String codeName) {
@@ -92,7 +79,7 @@ public class RegisterPresenter implements RegisterContractor.Presenter, Callback
 
             createAccountCall = HttpManager.getInstance().getServices().createAccount(body);
             createAccountCall.enqueue(this);
-            view.onExecuting();
+            view.onServiceExecuting();
 
         }
     }
@@ -119,7 +106,7 @@ public class RegisterPresenter implements RegisterContractor.Presenter, Callback
 
     @Override
     public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-        view.onPostExecute();
+        view.onServicePostExecute();
         if (response.isSuccessful()) {
             view.onCreateAccountSuccess();
         } else if (response.code() == HttpManager.BAD_REQUEST) {
@@ -130,24 +117,15 @@ public class RegisterPresenter implements RegisterContractor.Presenter, Callback
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
     @Override
     public void onFailure(Call<ServerResponse> call, Throwable t) {
-        if (t instanceof ConnectException) {
-            view.onShowToastMessage(Contextor.getInstance()
-                    .getContext()
-                    .getString(R.string.msg_cannot_connect_to_server));
-        } else if (t instanceof SocketTimeoutException) {
-            view.onShowToastMessage(Contextor.getInstance()
-                    .getContext()
-                    .getString(R.string.msg_cannot_connect_to_server));
-        } else {
-            t.printStackTrace();
-        }
-        view.onPostExecute();
+        String error = NetworkUtil.analyzeNetworkException(t);
+        if(error != null) view.onShowToastMessage(error);
+        else t.printStackTrace();
+        view.onServicePostExecute();
     }
 
     @Override

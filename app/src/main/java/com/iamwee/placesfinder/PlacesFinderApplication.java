@@ -1,4 +1,4 @@
-package com.iamwee.placesfinder.view;
+package com.iamwee.placesfinder;
 
 import android.app.Application;
 

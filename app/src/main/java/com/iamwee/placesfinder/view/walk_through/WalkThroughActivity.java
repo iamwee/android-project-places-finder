@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
-import com.iamwee.placesfinder.common.event.OpenActivity;
+import com.iamwee.placesfinder.event.OpenActivity;
 import com.iamwee.placesfinder.view.login.LoginActivity;
 import com.iamwee.placesfinder.view.register.RegisterActivity;
 
