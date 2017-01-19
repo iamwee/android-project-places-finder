@@ -22,7 +22,8 @@ import java.util.Arrays;
 
 class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
         implements PlaceNearbyContractor.Presenter, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, LocationListener, PermissionManager.PermissionCallback {
+        GoogleApiClient.OnConnectionFailedListener, LocationListener,
+        PermissionManager.PermissionCallback {
 
     private GoogleApiClient googleApiClient;
 

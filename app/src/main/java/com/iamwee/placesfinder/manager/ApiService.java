@@ -1,9 +1,11 @@
 package com.iamwee.placesfinder.manager;
 
 import com.iamwee.placesfinder.dao.LoginResponse;
+import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.dao.UserProfile;
 
+import java.util.List;
 import java.util.Objects;
 
 import okhttp3.RequestBody;
@@ -39,16 +41,16 @@ public interface ApiService {
     Call<ServerResponse> changePassword(@Body RequestBody body);
 
     @GET("place")
-    Call<Objects> getAllPlace();
+    Call<List<Place>> getAllPlace();
 
     @GET("place/{id}")
-    Call<Objects> getPlaceById(@Path("id") String id);
+    Call<List<Place>> getPlaceById(@Path("id") String id);
 
     @GET("place/tag/{tag}")
-    Call<Objects> getPlaceByTag(@Path("tag") String tag);
+    Call<List<Place>> getPlaceByTag(@Path("tag") String tag);
 
     @GET("place/type/{type}")
-    Call<Objects> getPlaceByType(@Path("type") String type);
+    Call<List<Place>> getPlaceByType(@Path("type") String type);
 
     @POST("place")
     Call<ServerResponse> suggestPlace(@Body RequestBody body);
