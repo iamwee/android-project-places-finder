@@ -18,7 +18,7 @@ public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
         implements MainContractor.View {
 
     public MainFragment() {
-        // Required empty public constructor
+
     }
 
 

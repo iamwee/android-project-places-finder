@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
-import com.iamwee.placesfinder.view.main.pager.placesmap.PlacesMapFragment;
+import com.iamwee.placesfinder.view.main.pager.nearby.PlaceNearbyFragment;
 import com.iamwee.placesfinder.view.main.pager.recent.RecentFragment;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
         super(fm);
         fragmentList = new ArrayList<>();
         fragmentList.add(RecentFragment.newInstance());
-        fragmentList.add(PlacesMapFragment.newInstance());
+        fragmentList.add(PlaceNearbyFragment.newInstance());
     }
 
     @Override
