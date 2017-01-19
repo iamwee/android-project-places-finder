@@ -36,6 +36,7 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
 
     private GoogleApiClient googleApiClient;
     private List<Place> places;
+    private Call<List<Place>> call;
 
     private PlaceNearbyPresenter(PlaceNearbyContractor.View view) {
         super(view);
@@ -55,6 +56,7 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
     @Override
     public void onStop() {
         if (googleApiClient != null && googleApiClient.isConnected()) googleApiClient.disconnect();
+        if (call != null && call.isExecuted()) call.cancel();
     }
 
     @Override
@@ -117,6 +119,8 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
                     request,
                     this
             );
+        } else if (permissionResult.isAnyPermissionPermanentlyDenied()) {
+            getView().onAnyPermissionDenied("You need to access to location.");
         } else {
             getView().onAnyPermissionDenied("You need to access to location.");
         }
@@ -133,7 +137,7 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
 
     @Override
     public void getPlacesFromServer() {
-        Call<List<Place>> call = HttpManager.getServices().getAllPlace(
+        call = HttpManager.getServices().getAllPlace(
                 SessionUtil.getSecretCode(),
                 SessionUtil.getToken()
         );
@@ -158,7 +162,7 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
     @Override
     public void onFailure(Call<List<Place>> call, Throwable t) {
         String error = NetworkUtil.analyzeNetworkException(t);
-        if (error != null) getView().onShowToastMessage(error);
-        else t.printStackTrace();
+        if (error == null) t.printStackTrace();
+        else getView().onShowToastMessage(error);
     }
 }
