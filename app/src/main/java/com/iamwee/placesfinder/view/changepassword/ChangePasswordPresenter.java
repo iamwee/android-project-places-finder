@@ -2,6 +2,7 @@ package com.iamwee.placesfinder.view.changepassword;
 
 import android.os.Bundle;
 
+import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
 import com.iamwee.placesfinder.util.GsonUtil;
@@ -17,14 +18,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-class ChangePasswordPresenter implements ChangePasswordContractor.Presenter, Callback<ServerResponse> {
+class ChangePasswordPresenter extends BasePresenter<ChangePasswordContractor.View>
+        implements ChangePasswordContractor.Presenter, Callback<ServerResponse> {
 
-    private final ChangePasswordContractor.View view;
     private Call<ServerResponse> call;
 
     private ChangePasswordPresenter(ChangePasswordContractor.View view) {
-        this.view = view;
-        this.view.setPresenter(this);
+        super(view);
+        getView().setPresenter(this);
     }
 
     public static ChangePasswordPresenter newInstance(ChangePasswordContractor.View view) {
@@ -54,9 +55,9 @@ class ChangePasswordPresenter implements ChangePasswordContractor.Presenter, Cal
     @Override
     public void changePassword(String newPassword, String confirmPassword) {
         if(newPassword.isEmpty() || confirmPassword.isEmpty()){
-            view.onShowToastMessage("Please input your new password and confirm password.");
+            getView().onShowToastMessage("Please input your new password and confirm password.");
         } else if (!newPassword.equals(confirmPassword)){
-            view.onShowToastMessage("New password and confirm password must match.");
+            getView().onShowToastMessage("New password and confirm password must match.");
         } else {
             RequestBody body = new FormBody.Builder()
                     .add("secret", SessionUtil.getSecretCode())
@@ -67,7 +68,7 @@ class ChangePasswordPresenter implements ChangePasswordContractor.Presenter, Cal
 
             call = HttpManager.getServices().changePassword(body);
             call.enqueue(this);
-            view.onServiceExecuting();
+            getView().onServiceExecuting();
 
         }
     }
@@ -82,25 +83,25 @@ class ChangePasswordPresenter implements ChangePasswordContractor.Presenter, Cal
     public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
         if(response.isSuccessful()){
             String message = response.body().getMessage();
-            view.onChangePasswordSuccess(message);
+            getView().onChangePasswordSuccess(message);
         } else {
             try {
                 String message = GsonUtil.getInstance()
                         .fromJson(response.errorBody().string(), ServerResponse.class)
                         .getMessage();
-                view.onShowToastMessage(message);
+                getView().onShowToastMessage(message);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        view.onServicePostExecute();
+        getView().onServicePostExecute();
     }
 
     @Override
     public void onFailure(Call<ServerResponse> call, Throwable t) {
         String error = NetworkUtil.analyzeNetworkException(t);
-        if(error != null) view.onShowToastMessage(error);
+        if(error != null) getView().onShowToastMessage(error);
         else t.printStackTrace();
-        view.onServicePostExecute();
+        getView().onServicePostExecute();
     }
 }

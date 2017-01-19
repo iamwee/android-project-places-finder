@@ -1,6 +1,6 @@
 package com.iamwee.placesfinder.view.login;
 
-import com.iamwee.placesfinder.base.BasePresenter;
+import com.iamwee.placesfinder.base.BasePresenterImpl;
 import com.iamwee.placesfinder.base.ServiceView;
 
 /**
@@ -9,7 +9,7 @@ import com.iamwee.placesfinder.base.ServiceView;
 
 interface LoginContractor {
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenterImpl {
 
         void login(String email, String password);
 

@@ -1,7 +1,9 @@
 package com.iamwee.placesfinder.view.main;
 
 import android.os.Bundle;
+import android.util.Log;
 
+import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.dao.UserProfile;
 import com.iamwee.placesfinder.manager.HttpManager;
@@ -18,14 +20,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-class MainPresenter implements MainContractor.Presenter, Callback<UserProfile> {
+class MainPresenter extends BasePresenter<MainContractor.View>
+        implements MainContractor.Presenter, Callback<UserProfile> {
 
-    private MainContractor.View view;
+    private static final String TAG = "MainPresenter";
     private Call<UserProfile> call;
 
     private MainPresenter(MainContractor.View view) {
-        this.view = view;
-        this.view.setPresenter(this);
+        super(view);
+        getView().setPresenter(this);
     }
 
     static MainPresenter newInstance(MainContractor.View view) {
@@ -39,7 +42,7 @@ class MainPresenter implements MainContractor.Presenter, Callback<UserProfile> {
 
     @Override
     public void onStop() {
-        if(call != null && call.isExecuted()) call.cancel();
+        if (call != null && call.isExecuted()) call.cancel();
     }
 
     @Override
@@ -72,7 +75,7 @@ class MainPresenter implements MainContractor.Presenter, Callback<UserProfile> {
                 String message = GsonUtil.getInstance()
                         .fromJson(response.errorBody().string(), ServerResponse.class)
                         .getMessage();
-                view.onShowToastMessage(message);
+                getView().onShowToastMessage(message);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -81,6 +84,8 @@ class MainPresenter implements MainContractor.Presenter, Callback<UserProfile> {
 
     @Override
     public void onFailure(Call<UserProfile> call, Throwable t) {
-
+        String error = NetworkUtil.analyzeNetworkException(t);
+        if (error != null) Log.e(TAG, "onFailure: " + error);
+        else t.printStackTrace();
     }
 }

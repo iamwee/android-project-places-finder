@@ -1,20 +1,22 @@
 package com.iamwee.placesfinder.base;
 
-import android.content.Intent;
-import android.os.Bundle;
+import android.content.Context;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
+import com.iamwee.placesfinder.util.Contextor;
 
-public interface BasePresenter {
+public class BasePresenter<T extends BaseView> {
 
-    void onStart();
+    private T view;
 
-    void onStop();
+    public BasePresenter(T view) {
+        this.view = view;
+    }
 
-    Bundle onSaveInstanceState();
+    protected T getView() {
+        return view;
+    }
 
-    void onRestoreInstanceState(Bundle savedState);
-
+    protected Context getContext() {
+        return Contextor.getInstance().getContext();
+    }
 }

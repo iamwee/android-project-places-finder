@@ -1,18 +1,15 @@
 package com.iamwee.placesfinder.view.main.pager.recent;
 
 import android.os.Bundle;
+import com.iamwee.placesfinder.base.BasePresenter;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
 
-class RecentPresenter implements RecentContractor.Presenter {
-
-    private RecentContractor.View view;
+class RecentPresenter extends BasePresenter<RecentContractor.View>
+        implements RecentContractor.Presenter {
 
     private RecentPresenter(RecentContractor.View view){
-        this.view = view;
-        this.view.setPresenter(this);
+        super(view);
+        getView().setPresenter(this);
     }
 
     static RecentPresenter newInstance(RecentContractor.View view){

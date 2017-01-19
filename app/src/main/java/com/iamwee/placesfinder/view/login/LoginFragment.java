@@ -21,7 +21,8 @@ import org.greenrobot.eventbus.EventBus;
 
 
 public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presenter>
-        implements LoginContractor.View, View.OnClickListener, ProgressDialogHelper.Callback, TextView.OnEditorActionListener {
+        implements LoginContractor.View, View.OnClickListener,
+        ProgressDialogHelper.Callback, TextView.OnEditorActionListener {
 
     private TextInputEditText edtEmail;
     private TextInputEditText edtPassword;
@@ -56,7 +57,11 @@ public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presente
 
     @Override
     public void onNetworkConnectionFailure() {
-        Toast.makeText(getActivity(), "Check network connection", Toast.LENGTH_SHORT).show();
+        Toast.makeText(
+                getActivity(),
+                getString(R.string.error_check_connection),
+                Toast.LENGTH_SHORT
+        ).show();
     }
 
     @Override

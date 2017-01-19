@@ -2,6 +2,7 @@ package com.iamwee.placesfinder.view.logout;
 
 import android.os.Bundle;
 
+import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
 import com.iamwee.placesfinder.util.SessionUtil;
@@ -13,17 +14,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-/**
- * Created by Zeon on 2/1/2560.
- */
-
-class LogoutPresenter implements LogoutContractor.Presenter, Callback<ServerResponse> {
-
-    private LogoutContractor.View view;
+class LogoutPresenter extends BasePresenter<LogoutContractor.View>
+        implements LogoutContractor.Presenter, Callback<ServerResponse> {
 
     private LogoutPresenter(LogoutContractor.View view) {
-        this.view = view;
-        this.view.setPresenter(this);
+        super(view);
+        getView().setPresenter(this);
     }
 
     static LogoutPresenter newInstance(LogoutContractor.View view) {
@@ -63,12 +59,12 @@ class LogoutPresenter implements LogoutContractor.Presenter, Callback<ServerResp
     @Override
     public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
         SessionUtil.destroySession();
-        view.onPostLogout();
+        getView().onPostLogout();
     }
 
     @Override
     public void onFailure(Call<ServerResponse> call, Throwable t) {
         SessionUtil.destroySession();
-        view.onPostLogout();
+        getView().onPostLogout();
     }
 }

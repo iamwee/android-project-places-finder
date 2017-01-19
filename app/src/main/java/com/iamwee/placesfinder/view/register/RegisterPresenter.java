@@ -5,9 +5,9 @@ import android.util.Patterns;
 
 import com.google.gson.Gson;
 import com.iamwee.placesfinder.R;
+import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
-import com.iamwee.placesfinder.util.Contextor;
 import com.iamwee.placesfinder.util.NetworkUtil;
 
 import java.io.IOException;
@@ -19,14 +19,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-class RegisterPresenter implements RegisterContractor.Presenter, Callback<ServerResponse> {
+class RegisterPresenter extends BasePresenter<RegisterContractor.View>
+        implements RegisterContractor.Presenter, Callback<ServerResponse> {
 
-    private RegisterContractor.View view;
     private Call<ServerResponse> createAccountCall;
 
     private RegisterPresenter(RegisterContractor.View view) {
-        this.view = view;
-        this.view.setPresenter(this);
+        super(view);
+        getView().setPresenter(this);
     }
 
     static RegisterPresenter newInstance(RegisterContractor.View view) {
@@ -59,16 +59,16 @@ class RegisterPresenter implements RegisterContractor.Presenter, Callback<Server
                               String codeName) {
 
         if (!isEmailValidated(email)) {
-            view.onShowToastMessage(email + " Doesn't match.");
+            getView().onShowToastMessage(email + " Doesn't match.");
         } else if (!isPasswordValidated(password)) {
-            view.onShowToastMessage("Please enter password.");
+            getView().onShowToastMessage("Please enter password.");
         } else if (!isPasswordValidated(confirmPassword)) {
-            view.onShowToastMessage("Please enter confirm password.");
+            getView().onShowToastMessage("Please enter confirm password.");
         } else if (!isPasswordAndConfirmPasswordMatched(password,
                 confirmPassword)) {
-            view.onShowToastMessage("Password and Confirm password must match.");
+            getView().onShowToastMessage("Password and Confirm password must match.");
         } else if (!isCodeNameValidated(codeName)) {
-            view.onShowToastMessage("Please enter your code name");
+            getView().onShowToastMessage("Please enter your code name");
         } else {
             RequestBody body = new FormBody.Builder()
                     .add("email", email)
@@ -79,7 +79,7 @@ class RegisterPresenter implements RegisterContractor.Presenter, Callback<Server
 
             createAccountCall = HttpManager.getServices().createAccount(body);
             createAccountCall.enqueue(this);
-            view.onServiceExecuting();
+            getView().onServiceExecuting();
 
         }
     }
@@ -106,14 +106,14 @@ class RegisterPresenter implements RegisterContractor.Presenter, Callback<Server
 
     @Override
     public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-        view.onServicePostExecute();
+        getView().onServicePostExecute();
         if (response.isSuccessful()) {
-            view.onCreateAccountSuccess();
+            getView().onCreateAccountSuccess();
         } else if (response.code() == HttpManager.BAD_REQUEST) {
             try {
                 ServerResponse serverResponse = new Gson()
                         .fromJson(response.errorBody().string(), ServerResponse.class);
-                view.onShowToastMessage(serverResponse.getMessage());
+                getView().onShowToastMessage(serverResponse.getMessage());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -123,14 +123,14 @@ class RegisterPresenter implements RegisterContractor.Presenter, Callback<Server
     @Override
     public void onFailure(Call<ServerResponse> call, Throwable t) {
         String error = NetworkUtil.analyzeNetworkException(t);
-        if(error != null) view.onShowToastMessage(error);
+        if(error != null) getView().onShowToastMessage(error);
         else t.printStackTrace();
-        view.onServicePostExecute();
+        getView().onServicePostExecute();
     }
 
     @Override
     public void cancelCall() {
         if (createAccountCall != null && createAccountCall.isExecuted()) createAccountCall.cancel();
-        view.onShowToastMessage(Contextor.getInstance().getContext().getString(R.string.msg_cancelled));
+        getView().onShowToastMessage(getContext().getString(R.string.msg_cancelled));
     }
 }

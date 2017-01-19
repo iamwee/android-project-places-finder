@@ -1,6 +1,6 @@
 package com.iamwee.placesfinder.view.register;
 
-import com.iamwee.placesfinder.base.BasePresenter;
+import com.iamwee.placesfinder.base.BasePresenterImpl;
 import com.iamwee.placesfinder.base.ServiceView;
 
 /**
@@ -9,7 +9,7 @@ import com.iamwee.placesfinder.base.ServiceView;
 
 interface RegisterContractor {
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends BasePresenterImpl {
 
         void createAccount(String email, String password,
                            String confirmPassword,
