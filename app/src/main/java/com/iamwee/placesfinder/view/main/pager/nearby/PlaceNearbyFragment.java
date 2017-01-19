@@ -111,6 +111,7 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+        getPresenter().getPlaceByName(marker);
         //TODO: implement when marker has clicked here.
     }
 
