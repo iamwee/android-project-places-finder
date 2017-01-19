@@ -15,6 +15,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Zeon on 2/1/2560.
@@ -41,7 +42,7 @@ public interface ApiService {
     Call<ServerResponse> changePassword(@Body RequestBody body);
 
     @GET("place")
-    Call<List<Place>> getAllPlace();
+    Call<List<Place>> getAllPlace(@Query("secret") String secret, @Query("token") String token);
 
     @GET("place/{id}")
     Call<List<Place>> getPlaceById(@Path("id") String id);

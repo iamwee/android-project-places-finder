@@ -9,7 +9,7 @@ import java.util.List;
 
 public class PermissionResult implements Parcelable {
 
-    List<Permission> permissionList;
+    private List<Permission> permissionList;
 
     public PermissionResult() {
     }

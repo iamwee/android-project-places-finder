@@ -17,8 +17,8 @@ public class Place implements Parcelable {
     @SerializedName("id")           private String id;
     @SerializedName("name")         private String name;
     @SerializedName("type")         private String type;
-    @SerializedName("lat")          private String lat;
-    @SerializedName("lng")          private String lng;
+    @SerializedName("lat")          private double lat;
+    @SerializedName("lng")          private double lng;
     @SerializedName("address")      private String address;
     @SerializedName("detail")       private String detail;
     @SerializedName("approve")      private int approve;
@@ -34,8 +34,8 @@ public class Place implements Parcelable {
         id = in.readString();
         name = in.readString();
         type = in.readString();
-        lat = in.readString();
-        lng = in.readString();
+        lat = in.readDouble();
+        lng = in.readDouble();
         address = in.readString();
         detail = in.readString();
         approve = in.readInt();
@@ -49,8 +49,8 @@ public class Place implements Parcelable {
         dest.writeString(id);
         dest.writeString(name);
         dest.writeString(type);
-        dest.writeString(lat);
-        dest.writeString(lng);
+        dest.writeDouble(lat);
+        dest.writeDouble(lng);
         dest.writeString(address);
         dest.writeString(detail);
         dest.writeInt(approve);
@@ -100,19 +100,19 @@ public class Place implements Parcelable {
         this.type = type;
     }
 
-    public String getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(String lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public String getLng() {
+    public double getLng() {
         return lng;
     }
 
-    public void setLng(String lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 

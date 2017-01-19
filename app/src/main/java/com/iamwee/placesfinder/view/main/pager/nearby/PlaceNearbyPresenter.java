@@ -13,19 +13,29 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.Marker;
 import com.iamwee.placesfinder.base.BasePresenter;
+import com.iamwee.placesfinder.dao.Place;
+import com.iamwee.placesfinder.manager.HttpManager;
 import com.iamwee.placesfinder.manager.permission.PermissionManager;
 import com.iamwee.placesfinder.manager.permission.PermissionResult;
 import com.iamwee.placesfinder.util.LocationUtil;
+import com.iamwee.placesfinder.util.NetworkUtil;
+import com.iamwee.placesfinder.util.SessionUtil;
 
 import java.util.Arrays;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
         implements PlaceNearbyContractor.Presenter, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener,
-        PermissionManager.PermissionCallback {
+        PermissionManager.PermissionCallback, Callback<List<Place>> {
 
     private GoogleApiClient googleApiClient;
+    private List<Place> places;
 
     private PlaceNearbyPresenter(PlaceNearbyContractor.View view) {
         super(view);
@@ -38,7 +48,8 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
 
     @Override
     public void onStart() {
-        if(googleApiClient != null && !googleApiClient.isConnected()) googleApiClient.connect();
+        if (googleApiClient != null && !googleApiClient.isConnected()) googleApiClient.connect();
+        getPlacesData();
     }
 
     @Override
@@ -105,18 +116,48 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
                     request,
                     this
             );
-        } else if (permissionResult.isAnyPermissionPermanentlyDenied()){
+        } else {
             getView().onAnyPermissionDenied("You need to access to location.");
         }
     }
 
     @Override
     public void getPlacesData() {
-
+        if (places == null) {
+            getPlacesFromServer();
+        } else if (places.size() == 0) {
+            getPlacesFromServer();
+        }
     }
 
     @Override
-    public void getPlaceByName(Marker marker) {
+    public void getPlacesFromServer() {
+        Call<List<Place>> call = HttpManager.getServices().getAllPlace(
+                SessionUtil.getSecretCode(),
+                SessionUtil.getToken()
+        );
+        call.enqueue(this);
+    }
 
+    @Override
+    public Place getPlaceByName(Marker marker) {
+        for (Place place : places) {
+            if (marker.getTitle().equals(place.getName())) {
+                return place;
+            }
+        }
+        throw new NullPointerException("Place doesn't match from marker " + marker.getTitle());
+    }
+
+    @Override
+    public void onResponse(Call<List<Place>> call, Response<List<Place>> response) {
+        this.places = response.body();
+    }
+
+    @Override
+    public void onFailure(Call<List<Place>> call, Throwable t) {
+        String error = NetworkUtil.analyzeNetworkException(t);
+        if (error != null) getView().onShowToastMessage(error);
+        else t.printStackTrace();
     }
 }
