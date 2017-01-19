@@ -13,11 +13,18 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
+import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.manager.permission.PermissionManager;
 import com.iamwee.placesfinder.util.LocationUtil;
+
+import org.greenrobot.eventbus.EventBus;
+
+import static com.iamwee.placesfinder.R.id.map;
 
 
 public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContractor.Presenter>
@@ -25,6 +32,7 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
         GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap googleMap;
+    private boolean animate = false;
 
     public PlaceNearbyFragment() {
 
@@ -80,7 +88,7 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
     protected void setupView(View rootView) {
         if (googleMap == null) {
             SupportMapFragment mapFragment = (SupportMapFragment)
-                    getChildFragmentManager().findFragmentById(R.id.map);
+                    getChildFragmentManager().findFragmentById(map);
             mapFragment.getMapAsync(this);
         }
     }
@@ -89,7 +97,7 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
         setupGoogleMapProperty();
-        if(LocationUtil.isLocationAvailable(getActivity())){
+        if (LocationUtil.isLocationAvailable(getActivity())) {
             getPresenter().initLocationServiceClient();
         } else {
             LocationUtil.showErrorDialogMessage(getActivity());
@@ -104,15 +112,20 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
                 .build();
         googleMap.animateCamera(
                 CameraUpdateFactory.newCameraPosition(cameraPosition)
-                ,400, null);
+                , 400, null);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
         googleMap.setOnInfoWindowClickListener(this);
     }
 
     @Override
+    public void onEnableMyLocationButton() {
+        googleMap.setMyLocationEnabled(true);
+    }
+
+    @Override
     public void onInfoWindowClick(Marker marker) {
-        getPresenter().getPlaceByName(marker);
-        //TODO: implement when marker has clicked here.
+        Place place = getPresenter().getPlaceByName(marker);
+        EventBus.getDefault().post(place);
     }
 
     @Override
@@ -121,13 +134,25 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
     }
 
     @Override
-    public void onAddMarker() {
-        //TODO: implement to add marker here.
+    public void onAddMarker(Place place) {
+        googleMap.addMarker(new MarkerOptions()
+                .position(new LatLng(place.getLat(), place.getLng()))
+                .title(place.getName())
+                .snippet(place.getAddress()));
     }
 
     @Override
     public void onLocationChanged(Location location) {
-
+        if (!animate) {
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(new LatLng(location.getLatitude(), location.getLongitude()))
+                    .zoom(16)
+                    .tilt(60)
+                    .build();
+            if (location.getLatitude() == 0.0 && location.getLongitude() == 0.0) return;
+            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            animate = true;
+        }
     }
 
     @Override

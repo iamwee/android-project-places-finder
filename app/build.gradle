@@ -52,7 +52,7 @@ dependencies {
     }
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.romandanylyk:pageindicatorview:0.0.8'
-    compile 'com.google.android.gms:play-services-maps:10.0.1'
-    compile 'com.google.android.gms:play-services-location:10.0.1'
+    compile 'com.google.android.gms:play-services-maps:9.6.0'
+    compile 'com.google.android.gms:play-services-location:9.6.0'
     compile 'com.karumi:dexter:2.2.2'
 }

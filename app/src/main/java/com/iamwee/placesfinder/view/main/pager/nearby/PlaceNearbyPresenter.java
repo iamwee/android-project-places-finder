@@ -107,6 +107,7 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
     @Override
     public void onPermissionResult(PermissionResult permissionResult) {
         if (permissionResult.areAllPermissionsGranted()) {
+            getView().onEnableMyLocationButton();
             LocationRequest request = new LocationRequest()
                     .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                     .setFastestInterval(5000)

@@ -22,8 +22,9 @@ interface PlaceNearbyContractor {
 
     interface View extends BaseView<Presenter> {
         void onClearMarker();
-        void onAddMarker();
+        void onAddMarker(Place place);
         void onLocationChanged(Location location);
+        void onEnableMyLocationButton();
 
         void onAnyPermissionDenied(String message);
     }

@@ -42,12 +42,13 @@
         <activity
             android:name=".view.search.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.changepassword.ChangePasswordActivity"/>
+        <activity android:name=".view.changepassword.ChangePasswordActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAfLYSHQzDu4c5NWwpIDwQGcEEcOYtc9VM"/>
+            android:value="AIzaSyAfLYSHQzDu4c5NWwpIDwQGcEEcOYtc9VM" />
 
+        <activity android:name=".view.info.PlaceInfoActivity"/>
     </application>
 
 </manifest>

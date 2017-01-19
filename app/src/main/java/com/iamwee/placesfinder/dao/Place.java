@@ -22,6 +22,7 @@ public class Place implements Parcelable {
     @SerializedName("address")      private String address;
     @SerializedName("detail")       private String detail;
     @SerializedName("approve")      private int approve;
+    @SerializedName("distance")     private float distance;
     @SerializedName("images")       private List<String> images = new ArrayList<>();
     @SerializedName("tags")         private List<String> tags = new ArrayList<>();
     @SerializedName("reviews")      private List<String> reviews = new ArrayList<>();
@@ -29,6 +30,7 @@ public class Place implements Parcelable {
     public Place() {
 
     }
+
 
     protected Place(Parcel in) {
         id = in.readString();
@@ -39,6 +41,7 @@ public class Place implements Parcelable {
         address = in.readString();
         detail = in.readString();
         approve = in.readInt();
+        distance = in.readFloat();
         images = in.createStringArrayList();
         tags = in.createStringArrayList();
         reviews = in.createStringArrayList();
@@ -54,6 +57,7 @@ public class Place implements Parcelable {
         dest.writeString(address);
         dest.writeString(detail);
         dest.writeInt(approve);
+        dest.writeFloat(distance);
         dest.writeStringList(images);
         dest.writeStringList(tags);
         dest.writeStringList(reviews);
@@ -130,6 +134,14 @@ public class Place implements Parcelable {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
     }
 
     public int getApprove() {
