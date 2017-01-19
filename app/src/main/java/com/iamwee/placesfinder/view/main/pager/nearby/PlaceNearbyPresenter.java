@@ -11,9 +11,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.Marker;
 import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.manager.permission.PermissionManager;
 import com.iamwee.placesfinder.manager.permission.PermissionResult;
+import com.iamwee.placesfinder.util.LocationUtil;
 
 import java.util.Arrays;
 
@@ -35,8 +37,7 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
 
     @Override
     public void onStart() {
-        if (googleApiClient == null) initLocationServiceClient();
-        else googleApiClient.connect();
+        if(googleApiClient != null && !googleApiClient.isConnected()) googleApiClient.connect();
     }
 
     @Override
@@ -55,11 +56,6 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
     }
 
     @Override
-    public void getPlaceData() {
-
-    }
-
-    @Override
     public void initLocationServiceClient() {
         if (googleApiClient == null) {
             googleApiClient = new GoogleApiClient.Builder(getContext())
@@ -67,9 +63,8 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .build();
-
-            googleApiClient.connect();
         }
+        if (!googleApiClient.isConnected()) googleApiClient.connect();
     }
 
     @Override
@@ -93,6 +88,7 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
     @Override
     public void onLocationChanged(Location location) {
         //TODO: get current location here.
+        LocationUtil.saveCurrentLocation(location);
         getView().onLocationChanged(location);
     }
 
@@ -108,6 +104,18 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
                     request,
                     this
             );
+        } else if (permissionResult.isAnyPermissionPermanentlyDenied()){
+            getView().onAnyPermissionDenied("You need to access to location.");
         }
+    }
+
+    @Override
+    public void getPlacesData() {
+
+    }
+
+    @Override
+    public void getPlaceByName(Marker marker) {
+
     }
 }

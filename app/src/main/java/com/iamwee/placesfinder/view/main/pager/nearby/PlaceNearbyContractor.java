@@ -2,6 +2,7 @@ package com.iamwee.placesfinder.view.main.pager.nearby;
 
 import android.location.Location;
 
+import com.google.android.gms.maps.model.Marker;
 import com.iamwee.placesfinder.base.BasePresenterImpl;
 import com.iamwee.placesfinder.base.BaseView;
 
@@ -12,7 +13,8 @@ import com.iamwee.placesfinder.base.BaseView;
 interface PlaceNearbyContractor {
 
     interface Presenter extends BasePresenterImpl {
-        void getPlaceData();
+        void getPlacesData();
+        void getPlaceByName(Marker marker);
         void initLocationServiceClient();
     }
 
@@ -20,5 +22,7 @@ interface PlaceNearbyContractor {
         void onClearMarker();
         void onAddMarker();
         void onLocationChanged(Location location);
+
+        void onAnyPermissionDenied(String message);
     }
 }

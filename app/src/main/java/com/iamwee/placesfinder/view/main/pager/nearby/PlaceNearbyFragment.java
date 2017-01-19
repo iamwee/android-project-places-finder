@@ -13,10 +13,11 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
+import com.iamwee.placesfinder.manager.permission.PermissionManager;
+import com.iamwee.placesfinder.util.LocationUtil;
 
 
 public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContractor.Presenter>
@@ -64,11 +65,6 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
     }
 
     @Override
-    protected void initView(View rootView) {
-
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         getPresenter().onStart();
@@ -93,11 +89,16 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
         setupGoogleMapProperty();
+        if(LocationUtil.isLocationAvailable(getActivity())){
+            getPresenter().initLocationServiceClient();
+        } else {
+            LocationUtil.showErrorDialogMessage(getActivity());
+        }
     }
 
     private void setupGoogleMapProperty() {
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(new LatLng(0, 0))
+                .target(LocationUtil.getCurrentLocation())
                 .zoom(16)
                 .tilt(60)
                 .build();
@@ -126,5 +127,10 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
     @Override
     public void onLocationChanged(Location location) {
 
+    }
+
+    @Override
+    public void onAnyPermissionDenied(String message) {
+        PermissionManager.showPermissionRequestDeniedDialog(getActivity(), message);
     }
 }

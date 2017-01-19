@@ -1,6 +1,11 @@
 package com.iamwee.placesfinder.manager.permission;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
+import android.support.v7.app.AlertDialog;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
@@ -39,6 +44,23 @@ public class PermissionManager {
                 token.continuePermissionRequest();
             }
         }, permissions);
+    }
+
+    public static void showPermissionRequestDeniedDialog(final Context context, String message) {
+        new AlertDialog.Builder(context)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent =
+                                new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        intent.setData(Uri.parse("package:"
+                                + context.getPackageName()));
+                        context.startActivity(intent);
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 
     private static List<PermissionResult.Permission> getGrantedPermissionList(
