@@ -7,7 +7,9 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE"
+        tools:node="remove" />
 
     <application
         android:name=".PlacesFinderApplication"
@@ -29,9 +31,15 @@
             android:name=".view.main.MainActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar.Drawer" />
-        <activity android:name=".view.walk_through.WalkThroughActivity" />
-        <activity android:name=".view.login.LoginActivity" />
-        <activity android:name=".view.register.RegisterActivity" />
+        <activity
+            android:name=".view.walk_through.WalkThroughActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.login.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.register.RegisterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
@@ -50,7 +58,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAfLYSHQzDu4c5NWwpIDwQGcEEcOYtc9VM" />
 
-        <activity android:name=".view.info.PlaceInfoActivity"/>
+        <activity android:name=".view.info.PlaceInfoActivity" />
     </application>
 
 </manifest>

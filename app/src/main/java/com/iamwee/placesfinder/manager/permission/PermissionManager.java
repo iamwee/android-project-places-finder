@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 
+import com.iamwee.placesfinder.R;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -48,6 +49,7 @@ public class PermissionManager {
 
     public static void showPermissionRequestDeniedDialog(final Context context, String message) {
         new AlertDialog.Builder(context)
+                .setTitle(R.string.error_permission_denied)
                 .setMessage(message)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override

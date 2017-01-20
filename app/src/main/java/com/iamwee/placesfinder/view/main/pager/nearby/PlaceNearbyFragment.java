@@ -56,7 +56,7 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_places_map, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_nearby_place, container, false);
         initView(rootView);
         setupView(rootView);
         return rootView;
@@ -76,6 +76,11 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
     public void onStart() {
         super.onStart();
         getPresenter().onStart();
+        if (LocationUtil.isLocationAvailable(getActivity())) {
+            getPresenter().initLocationServiceClient();
+        } else {
+            LocationUtil.showErrorDialogMessage(getActivity());
+        }
     }
 
     @Override
@@ -97,11 +102,6 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
         setupGoogleMapProperty();
-        if (LocationUtil.isLocationAvailable(getActivity())) {
-            getPresenter().initLocationServiceClient();
-        } else {
-            LocationUtil.showErrorDialogMessage(getActivity());
-        }
     }
 
     private void setupGoogleMapProperty() {

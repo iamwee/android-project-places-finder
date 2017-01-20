@@ -12,6 +12,7 @@ public class OpenActivity {
     public static final int SPLASH_SCREEN_ACTIVITY = 4;
     public static final int CHANGE_PASSWORD = 5;
     public static final int FINISH = 99;
+    public static final int SUGGEST_PLACE = 6;
 
     private int status;
     private boolean finish;
