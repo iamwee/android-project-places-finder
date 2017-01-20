@@ -59,6 +59,8 @@
             android:value="AIzaSyAfLYSHQzDu4c5NWwpIDwQGcEEcOYtc9VM" />
 
         <activity android:name=".view.info.PlaceInfoActivity" />
+        <activity android:name=".view.suggest.SuggestPlaceActivity" />
+        <activity android:name=".view.suggest.chooselocation.ChooseLocationActivity"></activity>
     </application>
 
 </manifest>

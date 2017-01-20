@@ -1,18 +1,16 @@
 package com.iamwee.placesfinder.util;
 
 import com.google.gson.Gson;
-
-/**
- * Created by zeon on 1/17/17.
- */
+import com.google.gson.GsonBuilder;
 
 public class GsonUtil {
 
     private static Gson gson;
 
     public static Gson getInstance() {
-        if (gson == null)
-            gson = new Gson();
+        if (gson == null) {
+            gson = new GsonBuilder().setPrettyPrinting().create();
+        }
         return gson;
     }
 }
