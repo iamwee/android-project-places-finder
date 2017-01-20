@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/enter_these_form_to_create_new_account"
+        android:text="@string/error_enter_these_form_to_create_new_account"
         android:textSize="@dimen/text_paragraph_size"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:id="@+id/textView2" />

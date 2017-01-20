@@ -106,7 +106,7 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
 
     private void setupGoogleMapProperty() {
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(LocationUtil.getCurrentLocation())
+                .target(LocationUtil.getLastLocation())
                 .zoom(16)
                 .tilt(60)
                 .build();

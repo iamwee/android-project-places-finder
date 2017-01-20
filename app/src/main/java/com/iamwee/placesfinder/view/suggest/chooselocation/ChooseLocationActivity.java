@@ -1,6 +1,7 @@
 package com.iamwee.placesfinder.view.suggest.chooselocation;
 
 import android.Manifest;
+import android.content.Intent;
 import android.location.Address;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
 import com.iamwee.placesfinder.manager.permission.PermissionManager;
@@ -71,15 +73,26 @@ public class ChooseLocationActivity extends PlacesFinderActivity
     private void setupGoogleMapProperty() {
         CameraUpdate cameraUpdate = CameraUpdateFactory
                 .newCameraPosition(
-                        CameraPosition.fromLatLngZoom(LocationUtil.getCurrentLocation(),
-                                17)
+                        CameraPosition.fromLatLngZoom(LocationUtil.getLastLocation(), 17)
                 );
         googleMap.animateCamera(cameraUpdate, 400, null);
     }
 
     @Override
     public void onPermissionResult(PermissionResult permissionResult) {
-        if (googleMap != null) googleMap.setMyLocationEnabled(true);
+        if (permissionResult.areAllPermissionsGranted()) {
+            if (googleMap != null) googleMap.setMyLocationEnabled(true);
+        } else if (permissionResult.isAnyPermissionPermanentlyDenied()) {
+            PermissionManager.showPermissionRequestDeniedDialog(
+                    this,
+                    getString(R.string.error_we_need_to_access_to_location)
+            );
+        } else {
+            PermissionManager.showPermissionRequestDeniedDialog(
+                    this,
+                    getString(R.string.error_we_need_to_access_to_location)
+            );
+        }
     }
 
     @Override
@@ -102,6 +115,14 @@ public class ChooseLocationActivity extends PlacesFinderActivity
     @Override
     public void onFindAddressResult(Address address, String addressName) {
         Log.i(TAG, GsonUtil.getInstance().toJson(address));
+        LatLng latLng = googleMap.getCameraPosition().target;
+
+        Intent intent = new Intent();
+        intent.putExtra("address", addressName);
+        intent.putExtra("lat", latLng.latitude);
+        intent.putExtra("lng", latLng.longitude);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     @Override

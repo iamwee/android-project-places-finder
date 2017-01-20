@@ -51,7 +51,7 @@ public class PermissionManager {
         new AlertDialog.Builder(context)
                 .setTitle(R.string.error_permission_denied)
                 .setMessage(message)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.action_setting, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent =

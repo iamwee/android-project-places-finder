@@ -1,6 +1,7 @@
 package com.iamwee.placesfinder.view.main.pager.nearby;
 
 import android.Manifest;
+import android.location.Address;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,12 +12,15 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.manager.HttpManager;
 import com.iamwee.placesfinder.manager.permission.PermissionManager;
 import com.iamwee.placesfinder.manager.permission.PermissionResult;
+import com.iamwee.placesfinder.util.GeoCoderUtil;
 import com.iamwee.placesfinder.util.LocationUtil;
 import com.iamwee.placesfinder.util.NetworkUtil;
 import com.iamwee.placesfinder.util.SessionUtil;
@@ -32,11 +36,12 @@ import retrofit2.Response;
 class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
         implements PlaceNearbyContractor.Presenter, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener,
-        PermissionManager.PermissionCallback, Callback<List<Place>> {
+        PermissionManager.PermissionCallback, Callback<List<Place>>, GeoCoderUtil.Callback {
 
     private GoogleApiClient googleApiClient;
     private List<Place> places;
     private Call<List<Place>> call;
+    private GeoCoderUtil geoCoderUtil;
 
     private PlaceNearbyPresenter(PlaceNearbyContractor.View view) {
         super(view);
@@ -101,8 +106,14 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
 
     @Override
     public void onLocationChanged(Location location) {
-        //TODO: get current location here.
-        LocationUtil.saveCurrentLocation(location);
+        LocationUtil.saveLocation(location);
+
+        if (geoCoderUtil == null)
+            geoCoderUtil = new GeoCoderUtil.Builder()
+                    .withLocation(new LatLng(location.getLatitude(), location.getLongitude()))
+                    .build();
+        geoCoderUtil.findAddress(this);
+
         getView().onLocationChanged(location);
     }
 
@@ -120,9 +131,9 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
                     this
             );
         } else if (permissionResult.isAnyPermissionPermanentlyDenied()) {
-            getView().onAnyPermissionDenied("You need to access to location.");
+            getView().onAnyPermissionDenied(getContext().getString(R.string.error_we_need_to_access_to_location));
         } else {
-            getView().onAnyPermissionDenied("You need to access to location.");
+            getView().onAnyPermissionDenied(getContext().getString(R.string.error_we_need_to_access_to_location));
         }
     }
 
@@ -164,5 +175,15 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
         String error = NetworkUtil.analyzeNetworkException(t);
         if (error == null) t.printStackTrace();
         else getView().onShowToastMessage(error);
+    }
+
+    @Override
+    public void onFindAddressResult(Address address, String addressName) {
+        LocationUtil.saveAddress(addressName);
+    }
+
+    @Override
+    public void onFindAddressFailure(Throwable t) {
+        t.printStackTrace();
     }
 }
