@@ -59,12 +59,13 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
         View rootView = inflater.inflate(R.layout.fragment_nearby_place, container, false);
         initView(rootView);
         setupView(rootView);
+        setupGoogleMap();
         return rootView;
     }
 
     @Override
     public void onNetworkConnectionFailure() {
-
+        Toast.makeText(getActivity(), R.string.error_check_connection, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -90,7 +91,19 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
     }
 
     @Override
-    protected void setupView(View rootView) {
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBundle("presenter", getPresenter().onSaveInstanceState());
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null)
+            getPresenter().onRestoreInstanceState(savedInstanceState.getBundle("presenter"));
+    }
+
+    private void setupGoogleMap() {
         if (googleMap == null) {
             SupportMapFragment mapFragment = (SupportMapFragment)
                     getChildFragmentManager().findFragmentById(map);

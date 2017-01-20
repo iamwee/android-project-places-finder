@@ -32,6 +32,11 @@ public class PlacesFinderActivity extends AppCompatActivity {
     }
 
     protected void initView() {
+
+    }
+
+    protected void setupToolbar() {
+
     }
 
     protected void setupView() {

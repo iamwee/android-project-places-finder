@@ -25,8 +25,8 @@ import com.iamwee.placesfinder.util.LocationUtil;
 import com.iamwee.placesfinder.util.NetworkUtil;
 import com.iamwee.placesfinder.util.SessionUtil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,11 +36,11 @@ import retrofit2.Response;
 class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
         implements PlaceNearbyContractor.Presenter, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener,
-        PermissionManager.PermissionCallback, Callback<List<Place>>, GeoCoderUtil.Callback {
+        PermissionManager.PermissionCallback, Callback<ArrayList<Place>>, GeoCoderUtil.Callback {
 
     private GoogleApiClient googleApiClient;
-    private List<Place> places;
-    private Call<List<Place>> call;
+    private ArrayList<Place> places;
+    private Call<ArrayList<Place>> call;
     private GeoCoderUtil geoCoderUtil;
 
     private PlaceNearbyPresenter(PlaceNearbyContractor.View view) {
@@ -131,10 +131,14 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
                     this
             );
         } else if (permissionResult.isAnyPermissionPermanentlyDenied()) {
-            getView().onAnyPermissionDenied(getContext().getString(R.string.error_we_need_to_access_to_location));
+            sendPermissionDeniedMessage();
         } else {
-            getView().onAnyPermissionDenied(getContext().getString(R.string.error_we_need_to_access_to_location));
+            sendPermissionDeniedMessage();
         }
+    }
+
+    private void sendPermissionDeniedMessage() {
+        getView().onAnyPermissionDenied(getContext().getString(R.string.error_we_need_to_access_to_location));
     }
 
     @Override
@@ -143,16 +147,21 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
             getPlacesFromServer();
         } else if (places.size() == 0) {
             getPlacesFromServer();
+        } else {
+            getView().onClearMarker();
+            addMarkerIntoMap();
         }
     }
 
     @Override
     public void getPlacesFromServer() {
-        call = HttpManager.getServices().getAllPlace(
-                SessionUtil.getSecretCode(),
-                SessionUtil.getToken()
-        );
-        call.enqueue(this);
+        if (NetworkUtil.isNetworkAvailable(getContext())) {
+            call = HttpManager.getServices().getAllPlace(
+                    SessionUtil.getSecretCode(),
+                    SessionUtil.getToken()
+            );
+            call.enqueue(this);
+        }
     }
 
     @Override
@@ -166,12 +175,22 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
     }
 
     @Override
-    public void onResponse(Call<List<Place>> call, Response<List<Place>> response) {
-        this.places = response.body();
+    public void onResponse(Call<ArrayList<Place>> call, Response<ArrayList<Place>> response) {
+        if (response.isSuccessful()) {
+            this.places = response.body();
+            getView().onClearMarker();
+            addMarkerIntoMap();
+        }
+    }
+
+    private void addMarkerIntoMap() {
+        for (Place place : places) {
+            getView().onAddMarker(place);
+        }
     }
 
     @Override
-    public void onFailure(Call<List<Place>> call, Throwable t) {
+    public void onFailure(Call<ArrayList<Place>> call, Throwable t) {
         String error = NetworkUtil.analyzeNetworkException(t);
         if (error == null) t.printStackTrace();
         else getView().onShowToastMessage(error);

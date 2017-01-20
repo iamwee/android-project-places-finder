@@ -2,9 +2,11 @@ package com.iamwee.placesfinder.manager;
 
 import com.iamwee.placesfinder.dao.LoginResponse;
 import com.iamwee.placesfinder.dao.Place;
+import com.iamwee.placesfinder.dao.PlaceType;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.dao.UserProfile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,7 +44,7 @@ public interface ApiService {
     Call<ServerResponse> changePassword(@Body RequestBody body);
 
     @GET("place")
-    Call<List<Place>> getAllPlace(@Query("secret") String secret, @Query("token") String token);
+    Call<ArrayList<Place>> getAllPlace(@Query("secret") String secret, @Query("token") String token);
 
     @GET("place/{id}")
     Call<List<Place>> getPlaceById(@Path("id") String id);
@@ -60,7 +62,7 @@ public interface ApiService {
     Call<ServerResponse> addPhoto(@Body RequestBody body);
 
     @POST("place/type")
-    Call<Objects> getPlaceType(@Body RequestBody body);
+    Call<ArrayList<PlaceType>> getPlaceType(@Body RequestBody body);
 
     @GET("place/review/{placeId}")
     Call<Objects> getReviewByPlaceId(@Path("placeId") String placeId);

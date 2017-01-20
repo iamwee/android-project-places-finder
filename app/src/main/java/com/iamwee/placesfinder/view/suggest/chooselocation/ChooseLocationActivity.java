@@ -1,10 +1,10 @@
 package com.iamwee.placesfinder.view.suggest.chooselocation;
 
 import android.Manifest;
+import android.accounts.NetworkErrorException;
 import android.content.Intent;
 import android.location.Address;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -21,8 +21,8 @@ import com.iamwee.placesfinder.common.PlacesFinderActivity;
 import com.iamwee.placesfinder.manager.permission.PermissionManager;
 import com.iamwee.placesfinder.manager.permission.PermissionResult;
 import com.iamwee.placesfinder.util.GeoCoderUtil;
-import com.iamwee.placesfinder.util.GsonUtil;
 import com.iamwee.placesfinder.util.LocationUtil;
+import com.iamwee.placesfinder.util.ProgressDialogHelper;
 
 import java.util.Arrays;
 
@@ -30,7 +30,6 @@ public class ChooseLocationActivity extends PlacesFinderActivity
         implements OnMapReadyCallback, PermissionManager.PermissionCallback,
         View.OnClickListener, GeoCoderUtil.Callback {
 
-    private static final String TAG = "ChooseLocationActivity";
     private GoogleMap googleMap;
     private GeoCoderUtil geoCoderUtil;
 
@@ -38,8 +37,18 @@ public class ChooseLocationActivity extends PlacesFinderActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_location);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setupToolbar();
+        setupView();
+        setupGoogleMap();
 
+    }
+
+    @Override
+    protected void setupToolbar() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void setupGoogleMap() {
         SupportMapFragment mapFragment = (SupportMapFragment)
                 getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -99,24 +108,19 @@ public class ChooseLocationActivity extends PlacesFinderActivity
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.iv_marker) {
-            String location = "Location: " + googleMap.getCameraPosition().target.toString();
-            Toast.makeText(this, location, Toast.LENGTH_SHORT).show();
-            Log.i(TAG, "Choose location: " + location);
             if (geoCoderUtil == null)
                 geoCoderUtil = new GeoCoderUtil.Builder()
                         .withLocation(googleMap.getCameraPosition().target)
                         .build();
+            ProgressDialogHelper.show(ChooseLocationActivity.this);
             geoCoderUtil.findAddress(this);
-
-            //TODO: must test case of don't set location before get address name is error or not.
         }
     }
 
     @Override
     public void onFindAddressResult(Address address, String addressName) {
-        Log.i(TAG, GsonUtil.getInstance().toJson(address));
+        ProgressDialogHelper.dismiss();
         LatLng latLng = googleMap.getCameraPosition().target;
-
         Intent intent = new Intent();
         intent.putExtra("address", addressName);
         intent.putExtra("lat", latLng.latitude);
@@ -127,10 +131,14 @@ public class ChooseLocationActivity extends PlacesFinderActivity
 
     @Override
     public void onFindAddressFailure(Throwable t) {
+        ProgressDialogHelper.dismiss();
         if (t instanceof IllegalStateException) {
             Toast.makeText(this, t.getMessage(), Toast.LENGTH_SHORT).show();
+        } else if (t instanceof NetworkErrorException) {
+            Toast.makeText(this, R.string.error_check_connection, Toast.LENGTH_SHORT).show();
         } else {
             t.printStackTrace();
         }
     }
+
 }

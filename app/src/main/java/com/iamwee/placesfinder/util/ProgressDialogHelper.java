@@ -7,9 +7,6 @@ import android.support.v7.app.AlertDialog;
 
 import com.iamwee.placesfinder.R;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
 
 public class ProgressDialogHelper {
 
@@ -18,6 +15,10 @@ public class ProgressDialogHelper {
     }
 
     private static ProgressDialog dialog;
+
+    public static void show(Context context) {
+        show(context, null);
+    }
 
     public static void show(Context context, final Callback callback) {
         dialog = new ProgressDialog(context);

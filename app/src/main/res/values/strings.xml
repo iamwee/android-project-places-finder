@@ -40,4 +40,9 @@
     <string name="error_we_need_to_access_to_location">We need to access to your location, enable location permission to find current location.</string>
     <string name="action_submit">Submit</string>
     <string name="action_setting">Setting</string>
+    <string name="place_name">Name</string>
+    <string name="place_type">Type</string>
+    <string name="place_address">Address</string>
+    <string name="place_detail">Detail</string>
+    <string name="choose_location">Choose Location</string>
 </resources>

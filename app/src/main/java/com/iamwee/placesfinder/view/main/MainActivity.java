@@ -1,6 +1,5 @@
 package com.iamwee.placesfinder.view.main;
 
-import android.animation.IntArrayEvaluator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,11 +18,11 @@ import com.iamwee.placesfinder.view.info.PlaceInfoActivity;
 import com.iamwee.placesfinder.view.logout.LogoutActivity;
 import com.iamwee.placesfinder.view.profile.ProfileActivity;
 import com.iamwee.placesfinder.view.search.SearchActivity;
+import com.iamwee.placesfinder.view.suggest.SuggestPlaceActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.LineNumberReader;
 
 public class MainActivity extends PlacesFinderActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,12 +39,6 @@ public class MainActivity extends PlacesFinderActivity
         }
         setupView();
     }
-
-    @Override
-    protected void initView() {
-
-    }
-
 
     @Override
     protected void setupView() {
@@ -87,7 +80,6 @@ public class MainActivity extends PlacesFinderActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main_menu, menu);
         return true;
     }
@@ -96,7 +88,6 @@ public class MainActivity extends PlacesFinderActivity
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         } else if (id == R.id.action_search) {
@@ -109,13 +100,12 @@ public class MainActivity extends PlacesFinderActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
             openActivity(new Intent(this, ProfileActivity.class));
         } else if (id == R.id.nav_suggest_place) {
-
+            openActivity(new Intent(this, SuggestPlaceActivity.class));
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_logout) {
