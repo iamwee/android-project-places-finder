@@ -28,7 +28,7 @@ class ChangePasswordPresenter extends BasePresenter<ChangePasswordContractor.Vie
         getView().setPresenter(this);
     }
 
-    public static ChangePasswordPresenter newInstance(ChangePasswordContractor.View view) {
+    static ChangePasswordPresenter newInstance(ChangePasswordContractor.View view) {
         return new ChangePasswordPresenter(view);
     }
 

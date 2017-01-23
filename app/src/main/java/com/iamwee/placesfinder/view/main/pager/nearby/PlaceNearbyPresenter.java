@@ -23,6 +23,7 @@ import com.iamwee.placesfinder.manager.permission.PermissionResult;
 import com.iamwee.placesfinder.util.GeoCoderUtil;
 import com.iamwee.placesfinder.util.LocationUtil;
 import com.iamwee.placesfinder.util.NetworkUtil;
+import com.iamwee.placesfinder.util.PlaceUtil;
 import com.iamwee.placesfinder.util.SessionUtil;
 
 import java.util.ArrayList;
@@ -107,13 +108,11 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
     @Override
     public void onLocationChanged(Location location) {
         LocationUtil.saveLocation(location);
-
         if (geoCoderUtil == null)
             geoCoderUtil = new GeoCoderUtil.Builder()
                     .withLocation(new LatLng(location.getLatitude(), location.getLongitude()))
                     .build();
         geoCoderUtil.findAddress(this);
-
         getView().onLocationChanged(location);
     }
 
@@ -143,12 +142,17 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
 
     @Override
     public void getPlacesData() {
-        if (places == null) {
-            getPlacesFromServer();
-        } else if (places.size() == 0) {
-            getPlacesFromServer();
+
+        if (NetworkUtil.isNetworkAvailable(getContext())) {
+            if (places == null) {
+                getPlacesFromServer();
+            } else if (places.size() == 0) {
+                getPlacesFromServer();
+            } else {
+                addMarkerIntoMap();
+            }
         } else {
-            getView().onClearMarker();
+            places = PlaceUtil.loadData();
             addMarkerIntoMap();
         }
     }
@@ -178,12 +182,14 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
     public void onResponse(Call<ArrayList<Place>> call, Response<ArrayList<Place>> response) {
         if (response.isSuccessful()) {
             this.places = response.body();
+            PlaceUtil.cacheData(places);
             getView().onClearMarker();
             addMarkerIntoMap();
         }
     }
 
     private void addMarkerIntoMap() {
+        getView().onClearMarker();
         for (Place place : places) {
             getView().onAddMarker(place);
         }

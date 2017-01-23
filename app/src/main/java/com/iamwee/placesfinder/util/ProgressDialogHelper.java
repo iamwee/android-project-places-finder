@@ -23,6 +23,7 @@ public class ProgressDialogHelper {
     public static void show(Context context, final Callback callback) {
         dialog = new ProgressDialog(context);
         dialog.setMessage(context.getString(R.string.msg_loading));
+        dialog.setCancelable(false);
         dialog.setButton(AlertDialog.BUTTON_NEGATIVE,
                 context.getString(android.R.string.cancel),
                 new DialogInterface.OnClickListener() {

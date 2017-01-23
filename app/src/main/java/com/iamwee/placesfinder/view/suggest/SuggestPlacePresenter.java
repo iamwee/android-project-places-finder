@@ -31,7 +31,7 @@ class SuggestPlacePresenter extends BasePresenter<SuggestPlaceContractor.View> i
         getView().setPresenter(this);
     }
 
-    public static SuggestPlacePresenter newInstance(SuggestPlaceContractor.View view) {
+    static SuggestPlacePresenter newInstance(SuggestPlaceContractor.View view) {
         return new SuggestPlacePresenter(view);
     }
 
@@ -66,26 +66,7 @@ class SuggestPlacePresenter extends BasePresenter<SuggestPlaceContractor.View> i
                     .add("token", SessionUtil.getToken())
                     .build();
             getPlaceTypeCall = HttpManager.getServices().getPlaceType(body);
-            getPlaceTypeCall.enqueue(new Callback<ArrayList<PlaceType>>() {
-                @Override
-                public void onResponse(Call<ArrayList<PlaceType>> call,
-                                       Response<ArrayList<PlaceType>> response) {
-                    if (response.isSuccessful()) {
-                        placeTypes = response.body();
-                        getView().onPostGetPlaceType(placeTypes);
-                        getView().onServicePostExecute();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ArrayList<PlaceType>> call,
-                                      Throwable t) {
-                    String error = NetworkUtil.analyzeNetworkException(t);
-                    if (error != null) getView().onShowToastMessage(error);
-                    else t.printStackTrace();
-                    getView().onServicePostExecute();
-                }
-            });
+            getPlaceTypeCall.enqueue(getPlaceTypeCallback);
             getView().onServiceExecuting();
         } else {
             getView().onNetworkConnectionFailure();
@@ -101,6 +82,15 @@ class SuggestPlacePresenter extends BasePresenter<SuggestPlaceContractor.View> i
     public void submitPlace(String nameText, LatLng latLng, String typeText,
                             String address,
                             String detail) {
+
+        if (placeTypes == null) {
+            getView().onShowToastMessage("Please select type");
+            return;
+        } else if (nameText.isEmpty() || address.isEmpty() || detail.isEmpty()) {
+            getView().onShowToastMessage("Please enter your information.");
+            return;
+        }
+
         String typeId = "";
         for (PlaceType placeType : placeTypes) {
             if (placeType.getTypeName().equals(typeText)) {
@@ -121,25 +111,46 @@ class SuggestPlacePresenter extends BasePresenter<SuggestPlaceContractor.View> i
                 .build();
 
         submitPlaceCall = HttpManager.getServices().suggestPlace(body);
-        submitPlaceCall.enqueue(new Callback<ServerResponse>() {
-            @Override
-            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                if (response.isSuccessful()) {
-                    getView().onPlaceSubmitted();
-                }
-                getView().onServicePostExecute();
-            }
-
-            @Override
-            public void onFailure(Call<ServerResponse> call, Throwable t) {
-                String error = NetworkUtil.analyzeNetworkException(t);
-                if (error != null) getView().onShowToastMessage(error);
-                else t.printStackTrace();
-                getView().onServicePostExecute();
-            }
-        });
-
+        submitPlaceCall.enqueue(submitPlaceCallback);
         getView().onServiceExecuting();
-
     }
+
+    private Callback<ArrayList<PlaceType>> getPlaceTypeCallback = new Callback<ArrayList<PlaceType>>() {
+        @Override
+        public void onResponse(Call<ArrayList<PlaceType>> call,
+                               Response<ArrayList<PlaceType>> response) {
+            if (response.isSuccessful()) {
+                placeTypes = response.body();
+                getView().onPostGetPlaceType(placeTypes);
+                getView().onServicePostExecute();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ArrayList<PlaceType>> call,
+                              Throwable t) {
+            String error = NetworkUtil.analyzeNetworkException(t);
+            if (error != null) getView().onShowToastMessage(error);
+            else t.printStackTrace();
+            getView().onServicePostExecute();
+        }
+    };
+
+    private Callback<ServerResponse> submitPlaceCallback = new Callback<ServerResponse>() {
+        @Override
+        public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+            if (response.isSuccessful()) {
+                getView().onPlaceSubmitted();
+            }
+            getView().onServicePostExecute();
+        }
+
+        @Override
+        public void onFailure(Call<ServerResponse> call, Throwable t) {
+            String error = NetworkUtil.analyzeNetworkException(t);
+            if (error != null) getView().onShowToastMessage(error);
+            else t.printStackTrace();
+            getView().onServicePostExecute();
+        }
+    };
 }

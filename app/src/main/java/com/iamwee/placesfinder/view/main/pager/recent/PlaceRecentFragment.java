@@ -7,22 +7,24 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
+import com.iamwee.placesfinder.util.PlaceUtil;
 
 
-public class RecentFragment extends PlacesFinderFragment<RecentContractor.Presenter>
+public class PlaceRecentFragment extends PlacesFinderFragment<RecentContractor.Presenter>
         implements RecentContractor.View {
 
     private RecyclerView rvRecentPlace;
 
-    public RecentFragment() {
+    public PlaceRecentFragment() {
 
     }
 
-    public static RecentFragment newInstance() {
-        RecentFragment fragment = new RecentFragment();
+    public static PlaceRecentFragment newInstance() {
+        PlaceRecentFragment fragment = new PlaceRecentFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -39,7 +41,7 @@ public class RecentFragment extends PlacesFinderFragment<RecentContractor.Presen
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_recently, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_place_recent, container, false);
         initView(rootView);
         setupView(rootView);
         return rootView;
@@ -63,6 +65,11 @@ public class RecentFragment extends PlacesFinderFragment<RecentContractor.Presen
 
     @Override
     protected void setupView(View rootView) {
-        rvRecentPlace.setAdapter(new PlaceRecentAdapter());
+        if (PlaceUtil.loadData().size() > 0) {
+            rvRecentPlace.setAdapter(new PlaceRecentAdapter());
+        } else {
+            ViewStub viewStub = (ViewStub) rootView.findViewById(R.id.view_stub);
+            viewStub.inflate();
+        }
     }
 }

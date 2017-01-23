@@ -53,14 +53,17 @@ public class GeoCoderUtil {
         @Override
         protected void onPostExecute(Address address) {
             super.onPostExecute(address);
-            if (address == null) {
+            if (address == null && callback != null) {
                 callback.onFindAddressFailure(new NetworkErrorException("You must connect to the internet before find address."));
                 return;
+            } else {
+                new NetworkErrorException("You must connect to the internet before find address.")
+                        .printStackTrace();
             }
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
                 stringBuilder.append(address.getAddressLine(i));
-                if (i != address.getMaxAddressLineIndex()) stringBuilder.append(", ");
+                if (i != address.getMaxAddressLineIndex() - 1) stringBuilder.append(", ");
             }
 
             if (callback != null)

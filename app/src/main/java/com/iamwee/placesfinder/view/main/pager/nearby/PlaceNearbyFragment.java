@@ -1,5 +1,6 @@
 package com.iamwee.placesfinder.view.main.pager.nearby;
 
+import android.Manifest;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,16 +21,19 @@ import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.manager.permission.PermissionManager;
+import com.iamwee.placesfinder.manager.permission.PermissionResult;
 import com.iamwee.placesfinder.util.LocationUtil;
 
 import org.greenrobot.eventbus.EventBus;
+
+import java.util.Arrays;
 
 import static com.iamwee.placesfinder.R.id.map;
 
 
 public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContractor.Presenter>
         implements PlaceNearbyContractor.View, OnMapReadyCallback,
-        GoogleMap.OnInfoWindowClickListener {
+        GoogleMap.OnInfoWindowClickListener, PermissionManager.PermissionCallback {
 
     private GoogleMap googleMap;
     private boolean animate = false;
@@ -128,6 +132,13 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
                 , 400, null);
         googleMap.getUiSettings().setMapToolbarEnabled(false);
         googleMap.setOnInfoWindowClickListener(this);
+
+
+        PermissionManager.requestPermission(Arrays.asList(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+        ), this);
+
     }
 
     @Override
@@ -143,7 +154,7 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
 
     @Override
     public void onClearMarker() {
-        googleMap.clear();
+        if (googleMap != null) googleMap.clear();
     }
 
     @Override
@@ -171,5 +182,12 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
     @Override
     public void onAnyPermissionDenied(String message) {
         PermissionManager.showPermissionRequestDeniedDialog(getActivity(), message);
+    }
+
+    @Override
+    public void onPermissionResult(PermissionResult permissionResult) {
+        if (permissionResult.areAllPermissionsGranted()) {
+            onEnableMyLocationButton();
+        }
     }
 }
