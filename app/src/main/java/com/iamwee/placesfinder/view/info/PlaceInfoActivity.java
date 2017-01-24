@@ -2,6 +2,7 @@ package com.iamwee.placesfinder.view.info;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.iamwee.placesfinder.R;
@@ -18,18 +19,28 @@ public class PlaceInfoActivity extends PlacesFinderActivity {
         setContentView(R.layout.activity_place_info);
         setupPlaceData();
         setupToolbar();
+        setupFragment(savedInstanceState);
         setupView();
+    }
+
+    private void setupFragment(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, PlaceInfoFragment.newInstance(place))
+                    .commit();
+        }
     }
 
     private void setupPlaceData() {
         Intent intent = getIntent();
         place = intent.getParcelableExtra("place");
-        getSupportActionBar().setTitle(place.getName());
     }
 
     @Override
     protected void setupToolbar() {
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(place.getName());
     }
 
     @Override
@@ -40,6 +51,20 @@ public class PlaceInfoActivity extends PlacesFinderActivity {
     @Override
     protected void setupView() {
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("place", place);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            place = savedInstanceState.getParcelable("data");
+        }
     }
 
     @Override

@@ -48,19 +48,30 @@
         <activity
             android:name=".view.logout.LogoutActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.profile.ProfileActivity" android:label="Profile" />
+        <activity
+            android:name=".view.profile.ProfileActivity"
+            android:label="Profile" />
         <activity
             android:name=".view.search.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".view.changepassword.ChangePasswordActivity" android:label="@string/change_password" />
+        <activity
+            android:name=".view.changepassword.ChangePasswordActivity"
+            android:label="@string/change_password" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAfLYSHQzDu4c5NWwpIDwQGcEEcOYtc9VM" />
 
-        <activity android:name=".view.info.PlaceInfoActivity" />
-        <activity android:name=".view.suggest.SuggestPlaceActivity" android:label="@string/menu_suggest_place" />
-        <activity android:name=".view.suggest.chooselocation.ChooseLocationActivity" android:label="@string/choose_location" />
+        <activity
+            android:name=".view.info.PlaceInfoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.suggest.SuggestPlaceActivity"
+            android:label="@string/menu_suggest_place" />
+        <activity
+            android:name=".view.suggest.chooselocation.ChooseLocationActivity"
+            android:label="@string/choose_location" />
+        <activity android:name=".view.SettingsActivity" />
     </application>
 
 </manifest>

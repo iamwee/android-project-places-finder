@@ -14,7 +14,10 @@ import android.view.MenuItem;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
 import com.iamwee.placesfinder.dao.Place;
+import com.iamwee.placesfinder.util.SessionUtil;
+import com.iamwee.placesfinder.view.SettingsActivity;
 import com.iamwee.placesfinder.view.info.PlaceInfoActivity;
+import com.iamwee.placesfinder.view.login.LoginActivity;
 import com.iamwee.placesfinder.view.logout.LogoutActivity;
 import com.iamwee.placesfinder.view.profile.ProfileActivity;
 import com.iamwee.placesfinder.view.search.SearchActivity;
@@ -31,13 +34,12 @@ public class MainActivity extends PlacesFinderActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setupView();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, MainFragment.newInstance())
                     .commit();
         }
-        setupView();
     }
 
     @Override
@@ -103,11 +105,19 @@ public class MainActivity extends PlacesFinderActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            openActivity(new Intent(this, ProfileActivity.class));
+            if (SessionUtil.hasLoggedIn()) {
+                openActivity(new Intent(this, ProfileActivity.class));
+            } else {
+                openActivity(new Intent(this, LoginActivity.class), true);
+            }
         } else if (id == R.id.nav_suggest_place) {
-            openActivity(new Intent(this, SuggestPlaceActivity.class));
+            if (SessionUtil.hasLoggedIn()) {
+                openActivity(new Intent(this, SuggestPlaceActivity.class));
+            } else {
+                openActivity(new Intent(this, LoginActivity.class), true);
+            }
         } else if (id == R.id.nav_settings) {
-
+            openActivity(new Intent(this, SettingsActivity.class));
         } else if (id == R.id.nav_logout) {
             openActivity(new Intent(this, LogoutActivity.class), true);
         }
@@ -118,7 +128,7 @@ public class MainActivity extends PlacesFinderActivity
     }
 
     @Subscribe
-    public void onOpenPlaceInfo(Place place){
+    public void onOpenPlaceInfo(Place place) {
         Intent intent = new Intent(this, PlaceInfoActivity.class);
         intent.putExtra("place", place);
         openActivity(intent);
