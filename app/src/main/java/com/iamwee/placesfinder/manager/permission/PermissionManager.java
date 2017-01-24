@@ -25,7 +25,8 @@ public class PermissionManager {
         Dexter.initialize(context.getApplicationContext());
     }
 
-    public static void requestPermission(List<String> permissions, final PermissionCallback callback) {
+    public static void requestPermission(List<String> permissions,
+                                         final PermissionCallback callback) {
         if (Dexter.isRequestOngoing()) return;
         Dexter.checkPermissions(new MultiplePermissionsListener() {
             @Override
@@ -47,7 +48,8 @@ public class PermissionManager {
         }, permissions);
     }
 
-    public static void showPermissionRequestDeniedDialog(final Context context, String message) {
+    public static void showPermissionRequestDeniedDialog(final Context context,
+                                                         String message) {
         new AlertDialog.Builder(context)
                 .setTitle(R.string.error_permission_denied)
                 .setMessage(message)
