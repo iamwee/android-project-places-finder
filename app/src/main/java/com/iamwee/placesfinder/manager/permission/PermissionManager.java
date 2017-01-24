@@ -26,7 +26,7 @@ public class PermissionManager {
     }
 
     public static void requestPermission(List<String> permissions, final PermissionCallback callback) {
-
+        if (Dexter.isRequestOngoing()) return;
         Dexter.checkPermissions(new MultiplePermissionsListener() {
             @Override
             public void onPermissionsChecked(MultiplePermissionsReport report) {
