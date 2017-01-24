@@ -4,7 +4,8 @@ import android.os.Bundle;
 
 import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.Place;
-import com.iamwee.placesfinder.view.info.model.BasePlaceInfoItem;
+import com.iamwee.placesfinder.view.info.adapter.PlaceInfoConverter;
+import com.iamwee.placesfinder.view.info.adapter.model.BasePlaceInfoItem;
 
 import java.util.ArrayList;
 import java.util.List;

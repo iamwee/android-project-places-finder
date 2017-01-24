@@ -1,4 +1,4 @@
-package com.iamwee.placesfinder.view.info.model;
+package com.iamwee.placesfinder.view.info.adapter.model;
 
 class PlaceInfoType {
     static final int SECTION_TYPE = 0;

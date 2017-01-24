@@ -62,6 +62,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAfLYSHQzDu4c5NWwpIDwQGcEEcOYtc9VM" />
 
+        <meta-data
+            android:name="com.iamwee.placesfinder.config.GlideConfiguration"
+            android:value="GlideModule" />
+
         <activity
             android:name=".view.info.PlaceInfoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -72,6 +76,9 @@
             android:name=".view.suggest.chooselocation.ChooseLocationActivity"
             android:label="@string/choose_location" />
         <activity android:name=".view.SettingsActivity" />
+        <activity
+            android:name=".view.info.PlaceDirectionActivity"
+            android:label="@string/direction" />
     </application>
 
 </manifest>

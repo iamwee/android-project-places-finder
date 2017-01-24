@@ -1,12 +1,9 @@
-package com.iamwee.placesfinder.view.info;
+package com.iamwee.placesfinder.view.info.adapter;
 
-import com.iamwee.placesfinder.view.info.model.ReviewItem;
-import com.iamwee.placesfinder.view.info.model.SectionItem;
-import com.iamwee.placesfinder.view.info.model.SummaryItem;
+import com.iamwee.placesfinder.view.info.adapter.model.ReviewItem;
+import com.iamwee.placesfinder.view.info.adapter.model.SectionItem;
+import com.iamwee.placesfinder.view.info.adapter.model.SummaryItem;
 
-/**
- * Created by zeon on 1/24/17.
- */
 
 public class PlaceInfoConverter {
 

@@ -1,4 +1,4 @@
-package com.iamwee.placesfinder.view.info.model;
+package com.iamwee.placesfinder.view.info.adapter.model;
 
 /**
  * Created by zeon on 1/24/17.

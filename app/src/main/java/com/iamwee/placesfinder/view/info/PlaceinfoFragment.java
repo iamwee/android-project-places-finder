@@ -11,7 +11,8 @@ import android.view.ViewGroup;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 import com.iamwee.placesfinder.dao.Place;
-import com.iamwee.placesfinder.view.info.model.BasePlaceInfoItem;
+import com.iamwee.placesfinder.view.info.adapter.PlaceInfoAdapter;
+import com.iamwee.placesfinder.view.info.adapter.model.BasePlaceInfoItem;
 import com.iamwee.placesfinder.view.main.pager.recent.PlaceRecentAdapter;
 
 import java.util.List;
