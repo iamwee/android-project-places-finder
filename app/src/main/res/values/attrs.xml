@@ -9,4 +9,9 @@
 
     </declare-styleable>
 
+    <declare-styleable name="MenuView">
+        <attr name="mv_icon" format="reference" />
+        <attr name="mv_title" format="string" />
+    </declare-styleable>
+
 </resources>

@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -39,6 +42,7 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PlaceInfoPresenter.newInstance(this);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -54,14 +58,14 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
 
     @Override
     protected void initView(View rootView) {
-        rvPlaceInfo = (RecyclerView) rootView.findViewById(R.id.rv_place_info);
-        rvPlaceInfo.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        rvPlaceInfo = (RecyclerView) rootView.findViewById(R.id.rv_place_info);
+//        rvPlaceInfo.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Override
     protected void setupView(View rootView) {
         //getPresenter().convertToAdapterModel((Place) getArguments().getParcelable("place"));
-        rvPlaceInfo.setAdapter(new PlaceRecentAdapter());
+        //rvPlaceInfo.setAdapter(new PlaceRecentAdapter());
 
     }
 
@@ -78,5 +82,15 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
     @Override
     public void onSetAdapter(List<BasePlaceInfoItem> basePlaceInfoItems) {
         placeInfoAdapter = new PlaceInfoAdapter(basePlaceInfoItems);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.fragment_info_place_menu, menu);
     }
 }

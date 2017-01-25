@@ -42,7 +42,7 @@ class LoginPresenter extends BasePresenter<LoginContractor.View>
 
     @Override
     public void onStop() {
-        if (call.isExecuted()) call.cancel();
+        if (call != null && call.isExecuted()) call.cancel();
     }
 
     @Override

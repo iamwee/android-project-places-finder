@@ -46,4 +46,6 @@
     <string name="place_detail">Detail</string>
     <string name="choose_location">Choose Location</string>
     <string name="direction">Direction</string>
+    <string name="action_share">Share</string>
+    <string name="action_report">Report</string>
 </resources>

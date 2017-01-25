@@ -14,28 +14,50 @@ import java.util.List;
 
 public class Place implements Parcelable {
 
-    @SerializedName("id")           private String id;
-    @SerializedName("name")         private String name;
-    @SerializedName("type")         private String type;
-    @SerializedName("lat")          private double lat;
-    @SerializedName("lng")          private double lng;
-    @SerializedName("address")      private String address;
-    @SerializedName("detail")       private String detail;
-    @SerializedName("approve")      private int approve;
-    @SerializedName("distance")     private float distance;
-    @SerializedName("images")       private List<String> images = new ArrayList<>();
-    @SerializedName("tags")         private List<String> tags = new ArrayList<>();
-    @SerializedName("reviews")      private List<String> reviews = new ArrayList<>();
+    @SerializedName("id")
+    private String id;
+
+    @SerializedName("name")
+    private String name;
+
+    @SerializedName("type")
+    private PlaceType type;
+
+    @SerializedName("lat")
+    private double lat;
+
+    @SerializedName("lng")
+    private double lng;
+
+    @SerializedName("address")
+    private String address;
+
+    @SerializedName("detail")
+    private String detail;
+
+    @SerializedName("approve")
+    private int approve;
+
+    @SerializedName("distance")
+    private float distance;
+
+    @SerializedName("images")
+    private List<String> images = new ArrayList<>();
+
+    @SerializedName("tags")
+    private List<String> tags = new ArrayList<>();
+
+    @SerializedName("reviews")
+    private List<Review> reviews = new ArrayList<>();
 
     public Place() {
 
     }
 
-
     protected Place(Parcel in) {
         id = in.readString();
         name = in.readString();
-        type = in.readString();
+        type = in.readParcelable(PlaceType.class.getClassLoader());
         lat = in.readDouble();
         lng = in.readDouble();
         address = in.readString();
@@ -44,28 +66,7 @@ public class Place implements Parcelable {
         distance = in.readFloat();
         images = in.createStringArrayList();
         tags = in.createStringArrayList();
-        reviews = in.createStringArrayList();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(name);
-        dest.writeString(type);
-        dest.writeDouble(lat);
-        dest.writeDouble(lng);
-        dest.writeString(address);
-        dest.writeString(detail);
-        dest.writeInt(approve);
-        dest.writeFloat(distance);
-        dest.writeStringList(images);
-        dest.writeStringList(tags);
-        dest.writeStringList(reviews);
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+        reviews = in.createTypedArrayList(Review.CREATOR);
     }
 
     public static final Creator<Place> CREATOR = new Creator<Place>() {
@@ -96,11 +97,11 @@ public class Place implements Parcelable {
         this.name = name;
     }
 
-    public String getType() {
+    public PlaceType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PlaceType type) {
         this.type = type;
     }
 
@@ -168,11 +169,112 @@ public class Place implements Parcelable {
         this.tags = tags;
     }
 
-    public List<String> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(List<String> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeParcelable(type, flags);
+        dest.writeDouble(lat);
+        dest.writeDouble(lng);
+        dest.writeString(address);
+        dest.writeString(detail);
+        dest.writeInt(approve);
+        dest.writeFloat(distance);
+        dest.writeStringList(images);
+        dest.writeStringList(tags);
+        dest.writeTypedList(reviews);
+    }
+
+
+    private static class Review implements Parcelable {
+
+        @SerializedName("code_name")
+        private String codeName;
+        @SerializedName("email")
+        private String email;
+        @SerializedName("review")
+        private String review;
+        @SerializedName("publish_date")
+        private String reviewDate;
+
+        public Review() {
+        }
+
+        protected Review(Parcel in) {
+            codeName = in.readString();
+            email = in.readString();
+            review = in.readString();
+            reviewDate = in.readString();
+        }
+
+        public static final Creator<Review> CREATOR = new Creator<Review>() {
+            @Override
+            public Review createFromParcel(Parcel in) {
+                return new Review(in);
+            }
+
+            @Override
+            public Review[] newArray(int size) {
+                return new Review[size];
+            }
+        };
+
+        public String getCodeName() {
+            return codeName;
+        }
+
+        public void setCodeName(String codeName) {
+            this.codeName = codeName;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getReview() {
+            return review;
+        }
+
+        public void setReview(String review) {
+            this.review = review;
+        }
+
+        public String getReviewDate() {
+            return reviewDate;
+        }
+
+        public void setReviewDate(String reviewDate) {
+            this.reviewDate = reviewDate;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(codeName);
+            dest.writeString(email);
+            dest.writeString(review);
+            dest.writeString(reviewDate);
+        }
     }
 }

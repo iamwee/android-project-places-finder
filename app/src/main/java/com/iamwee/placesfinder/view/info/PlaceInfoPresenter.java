@@ -44,9 +44,9 @@ class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
     @Override
     public void convertToAdapterModel(Place place) {
         List<BasePlaceInfoItem> basePlaceInfoItems = new ArrayList<>();
-        basePlaceInfoItems.add(PlaceInfoConverter.createSection());
-        basePlaceInfoItems.add(PlaceInfoConverter.createSummary());
-        basePlaceInfoItems.add(PlaceInfoConverter.createReview());
+        basePlaceInfoItems.add(PlaceInfoConverter.makeHeaderSection());
+        basePlaceInfoItems.add(PlaceInfoConverter.createSummarySection());
+        basePlaceInfoItems.add(PlaceInfoConverter.createReviewSection());
 
         getView().onSetAdapter(basePlaceInfoItems);
     }

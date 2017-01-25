@@ -1,169 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:background="@color/colorControlHighlight" />
+            android:layout_height="220dp">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp"
-            app:cardUseCompatPadding="true">
-
-            <LinearLayout
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="4">
+                android:layout_height="180dp"
+                android:background="@color/colorControlHighlight"
+                android:foreground="@drawable/fade_image_view"
+                android:scaleType="center"
+                android:src="@drawable/ic_save_white" />
+
+            <android.support.v7.widget.CardView
+                android:layout_width="360dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                app:cardUseCompatPadding="true">
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="88dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:weightSum="3">
 
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher" />
+                    <com.iamwee.placesfinder.widget.MenuView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:mv_title="Submit place" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Some menu" />
+                    <include layout="@layout/partial_divider_vertical" />
 
+                    <com.iamwee.placesfinder.widget.MenuView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:mv_title="Write Review" />
+
+                    <include layout="@layout/partial_divider_vertical" />
+
+                    <com.iamwee.placesfinder.widget.MenuView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        app:mv_title="Add Photo" />
 
                 </LinearLayout>
 
+            </android.support.v7.widget.CardView>
 
-                <include layout="@layout/partial_divider_vertical" />
+        </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Some menu" />
-
-
-                </LinearLayout>
-
-                <include layout="@layout/partial_divider_vertical" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Some menu" />
-
-
-                </LinearLayout>
-
-                <include layout="@layout/partial_divider_vertical" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_launcher" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Some menu" />
-
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
+        <com.iamwee.placesfinder.widget.TitleView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            app:tv_title="About" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="2dp"
             android:background="@android:color/white"
             android:orientation="vertical">
-
-            <com.iamwee.placesfinder.widget.TitleView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:tv_title="Hello world" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_horizontal_margin"
                 android:orientation="vertical"
-                android:padding="@dimen/activity_horizontal_margin">
+                android:padding="24dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name: Hello world" />
+                    android:layout_marginBottom="4dp"
+                    android:text="Category"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name: Hello world" />
+                    android:text="Restaurant" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name: Hello world" />
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Address"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name: Hello world" />
+                    android:text="123/45 bangkok, thailand 10530." />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name: Hello world" />
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Detail"
+                    android:textStyle="bold" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name: Hello world" />
+                    android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)." />
 
             </LinearLayout>
 
@@ -172,6 +128,8 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="160dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
             android:background="@color/colorControlHighlight" />
 
         <android.support.v7.widget.CardView
@@ -192,24 +150,55 @@
                 android:paddingStart="@dimen/activity_vertical_margin"
                 android:paddingTop="@dimen/activity_horizontal_margin">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name : Hello world" />
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Admin"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="admin@example.com"
+                            android:textColor="@android:color/black"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:text="2/2/3000" />
+
+                </LinearLayout>
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name : Hello world" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Name : Hello world" />
+                    android:paddingBottom="0dp"
+                    android:paddingTop="8dp"
+                    android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)." />
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
 
     </LinearLayout>
+
 </android.support.v4.widget.NestedScrollView>
