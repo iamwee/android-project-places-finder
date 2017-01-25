@@ -8,6 +8,7 @@
     <color name="colorSecondaryDark">#616161</color>
 
     <color name="colorControlHighlight">#9E9E9E</color>
+    <color name="colorFadeBackground">#70000000</color>
     <color name="colorDivider">#E3E3E3</color>
     <color name="colorPlaceBackground">#e0000000</color>
 </resources>

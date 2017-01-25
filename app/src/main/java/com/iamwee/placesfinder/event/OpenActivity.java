@@ -13,6 +13,8 @@ public class OpenActivity {
     public static final int CHANGE_PASSWORD = 5;
     public static final int FINISH = 99;
     public static final int SUGGEST_PLACE = 6;
+    public static final int TAKE_PHOTO = 60;
+    public static final int CHOOSE_PHOTO = 61;
 
     private int status;
     private boolean finish;

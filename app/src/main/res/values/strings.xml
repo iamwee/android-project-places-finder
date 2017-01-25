@@ -48,4 +48,6 @@
     <string name="direction">Direction</string>
     <string name="action_share">Share</string>
     <string name="action_report">Report</string>
+    <string name="error_camera_storage_permission_denied">We need to access to camera and storage, please enable permission to choose photo</string>
+    <string name="choose_photo">Choose Photo</string>
 </resources>
