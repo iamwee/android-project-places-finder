@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import com.iamwee.placesfinder.dao.Place;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class PlaceUtil {
@@ -15,8 +16,9 @@ public class PlaceUtil {
     private static final String PLACE_PREF_DATA = "place_pref_data";
 
     public static void cacheData(ArrayList<Place> places) {
+        List<Place> newPlaces = places.subList(0, places.size() > 20 ? 20 : places.size());
         String json = GsonUtil.getInstance().toJson(
-                places,
+                newPlaces,
                 new TypeToken<ArrayList<Place>>() {
                 }.getType()
         );

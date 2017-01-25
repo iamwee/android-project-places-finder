@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.iamwee.placesfinder.R;
 
@@ -13,7 +16,9 @@ import com.iamwee.placesfinder.R;
  * Created by zeon on 1/17/17.
  */
 
-public class PlaceView extends FrameLayout {
+public class PlaceView extends FrameLayout implements View.OnClickListener {
+
+    private OnClickListener listener;
 
     public PlaceView(Context context) {
         super(context);
@@ -57,5 +62,34 @@ public class PlaceView extends FrameLayout {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.PlaceView);
 
         typedArray.recycle();
+    }
+
+    public void setOnClickListener(OnClickListener listener) {
+        this.listener = listener;
+        findViewById(R.id.pv_root).setOnClickListener(this);
+    }
+
+    public void setImageUrl(String imageUrl) {
+        ImageView ivImg = (ImageView) findViewById(R.id.pv_img);
+    }
+
+    public void setName(String name) {
+        TextView tvName = (TextView) findViewById(R.id.pv_name);
+        tvName.setText(name);
+    }
+
+    public void setAddress(String address) {
+        TextView tvAddress = (TextView) findViewById(R.id.pv_address);
+        tvAddress.setText(address);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (listener != null) listener.onClick(this);
+    }
+
+
+    public interface OnClickListener {
+        void onClick(View view);
     }
 }
