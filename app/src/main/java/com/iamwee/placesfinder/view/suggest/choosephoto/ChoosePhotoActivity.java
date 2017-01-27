@@ -11,8 +11,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
-
-import com.iamwee.placesfinder.BuildConfig;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
 import com.iamwee.placesfinder.event.OpenActivity;
@@ -168,14 +166,10 @@ public class ChoosePhotoActivity extends PlacesFinderActivity
         Uri imageUri;
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             imageUri = Uri.parse(mCurrentPhotoPath);
-            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-            mediaScanIntent.setData(imageUri);
-            sendBroadcast(mediaScanIntent);
             Log.i(TAG, "onActivityResult: " + imageUri);
         } else if (requestCode == REQUEST_CHOOSE_PHOTO && resultCode == -1) {
             imageUri = data.getData();
             Log.i(TAG, "onActivityResult: " + imageUri);
-            //mFile = new File(FileUtil.findPath(getActivity(), imageUri));
         }
     }
 }

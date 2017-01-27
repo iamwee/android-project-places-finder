@@ -19,10 +19,6 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
-
 public interface ApiService {
 
     @POST("auth/login")
@@ -54,6 +50,9 @@ public interface ApiService {
 
     @GET("place/type/{type}")
     Call<List<Place>> getPlaceByType(@Path("type") String type);
+
+    @POST("place/search")
+    Call<List<Place>> searchPlace(@Body RequestBody body);
 
     @POST("place")
     Call<ServerResponse> suggestPlace(@Body RequestBody body);

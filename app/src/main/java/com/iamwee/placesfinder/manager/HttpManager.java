@@ -13,6 +13,7 @@ public class HttpManager {
 
     private static final String DEV_BASE_URL = "http://10.0.2.2/places_finder_api/public/api/";
     private static final String PRODUCTION_BASE_URL = "http://27.254.63.25/places-finder/public/api/";
+    public static final int UNAUTHORIZED = 401;
 
     private static Retrofit retrofit;
 

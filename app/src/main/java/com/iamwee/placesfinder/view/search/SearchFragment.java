@@ -10,14 +10,16 @@ import android.view.ViewGroup;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
+import com.iamwee.placesfinder.dao.Place;
 
-/**
- * Created by zeon on 1/17/17.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class SearchFragment extends PlacesFinderFragment {
 
     private RecyclerView rvSearchPlace;
+    private PlaceSearchAdapter placeSearchAdapter;
 
     public SearchFragment() {
 
@@ -74,6 +76,11 @@ public class SearchFragment extends PlacesFinderFragment {
 
     @Override
     protected void setupView(View rootView) {
-        rvSearchPlace.setAdapter(new PlaceSearchAdapter());
+        placeSearchAdapter = new PlaceSearchAdapter(new ArrayList<Place>());
+        rvSearchPlace.setAdapter(placeSearchAdapter);
+    }
+
+    public void updatePlaceData(List<Place> places) {
+        placeSearchAdapter.update(places);
     }
 }
