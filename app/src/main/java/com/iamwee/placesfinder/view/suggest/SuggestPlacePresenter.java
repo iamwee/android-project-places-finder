@@ -79,7 +79,7 @@ class SuggestPlacePresenter extends BasePresenter<SuggestPlaceContractor.View> i
     }
 
     @Override
-    public void submitPlace(String nameText, LatLng latLng, String typeText,
+    public void submitPlace(String nameText, LatLng latLng, String typeId,
                             String address,
                             String detail) {
 
@@ -89,14 +89,6 @@ class SuggestPlacePresenter extends BasePresenter<SuggestPlaceContractor.View> i
         } else if (nameText.isEmpty() || address.isEmpty() || detail.isEmpty()) {
             getView().onShowToastMessage("Please enter your information.");
             return;
-        }
-
-        String typeId = "";
-        for (PlaceType placeType : placeTypes) {
-            if (placeType.getTypeName().equals(typeText)) {
-                typeId = placeType.getId();
-                break;
-            }
         }
 
         RequestBody body = new FormBody.Builder()

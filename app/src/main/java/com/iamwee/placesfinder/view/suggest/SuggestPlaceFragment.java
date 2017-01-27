@@ -32,6 +32,7 @@ public class SuggestPlaceFragment extends PlacesFinderFragment<SuggestPlaceContr
         View.OnFocusChangeListener, ProgressDialogHelper.Callback {
 
     private LatLng latLng;
+    private String placeType = "";
 
     private TextView tvLocation;
     private TextInputEditText edtName;
@@ -129,6 +130,7 @@ public class SuggestPlaceFragment extends PlacesFinderFragment<SuggestPlaceContr
                     + data.getDoubleExtra("lat", 0.0)
                     + ","
                     + data.getDoubleExtra("lng", 0.0);
+            latLng = new LatLng(data.getDoubleExtra("lat", 0.0), data.getDoubleExtra("lng", 0.0));
             tvLocation.setText(location);
         }
     }
@@ -139,10 +141,6 @@ public class SuggestPlaceFragment extends PlacesFinderFragment<SuggestPlaceContr
 
     private String getPlaceNameText() {
         return edtName.getText().toString();
-    }
-
-    private String getPlaceTypeText() {
-        return edtType.getText().toString();
     }
 
     private String getPlaceDetailText() {
@@ -158,7 +156,7 @@ public class SuggestPlaceFragment extends PlacesFinderFragment<SuggestPlaceContr
             getPresenter().submitPlace(
                     getPlaceNameText(),
                     latLng,
-                    getPlaceTypeText(),
+                    placeType,
                     getPlaceAddressText(),
                     getPlaceDetailText()
             );
@@ -187,6 +185,7 @@ public class SuggestPlaceFragment extends PlacesFinderFragment<SuggestPlaceContr
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                placeType = placeTypes.get(which).getId();
                                 edtType.setText(placeTypes.get(which).getTypeName());
                             }
                         }).show();

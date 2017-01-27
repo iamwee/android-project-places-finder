@@ -199,7 +199,7 @@ public class Place implements Parcelable {
     }
 
 
-    private static class Review implements Parcelable {
+    public static class Review implements Parcelable {
 
         @SerializedName("code_name")
         private String codeName;

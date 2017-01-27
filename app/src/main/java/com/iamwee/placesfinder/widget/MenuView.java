@@ -7,16 +7,18 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.iamwee.placesfinder.R;
 
-public class MenuView extends FrameLayout {
+public class MenuView extends FrameLayout implements View.OnClickListener {
 
     private int imageResource;
     private String menu;
+    private OnClickListener listener;
 
     public MenuView(Context context) {
         super(context);
@@ -77,6 +79,11 @@ public class MenuView extends FrameLayout {
         typedArray.recycle();
     }
 
+    public void setOnClickListener(OnClickListener listener){
+        this.listener = listener;
+        findViewById(R.id.root_layout).setOnClickListener(this);
+    }
+
     public void setIconResource(int imageResource) {
         this.imageResource = imageResource;
         setIconResource();
@@ -96,6 +103,15 @@ public class MenuView extends FrameLayout {
         TextView tvMenu = (TextView) findViewById(R.id.mv_menu);
         tvMenu.setText(menu);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (listener != null) listener.onClick(this);
+    }
+
+    public interface OnClickListener {
+        void onClick(View view);
     }
 
     private static class SavedState extends BaseSavedState {

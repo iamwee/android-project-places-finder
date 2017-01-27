@@ -3,11 +3,13 @@ package com.iamwee.placesfinder.view.info;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
 import com.iamwee.placesfinder.dao.Place;
+import com.iamwee.placesfinder.util.GsonUtil;
 
 public class PlaceInfoActivity extends PlacesFinderActivity {
 

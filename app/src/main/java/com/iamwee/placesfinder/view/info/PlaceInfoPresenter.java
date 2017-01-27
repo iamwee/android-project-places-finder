@@ -2,6 +2,7 @@ package com.iamwee.placesfinder.view.info;
 
 import android.os.Bundle;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.view.info.adapter.PlaceInfoConverter;
@@ -15,6 +16,7 @@ class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
 
     private PlaceInfoPresenter(PlaceInfoContractor.View view) {
         super(view);
+        getView().setPresenter(this);
     }
 
     static PlaceInfoPresenter newInstance(PlaceInfoContractor.View view) {
@@ -44,10 +46,12 @@ class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
     @Override
     public void convertToAdapterModel(Place place) {
         List<BasePlaceInfoItem> basePlaceInfoItems = new ArrayList<>();
-        basePlaceInfoItems.add(PlaceInfoConverter.makeHeaderSection());
-        basePlaceInfoItems.add(PlaceInfoConverter.createSummarySection());
-        basePlaceInfoItems.add(PlaceInfoConverter.createReviewSection());
-
+        PlaceInfoConverter converter = new PlaceInfoConverter();
+        basePlaceInfoItems.add(converter.createHeaderSection(place));
+        basePlaceInfoItems.add(converter.createTitleSection("About"));
+        basePlaceInfoItems.add(converter.createSummarySection(place));
+        basePlaceInfoItems.add(converter.createMapSection(new LatLng(place.getLat(), place.getLng())));
+        basePlaceInfoItems.addAll(converter.createReviewSection(place.getReviews()));
         getView().onSetAdapter(basePlaceInfoItems);
     }
 }

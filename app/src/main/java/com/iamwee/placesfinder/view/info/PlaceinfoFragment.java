@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -11,19 +12,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 import com.iamwee.placesfinder.dao.Place;
+import com.iamwee.placesfinder.util.GsonUtil;
 import com.iamwee.placesfinder.view.info.adapter.PlaceInfoAdapter;
+import com.iamwee.placesfinder.view.info.adapter.PlaceInfoConverter;
 import com.iamwee.placesfinder.view.info.adapter.model.BasePlaceInfoItem;
-import com.iamwee.placesfinder.view.main.pager.recent.PlaceRecentAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.Presenter>
         implements PlaceInfoContractor.View {
 
-    private PlaceInfoAdapter placeInfoAdapter;
     private RecyclerView rvPlaceInfo;
 
     public PlaceInfoFragment() {
@@ -58,15 +61,14 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
 
     @Override
     protected void initView(View rootView) {
-//        rvPlaceInfo = (RecyclerView) rootView.findViewById(R.id.rv_place_info);
-//        rvPlaceInfo.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvPlaceInfo = (RecyclerView) rootView.findViewById(R.id.rv_place_info);
+        rvPlaceInfo.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
     @Override
     protected void setupView(View rootView) {
-        //getPresenter().convertToAdapterModel((Place) getArguments().getParcelable("place"));
-        //rvPlaceInfo.setAdapter(new PlaceRecentAdapter());
-
+        Place place = getArguments().getParcelable("place");
+        getPresenter().convertToAdapterModel(place);
     }
 
     @Override
@@ -81,7 +83,8 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
 
     @Override
     public void onSetAdapter(List<BasePlaceInfoItem> basePlaceInfoItems) {
-        placeInfoAdapter = new PlaceInfoAdapter(basePlaceInfoItems);
+        PlaceInfoAdapter placeInfoAdapter = new PlaceInfoAdapter(basePlaceInfoItems);
+        rvPlaceInfo.setAdapter(placeInfoAdapter);
     }
 
     @Override

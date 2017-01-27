@@ -2,7 +2,6 @@ package com.iamwee.placesfinder.view.search;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,13 +30,15 @@ import retrofit2.Response;
 
 public class SearchActivity extends PlacesFinderActivity implements TextWatcher, Callback<List<Place>> {
 
+    private EditText edtSearch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        EditText edtSearch = (EditText) findViewById(R.id.edt_search);
+        edtSearch = (EditText) findViewById(R.id.edt_search);
         edtSearch.addTextChangedListener(this);
 
         if (savedInstanceState == null) {
@@ -83,18 +84,14 @@ public class SearchActivity extends PlacesFinderActivity implements TextWatcher,
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if(edtSearch.getText().toString().isEmpty()) return;
         if (NetworkUtil.isNetworkAvailable(this)) {
             RequestBody body = new FormBody.Builder()
                     .add("secret", SessionUtil.getSecretCode())
                     .add("token", SessionUtil.getToken())
-                    .add("keyword", s.toString())
+                    .add("keyword", edtSearch.getText().toString())
                     .build();
             HttpManager.getServices().searchPlace(body).enqueue(this);
-        } else {
-            getSupportFragmentManager().beginTransaction()
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .replace(R.id.container, null)
-                    .commit();
         }
     }
 
@@ -115,5 +112,6 @@ public class SearchActivity extends PlacesFinderActivity implements TextWatcher,
     public void onFailure(Call<List<Place>> call, Throwable t) {
         String error = NetworkUtil.analyzeNetworkException(t);
         if (error != null) Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+        else t.printStackTrace();
     }
 }

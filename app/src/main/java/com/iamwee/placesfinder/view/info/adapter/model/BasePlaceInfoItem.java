@@ -1,15 +1,9 @@
 package com.iamwee.placesfinder.view.info.adapter.model;
 
-/**
- * Created by zeon on 1/24/17.
- */
 
 public class BasePlaceInfoItem {
 
     private int type;
-
-    public BasePlaceInfoItem() {
-    }
 
     public BasePlaceInfoItem(int type) {
         this.type = type;

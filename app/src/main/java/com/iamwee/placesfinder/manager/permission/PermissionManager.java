@@ -96,7 +96,7 @@ public class PermissionManager {
     }
 
     public interface PermissionCallback {
-        void onPermissionResult(PermissionResult permissionResult);
+        void onPermissionResult(PermissionResult result);
     }
 
 }
