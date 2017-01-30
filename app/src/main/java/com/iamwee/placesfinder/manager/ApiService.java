@@ -72,6 +72,9 @@ public interface ApiService {
     @POST("feedback")
     Call<ServerResponse> sendFeedback(@Body RequestBody body);
 
+    @POST("place/submit")
+    Call<ServerResponse> submitPlace(@Body RequestBody body);
+
     @GET("report/type")
     Call<Objects> getReportType();
 

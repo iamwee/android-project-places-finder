@@ -98,7 +98,7 @@ public class PlaceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         holder.mvSubmitPlace.setOnClickListener(new MenuView.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                EventBus.getDefault().post(new OpenActivity(OpenActivity.SUBMIT_PLACE));
             }
         });
 
