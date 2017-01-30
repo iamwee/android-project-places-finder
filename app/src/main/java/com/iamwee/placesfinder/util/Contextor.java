@@ -1,12 +1,10 @@
 package com.iamwee.placesfinder.util;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 
 
 public class Contextor {
 
-    @SuppressLint("StaticFieldLeak")
     private static Contextor instance;
 
     public static Contextor getInstance(){

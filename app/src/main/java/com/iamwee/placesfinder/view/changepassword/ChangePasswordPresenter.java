@@ -39,7 +39,7 @@ class ChangePasswordPresenter extends BasePresenter<ChangePasswordContractor.Vie
 
     @Override
     public void onStop() {
-
+        cancelCall();
     }
 
     @Override
@@ -68,7 +68,7 @@ class ChangePasswordPresenter extends BasePresenter<ChangePasswordContractor.Vie
 
             call = HttpManager.getServices().changePassword(body);
             call.enqueue(this);
-            getView().onServiceExecuting();
+            getView().onExecuting();
 
         }
     }
@@ -94,7 +94,7 @@ class ChangePasswordPresenter extends BasePresenter<ChangePasswordContractor.Vie
                 e.printStackTrace();
             }
         }
-        getView().onServicePostExecute();
+        getView().onPostExecute();
     }
 
     @Override
@@ -102,6 +102,6 @@ class ChangePasswordPresenter extends BasePresenter<ChangePasswordContractor.Vie
         String error = NetworkUtil.analyzeNetworkException(t);
         if(error != null) getView().onShowToastMessage(error);
         else t.printStackTrace();
-        getView().onServicePostExecute();
+        getView().onPostExecute();
     }
 }

@@ -117,12 +117,12 @@ public class ProfileFragment extends PlacesFinderFragment<ProfileContractor.Pres
     }
 
     @Override
-    public void onServiceExecuting() {
+    public void onExecuting() {
         ProgressDialogHelper.show(getActivity(), this);
     }
 
     @Override
-    public void onServicePostExecute() {
+    public void onPostExecute() {
         ProgressDialogHelper.dismiss();
     }
 

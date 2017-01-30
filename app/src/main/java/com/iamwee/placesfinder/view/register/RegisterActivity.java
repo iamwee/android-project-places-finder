@@ -25,16 +25,6 @@ public class RegisterActivity extends PlacesFinderActivity {
     }
 
     @Override
-    protected void initView() {
-
-    }
-
-    @Override
-    protected void setupView() {
-
-    }
-
-    @Override
     protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);

@@ -74,7 +74,7 @@ class LoginPresenter extends BasePresenter<LoginContractor.View>
 
         call = HttpManager.getServices().login(body);
         call.enqueue(this);
-        getView().onServiceExecuting();
+        getView().onExecuting();
     }
 
 
@@ -96,7 +96,7 @@ class LoginPresenter extends BasePresenter<LoginContractor.View>
                 e.printStackTrace();
             }
         }
-        getView().onServicePostExecute();
+        getView().onPostExecute();
     }
 
     @Override
@@ -104,7 +104,7 @@ class LoginPresenter extends BasePresenter<LoginContractor.View>
         String error = NetworkUtil.analyzeNetworkException(t);
         if(error != null) getView().onShowToastMessage(error);
         else t.printStackTrace();
-        getView().onServicePostExecute();
+        getView().onPostExecute();
     }
 
 

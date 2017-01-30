@@ -35,7 +35,7 @@
     <string name="change_password">Change Password</string>
     <string name="action_save">Save</string>
     <string name="search_title">Search</string>
-    <string name="error_check_connection">Please check your internet connection.</string>
+    <string name="error_check_internet_connection">Please check your internet connection.</string>
     <string name="error_permission_denied">Permission Denied</string>
     <string name="error_we_need_to_access_to_location">We need to access to your location, enable location permission to find current location.</string>
     <string name="action_submit">Submit</string>
@@ -50,4 +50,7 @@
     <string name="action_report">Report</string>
     <string name="error_camera_storage_permission_denied">We need to access to camera and storage, please enable permission to choose photo</string>
     <string name="choose_photo">Choose Photo</string>
+    <string name="action_send">Send</string>
+    <string name="title">Title</string>
+    <string name="feedback">Feedback</string>
 </resources>

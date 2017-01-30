@@ -69,7 +69,7 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
 
     @Override
     public void onNetworkConnectionFailure() {
-        Toast.makeText(getActivity(), R.string.error_check_connection, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), R.string.error_check_internet_connection, Toast.LENGTH_SHORT).show();
     }
 
     @Override

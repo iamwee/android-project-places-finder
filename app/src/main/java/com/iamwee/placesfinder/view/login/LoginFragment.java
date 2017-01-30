@@ -59,7 +59,7 @@ public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presente
     public void onNetworkConnectionFailure() {
         Toast.makeText(
                 getActivity(),
-                getString(R.string.error_check_connection),
+                getString(R.string.error_check_internet_connection),
                 Toast.LENGTH_SHORT
         ).show();
     }
@@ -106,12 +106,12 @@ public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presente
     }
 
     @Override
-    public void onServiceExecuting() {
+    public void onExecuting() {
         ProgressDialogHelper.show(getActivity(), this);
     }
 
     @Override
-    public void onServicePostExecute() {
+    public void onPostExecute() {
         ProgressDialogHelper.dismiss();
     }
 

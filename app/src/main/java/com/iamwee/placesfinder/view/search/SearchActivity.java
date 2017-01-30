@@ -28,7 +28,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SearchActivity extends PlacesFinderActivity implements TextWatcher, Callback<List<Place>> {
+public class SearchActivity extends PlacesFinderActivity
+        implements TextWatcher, Callback<List<Place>> {
 
     private EditText edtSearch;
 

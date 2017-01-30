@@ -54,16 +54,6 @@ public class ChangePasswordFragment extends PlacesFinderFragment<ChangePasswordC
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
     protected void initView(View rootView) {
         edtNewPassword = (TextInputEditText) rootView.findViewById(R.id.edt_new_password);
         edtConfirmPassword = (TextInputEditText) rootView.findViewById(R.id.edt_confirm_password);
@@ -75,12 +65,12 @@ public class ChangePasswordFragment extends PlacesFinderFragment<ChangePasswordC
     }
 
     @Override
-    public void onServiceExecuting() {
+    public void onExecuting() {
         ProgressDialogHelper.show(getActivity(), this);
     }
 
     @Override
-    public void onServicePostExecute() {
+    public void onPostExecute() {
         ProgressDialogHelper.dismiss();
     }
 
@@ -88,7 +78,7 @@ public class ChangePasswordFragment extends PlacesFinderFragment<ChangePasswordC
     public void onNetworkConnectionFailure() {
         Toast.makeText(
                 getActivity(),
-                R.string.error_check_connection,
+                R.string.error_check_internet_connection,
                 Toast.LENGTH_SHORT)
                 .show();
     }

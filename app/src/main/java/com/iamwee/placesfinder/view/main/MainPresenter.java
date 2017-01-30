@@ -1,14 +1,12 @@
 package com.iamwee.placesfinder.view.main;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.dao.UserProfile;
 import com.iamwee.placesfinder.manager.HttpManager;
 import com.iamwee.placesfinder.util.GsonUtil;
-import com.iamwee.placesfinder.util.NetworkUtil;
 import com.iamwee.placesfinder.util.SessionUtil;
 
 import java.io.IOException;
@@ -23,7 +21,6 @@ import retrofit2.Response;
 class MainPresenter extends BasePresenter<MainContractor.View>
         implements MainContractor.Presenter, Callback<UserProfile> {
 
-    private static final String TAG = "MainPresenter";
     private Call<UserProfile> call;
 
     private MainPresenter(MainContractor.View view) {
@@ -84,8 +81,6 @@ class MainPresenter extends BasePresenter<MainContractor.View>
 
     @Override
     public void onFailure(Call<UserProfile> call, Throwable t) {
-        String error = NetworkUtil.analyzeNetworkException(t);
-        if (error != null) Log.e(TAG, "onFailure: " + error);
-        else t.printStackTrace();
+        t.printStackTrace();
     }
 }

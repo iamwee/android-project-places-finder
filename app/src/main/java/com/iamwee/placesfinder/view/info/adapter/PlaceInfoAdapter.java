@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.iamwee.placesfinder.R;
+import com.iamwee.placesfinder.event.OpenActivity;
 import com.iamwee.placesfinder.view.info.adapter.model.BasePlaceInfoItem;
 import com.iamwee.placesfinder.view.info.adapter.model.HeaderItem;
 import com.iamwee.placesfinder.view.info.adapter.model.MapItem;
@@ -22,6 +23,8 @@ import com.iamwee.placesfinder.view.info.adapter.viewholder.ReviewViewHolder;
 import com.iamwee.placesfinder.view.info.adapter.viewholder.SectionViewHolder;
 import com.iamwee.placesfinder.view.info.adapter.viewholder.SummaryViewHolder;
 import com.iamwee.placesfinder.widget.MenuView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -91,6 +94,7 @@ public class PlaceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.ivImg);
         }
+
         holder.mvSubmitPlace.setOnClickListener(new MenuView.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,14 +105,14 @@ public class PlaceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         holder.mvWriteReview.setOnClickListener(new MenuView.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                EventBus.getDefault().post(new OpenActivity(OpenActivity.WRITE_REVIEW));
             }
         });
 
         holder.mvAddPhoto.setOnClickListener(new MenuView.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                EventBus.getDefault().post(new OpenActivity(OpenActivity.CHOOSE_PHOTO));
             }
         });
     }

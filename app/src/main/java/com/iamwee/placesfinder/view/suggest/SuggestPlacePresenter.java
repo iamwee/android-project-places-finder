@@ -67,7 +67,7 @@ class SuggestPlacePresenter extends BasePresenter<SuggestPlaceContractor.View> i
                     .build();
             getPlaceTypeCall = HttpManager.getServices().getPlaceType(body);
             getPlaceTypeCall.enqueue(getPlaceTypeCallback);
-            getView().onServiceExecuting();
+            getView().onExecuting();
         } else {
             getView().onNetworkConnectionFailure();
         }
@@ -104,7 +104,7 @@ class SuggestPlacePresenter extends BasePresenter<SuggestPlaceContractor.View> i
 
         submitPlaceCall = HttpManager.getServices().suggestPlace(body);
         submitPlaceCall.enqueue(submitPlaceCallback);
-        getView().onServiceExecuting();
+        getView().onExecuting();
     }
 
     private Callback<ArrayList<PlaceType>> getPlaceTypeCallback = new Callback<ArrayList<PlaceType>>() {
@@ -114,7 +114,7 @@ class SuggestPlacePresenter extends BasePresenter<SuggestPlaceContractor.View> i
             if (response.isSuccessful()) {
                 placeTypes = response.body();
                 getView().onPostGetPlaceType(placeTypes);
-                getView().onServicePostExecute();
+                getView().onPostExecute();
             }
         }
 
@@ -124,7 +124,7 @@ class SuggestPlacePresenter extends BasePresenter<SuggestPlaceContractor.View> i
             String error = NetworkUtil.analyzeNetworkException(t);
             if (error != null) getView().onShowToastMessage(error);
             else t.printStackTrace();
-            getView().onServicePostExecute();
+            getView().onPostExecute();
         }
     };
 
@@ -134,7 +134,7 @@ class SuggestPlacePresenter extends BasePresenter<SuggestPlaceContractor.View> i
             if (response.isSuccessful()) {
                 getView().onPlaceSubmitted();
             }
-            getView().onServicePostExecute();
+            getView().onPostExecute();
         }
 
         @Override
@@ -142,7 +142,7 @@ class SuggestPlacePresenter extends BasePresenter<SuggestPlaceContractor.View> i
             String error = NetworkUtil.analyzeNetworkException(t);
             if (error != null) getView().onShowToastMessage(error);
             else t.printStackTrace();
-            getView().onServicePostExecute();
+            getView().onPostExecute();
         }
     };
 }

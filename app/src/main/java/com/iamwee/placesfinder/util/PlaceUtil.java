@@ -15,7 +15,7 @@ public class PlaceUtil {
     private static final String PLACE_PREF = "place_pref";
     private static final String PLACE_PREF_DATA = "place_pref_data";
 
-    public static void cacheData(ArrayList<Place> places) {
+    public static void cache(ArrayList<Place> places) {
         List<Place> newPlaces = places.subList(0, places.size() > 20 ? 20 : places.size());
         String json = GsonUtil.getInstance().toJson(
                 newPlaces,
@@ -25,7 +25,7 @@ public class PlaceUtil {
         getSharedPreferenceWithEdit().putString(PLACE_PREF_DATA, json).apply();
     }
 
-    public static ArrayList<Place> loadData() {
+    public static ArrayList<Place> load() {
         return GsonUtil.getInstance().fromJson(
                 getSharedPreference().getString(PLACE_PREF_DATA, "[]"),
                 new TypeToken<ArrayList<Place>>() {
@@ -33,7 +33,7 @@ public class PlaceUtil {
         );
     }
 
-    public static void clearData() {
+    public static void clear() {
         getSharedPreferenceWithEdit().clear().apply();
     }
 

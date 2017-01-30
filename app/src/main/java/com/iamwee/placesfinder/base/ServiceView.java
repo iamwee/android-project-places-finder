@@ -6,8 +6,8 @@ package com.iamwee.placesfinder.base;
 
 public interface ServiceView<T> extends BaseView<T> {
 
-    void onServiceExecuting();
+    void onExecuting();
 
-    void onServicePostExecute();
+    void onPostExecute();
 
 }

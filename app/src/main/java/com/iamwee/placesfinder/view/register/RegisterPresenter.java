@@ -79,7 +79,7 @@ class RegisterPresenter extends BasePresenter<RegisterContractor.View>
 
             createAccountCall = HttpManager.getServices().createAccount(body);
             createAccountCall.enqueue(this);
-            getView().onServiceExecuting();
+            getView().onExecuting();
 
         }
     }
@@ -106,7 +106,7 @@ class RegisterPresenter extends BasePresenter<RegisterContractor.View>
 
     @Override
     public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-        getView().onServicePostExecute();
+        getView().onPostExecute();
         if (response.isSuccessful()) {
             getView().onCreateAccountSuccess();
         } else if (response.code() == HttpManager.BAD_REQUEST) {
@@ -125,7 +125,7 @@ class RegisterPresenter extends BasePresenter<RegisterContractor.View>
         String error = NetworkUtil.analyzeNetworkException(t);
         if(error != null) getView().onShowToastMessage(error);
         else t.printStackTrace();
-        getView().onServicePostExecute();
+        getView().onPostExecute();
     }
 
     @Override

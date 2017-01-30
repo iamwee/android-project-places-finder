@@ -112,7 +112,7 @@ public class ChooseLocationActivity extends PlacesFinderActivity
                 geoCoderUtil = new GeoCoderUtil.Builder()
                         .withLocation(googleMap.getCameraPosition().target)
                         .build();
-            ProgressDialogHelper.show(ChooseLocationActivity.this);
+            ProgressDialogHelper.show(this);
             geoCoderUtil.findAddress(this);
         }
     }
@@ -135,7 +135,7 @@ public class ChooseLocationActivity extends PlacesFinderActivity
         if (t instanceof IllegalStateException) {
             Toast.makeText(this, t.getMessage(), Toast.LENGTH_SHORT).show();
         } else if (t instanceof NetworkErrorException) {
-            Toast.makeText(this, R.string.error_check_connection, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_check_internet_connection, Toast.LENGTH_SHORT).show();
         } else {
             t.printStackTrace();
         }

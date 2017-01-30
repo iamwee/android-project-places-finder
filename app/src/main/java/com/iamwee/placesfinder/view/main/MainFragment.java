@@ -96,12 +96,12 @@ public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
     }
 
     @Override
-    public void onServiceExecuting() {
+    public void onExecuting() {
 
     }
 
     @Override
-    public void onServicePostExecute() {
+    public void onPostExecute() {
 
     }
 }

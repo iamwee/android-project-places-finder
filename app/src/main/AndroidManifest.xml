@@ -15,14 +15,13 @@
         tools:node="remove" />
 
     <application
-        android:authorities="com.iamwee.placesfinder.fileprovider"
         android:name=".PlacesFinderApplication"
         android:allowBackup="true"
+        android:authorities="com.iamwee.placesfinder.fileprovider"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.android.fileprovider"
@@ -30,7 +29,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"/>
+                android:resource="@xml/file_paths" />
         </provider>
 
         <activity
@@ -96,7 +95,9 @@
         <activity
             android:name=".view.suggest.choosephoto.ChoosePhotoActivity"
             android:label="@string/choose_photo" />
-
+        <activity android:name=".view.writereview.WriteReviewActivity" />
+        <activity android:name=".view.feedback.FeedbackActivity" />
+        <activity android:name=".view.report.ReportActivity"></activity>
     </application>
 
 </manifest>

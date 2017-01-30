@@ -65,8 +65,8 @@ public class PlaceRecentFragment extends PlacesFinderFragment<RecentContractor.P
 
     @Override
     protected void setupView(View rootView) {
-        if (PlaceUtil.loadData().size() > 0) {
-            rvRecentPlace.setAdapter(new PlaceRecentAdapter(PlaceUtil.loadData()));
+        if (PlaceUtil.load().size() > 0) {
+            rvRecentPlace.setAdapter(new PlaceRecentAdapter(PlaceUtil.load()));
         } else {
             ViewStub viewStub = (ViewStub) rootView.findViewById(R.id.view_stub);
             viewStub.inflate();

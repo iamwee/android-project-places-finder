@@ -16,6 +16,7 @@ public class OpenActivity {
     public static final int TAKE_PHOTO = 60;
     public static final int CHOOSE_PHOTO = 61;
     public static final int INFO_PLACE = 7;
+    public static final int WRITE_REVIEW = 8;
 
     private int status;
     private boolean finish;

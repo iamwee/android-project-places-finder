@@ -1,29 +1,28 @@
-package com.iamwee.placesfinder.view.logout;
+package com.iamwee.placesfinder.view.writereview;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
+import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.event.OpenActivity;
-import com.iamwee.placesfinder.view.SplashScreenActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class LogoutActivity extends PlacesFinderActivity {
+public class WriteReviewActivity extends PlacesFinderActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_logout);
+        setContentView(R.layout.activity_write_review);
 
+        Place place = getIntent().getParcelableExtra("place");
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, LogoutFragment.newInstance())
+                    .add(R.id.container, WriteReviewFragment.newInstance(place))
                     .commit();
         }
-
     }
 
     @Override
@@ -39,9 +38,9 @@ public class LogoutActivity extends PlacesFinderActivity {
     }
 
     @Subscribe
-    public void onOpenActivity(OpenActivity event) {
-        if (event.getStatus() == OpenActivity.SPLASH_SCREEN_ACTIVITY) {
-            openActivity(new Intent(this, SplashScreenActivity.class), 1000, true);
+    public void onSubmitted(OpenActivity event){
+        if (event.getStatus() == OpenActivity.FINISH){
+            finish();
         }
     }
 }

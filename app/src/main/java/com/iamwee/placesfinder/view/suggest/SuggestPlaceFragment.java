@@ -113,7 +113,7 @@ public class SuggestPlaceFragment extends PlacesFinderFragment<SuggestPlaceContr
 
     @Override
     public void onNetworkConnectionFailure() {
-        Toast.makeText(getActivity(), R.string.error_check_connection, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), R.string.error_check_internet_connection, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -198,12 +198,12 @@ public class SuggestPlaceFragment extends PlacesFinderFragment<SuggestPlaceContr
     }
 
     @Override
-    public void onServiceExecuting() {
+    public void onExecuting() {
         ProgressDialogHelper.show(getActivity(), this);
     }
 
     @Override
-    public void onServicePostExecute() {
+    public void onPostExecute() {
         ProgressDialogHelper.dismiss();
     }
 

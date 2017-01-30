@@ -3,13 +3,19 @@ package com.iamwee.placesfinder.view.info;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
 import com.iamwee.placesfinder.dao.Place;
-import com.iamwee.placesfinder.util.GsonUtil;
+import com.iamwee.placesfinder.event.OpenActivity;
+import com.iamwee.placesfinder.util.SessionUtil;
+import com.iamwee.placesfinder.view.login.LoginActivity;
+import com.iamwee.placesfinder.view.suggest.choosephoto.ChoosePhotoActivity;
+import com.iamwee.placesfinder.view.writereview.WriteReviewActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class PlaceInfoActivity extends PlacesFinderActivity {
 
@@ -45,14 +51,35 @@ public class PlaceInfoActivity extends PlacesFinderActivity {
         getSupportActionBar().setTitle(place.getName());
     }
 
-    @Override
-    protected void initView() {
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     @Override
-    protected void setupView() {
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
 
+    @Subscribe
+    public void onOpenActivity(OpenActivity event) {
+        if (SessionUtil.hasLoggedIn()) {
+            switch (event.getStatus()) {
+                case OpenActivity.WRITE_REVIEW:
+                    Intent intent = new Intent(this, WriteReviewActivity.class);
+                    intent.putExtra("place", place);
+                    openActivity(intent);
+                    break;
+                case OpenActivity.CHOOSE_PHOTO:
+                    startActivityForResult(new Intent(this, ChoosePhotoActivity.class), 1);
+                    break;
+            }
+        } else {
+            openActivity(new Intent(this, LoginActivity.class), true);
+        }
     }
 
     @Override

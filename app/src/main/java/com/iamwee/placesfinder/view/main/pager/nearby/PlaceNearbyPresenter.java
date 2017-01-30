@@ -152,7 +152,7 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
                 addMarkerIntoMap();
             }
         } else {
-            places = PlaceUtil.loadData();
+            places = PlaceUtil.load();
             addMarkerIntoMap();
         }
     }
@@ -182,7 +182,7 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
     public void onResponse(Call<ArrayList<Place>> call, Response<ArrayList<Place>> response) {
         if (response.isSuccessful()) {
             this.places = response.body();
-            PlaceUtil.cacheData(places);
+            PlaceUtil.cache(places);
             getView().onClearMarker();
             addMarkerIntoMap();
         }

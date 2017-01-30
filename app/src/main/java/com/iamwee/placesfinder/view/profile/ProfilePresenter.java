@@ -61,7 +61,7 @@ class ProfilePresenter extends BasePresenter<ProfileContractor.View>
 
         call = HttpManager.getServices().updateProfile(body);
         call.enqueue(this);
-        getView().onServiceExecuting();
+        getView().onExecuting();
     }
 
     @Override
@@ -84,7 +84,7 @@ class ProfilePresenter extends BasePresenter<ProfileContractor.View>
                 e.printStackTrace();
             }
         }
-        getView().onServicePostExecute();
+        getView().onPostExecute();
     }
 
     @Override
@@ -92,6 +92,6 @@ class ProfilePresenter extends BasePresenter<ProfileContractor.View>
         String error = NetworkUtil.analyzeNetworkException(t);
         if(error != null) getView().onShowToastMessage(error);
         else t.printStackTrace();
-        getView().onServicePostExecute();
+        getView().onPostExecute();
     }
 }

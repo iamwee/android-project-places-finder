@@ -11,9 +11,6 @@ import com.iamwee.placesfinder.util.SessionUtil;
 import com.iamwee.placesfinder.view.main.MainActivity;
 import com.iamwee.placesfinder.view.walk_through.WalkThroughActivity;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
 
 public class SplashScreenActivity extends PlacesFinderActivity {
 
@@ -35,16 +32,6 @@ public class SplashScreenActivity extends PlacesFinderActivity {
 
             }
         };
-    }
-
-    @Override
-    protected void initView() {
-
-    }
-
-    @Override
-    protected void setupView() {
-
     }
 
     @Override
