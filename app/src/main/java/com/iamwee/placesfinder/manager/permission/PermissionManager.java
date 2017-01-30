@@ -8,6 +8,7 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 
 import com.iamwee.placesfinder.R;
+import com.iamwee.placesfinder.view.info.PlaceDirectionActivity;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.MultiplePermissionsReport;

@@ -1,5 +1,6 @@
 package com.iamwee.placesfinder.view.info;
 
+import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,9 +18,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
 import com.iamwee.placesfinder.dao.Place;
+import com.iamwee.placesfinder.manager.permission.PermissionManager;
+import com.iamwee.placesfinder.manager.permission.PermissionResult;
+
+import java.util.Arrays;
 
 public class PlaceDirectionActivity extends PlacesFinderActivity
-        implements OnMapReadyCallback {
+        implements OnMapReadyCallback, PermissionManager.PermissionCallback {
 
     private GoogleMap googleMap;
     private Place place;
@@ -28,10 +33,16 @@ public class PlaceDirectionActivity extends PlacesFinderActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_direction);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         this.place = intent.getParcelableExtra("place");
+        getSupportActionBar().setTitle("Direction: " + place.getName());
         setupGoogleMap();
+        PermissionManager.requestPermission(Arrays.asList(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+        ), this);
     }
 
     @Override
@@ -64,6 +75,7 @@ public class PlaceDirectionActivity extends PlacesFinderActivity
     }
 
     private void setupGoogleMapProperty() {
+        googleMap.setMyLocationEnabled(true);
         googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(place.getLat(), place.getLng()))
                 .title(place.getName())
@@ -75,6 +87,9 @@ public class PlaceDirectionActivity extends PlacesFinderActivity
         int id = item.getItemId();
         if (id == R.id.action_directions) {
             gotoMapActivity();
+            finish();
+            return true;
+        } else if (id == android.R.id.home){
             finish();
             return true;
         }
@@ -97,5 +112,23 @@ public class PlaceDirectionActivity extends PlacesFinderActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.fragment_place_direction_menu, menu);
         return true;
+    }
+
+    @Override
+    public void onPermissionResult(PermissionResult result) {
+        if (result.areAllPermissionsGranted() && googleMap != null){
+            googleMap.setMyLocationEnabled(true);
+        } else if (result.isAnyPermissionPermanentlyDenied()){
+            showPermissionDeniedErrorMessage();
+        } else {
+            showPermissionDeniedErrorMessage();
+        }
+    }
+
+    private void showPermissionDeniedErrorMessage(){
+        PermissionManager.showPermissionRequestDeniedDialog(
+                this,
+                getString(R.string.error_we_need_to_access_to_location)
+        );
     }
 }

@@ -133,6 +133,12 @@ public class PlaceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(holder.ivMap);
+        holder.ivMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new OpenActivity(OpenActivity.DIRECTION));
+            }
+        });
     }
 
     private void setupReviewSection(ReviewViewHolder holder, ReviewItem item) {

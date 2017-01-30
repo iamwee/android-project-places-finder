@@ -76,6 +76,11 @@ public class PlaceInfoActivity extends PlacesFinderActivity {
                 case OpenActivity.CHOOSE_PHOTO:
                     startActivityForResult(new Intent(this, ChoosePhotoActivity.class), 1);
                     break;
+                case OpenActivity.DIRECTION:
+                    Intent directionIntent = new Intent(this, PlaceDirectionActivity.class);
+                    directionIntent.putExtra("place", place);
+                    startActivity(directionIntent);
+                    overridePendingTransition(0, 0);
             }
         } else {
             openActivity(new Intent(this, LoginActivity.class), true);

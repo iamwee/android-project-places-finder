@@ -1,6 +1,7 @@
 package com.iamwee.placesfinder.view.writereview;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
@@ -16,6 +17,7 @@ public class WriteReviewActivity extends PlacesFinderActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_review);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Place place = getIntent().getParcelableExtra("place");
         if (savedInstanceState == null) {
@@ -42,5 +44,15 @@ public class WriteReviewActivity extends PlacesFinderActivity {
         if (event.getStatus() == OpenActivity.FINISH){
             finish();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home){
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

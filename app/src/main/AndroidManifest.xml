@@ -88,7 +88,9 @@
         <activity
             android:name=".view.suggest.chooselocation.ChooseLocationActivity"
             android:label="@string/choose_location" />
-        <activity android:name=".view.SettingsActivity" />
+        <activity
+            android:name=".view.SettingsActivity"
+            android:label="@string/action_settings" />
         <activity
             android:name=".view.info.PlaceDirectionActivity"
             android:label="@string/direction" />
@@ -96,8 +98,12 @@
             android:name=".view.suggest.choosephoto.ChoosePhotoActivity"
             android:label="@string/choose_photo" />
         <activity android:name=".view.writereview.WriteReviewActivity" />
-        <activity android:name=".view.feedback.FeedbackActivity" />
-        <activity android:name=".view.report.ReportActivity"></activity>
+        <activity
+            android:name=".view.feedback.FeedbackActivity"
+            android:label="@string/feedback" />
+        <activity
+            android:name=".view.report.ReportActivity"
+            android:label="@string/action_report" />
     </application>
 
 </manifest>

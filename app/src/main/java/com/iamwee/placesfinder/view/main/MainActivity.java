@@ -16,6 +16,7 @@ import com.iamwee.placesfinder.common.PlacesFinderActivity;
 import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.util.SessionUtil;
 import com.iamwee.placesfinder.view.SettingsActivity;
+import com.iamwee.placesfinder.view.feedback.FeedbackActivity;
 import com.iamwee.placesfinder.view.info.PlaceInfoActivity;
 import com.iamwee.placesfinder.view.login.LoginActivity;
 import com.iamwee.placesfinder.view.logout.LogoutActivity;
@@ -122,6 +123,8 @@ public class MainActivity extends PlacesFinderActivity
             openActivity(new Intent(this, SettingsActivity.class));
         } else if (id == R.id.nav_logout) {
             openActivity(new Intent(this, LogoutActivity.class), true);
+        } else if (id == R.id.nav_send_feed_back){
+            openActivity(new Intent(this, FeedbackActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

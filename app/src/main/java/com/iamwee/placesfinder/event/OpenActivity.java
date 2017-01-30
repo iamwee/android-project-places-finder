@@ -18,6 +18,7 @@ public class OpenActivity {
     public static final int INFO_PLACE = 7;
     public static final int WRITE_REVIEW = 8;
     public static final int SUBMIT_PLACE = 9;
+    public static final int DIRECTION = 10;
 
     private int status;
     private boolean finish;
