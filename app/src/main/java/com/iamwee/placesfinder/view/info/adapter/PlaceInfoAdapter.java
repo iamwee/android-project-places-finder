@@ -153,4 +153,9 @@ public class PlaceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int getItemCount() {
         return basePlaceInfoItems.size();
     }
+
+    public void update(List<BasePlaceInfoItem> basePlaceInfoItems) {
+        this.basePlaceInfoItems = basePlaceInfoItems;
+        notifyDataSetChanged();
+    }
 }

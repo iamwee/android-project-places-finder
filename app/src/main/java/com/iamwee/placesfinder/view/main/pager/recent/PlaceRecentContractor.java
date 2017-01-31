@@ -2,18 +2,20 @@ package com.iamwee.placesfinder.view.main.pager.recent;
 
 import com.iamwee.placesfinder.base.BasePresenterImpl;
 import com.iamwee.placesfinder.base.BaseView;
+import com.iamwee.placesfinder.dao.Place;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
+import java.util.ArrayList;
 
-interface RecentContractor {
+interface PlaceRecentContractor {
 
     interface Presenter extends BasePresenterImpl {
 
+        void getPlacesData();
     }
 
     interface View extends BaseView<Presenter> {
+        void onRefreshed();
 
+        void onUpdatePlacesData(ArrayList<Place> body);
     }
 }

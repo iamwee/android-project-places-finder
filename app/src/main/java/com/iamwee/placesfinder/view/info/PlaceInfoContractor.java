@@ -15,10 +15,14 @@ interface PlaceInfoContractor {
         void convertToAdapterModel(Place place);
 
         void submitPlace(String placeId);
+
+        void getPlaceById(String id);
     }
 
     interface View extends BaseView<Presenter> {
 
         void onSetAdapter(List<BasePlaceInfoItem> basePlaceInfoItems);
+
+        void onRefreshed();
     }
 }

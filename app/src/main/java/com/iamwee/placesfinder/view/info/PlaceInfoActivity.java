@@ -81,6 +81,9 @@ public class PlaceInfoActivity extends PlacesFinderActivity {
                     directionIntent.putExtra("place", place);
                     startActivity(directionIntent);
                     overridePendingTransition(0, 0);
+                    break;
+                case OpenActivity.LOGIN_ACTIVITY:
+                    openActivity(new Intent(this, LoginActivity.class), true);
             }
         } else {
             openActivity(new Intent(this, LoginActivity.class), true);

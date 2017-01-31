@@ -142,15 +142,8 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
 
     @Override
     public void getPlacesData() {
-
         if (NetworkUtil.isNetworkAvailable(getContext())) {
-            if (places == null) {
-                getPlacesFromServer();
-            } else if (places.size() == 0) {
-                getPlacesFromServer();
-            } else {
-                addMarkerIntoMap();
-            }
+            getPlacesFromServer();
         } else {
             places = PlaceUtil.load();
             addMarkerIntoMap();
@@ -159,13 +152,11 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
 
     @Override
     public void getPlacesFromServer() {
-        if (NetworkUtil.isNetworkAvailable(getContext())) {
-            call = HttpManager.getServices().getAllPlace(
-                    SessionUtil.getSecretCode(),
-                    SessionUtil.getToken()
-            );
-            call.enqueue(this);
-        }
+        call = HttpManager.getServices().getAllPlace(
+                SessionUtil.getSecretCode(),
+                SessionUtil.getToken()
+        );
+        call.enqueue(this);
     }
 
     @Override

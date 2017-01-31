@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.iamwee.placesfinder.R;
 
 /**
@@ -71,6 +72,10 @@ public class PlaceView extends FrameLayout implements View.OnClickListener {
 
     public void setImageUrl(String imageUrl) {
         ImageView ivImg = (ImageView) findViewById(R.id.pv_img);
+        Glide.with(getContext())
+                .load(imageUrl)
+                .centerCrop()
+                .into(ivImg);
     }
 
     public void setName(String name) {

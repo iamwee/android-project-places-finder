@@ -76,6 +76,7 @@ public class PlaceDirectionActivity extends PlacesFinderActivity
 
     private void setupGoogleMapProperty() {
         googleMap.setMyLocationEnabled(true);
+        googleMap.getUiSettings().setMapToolbarEnabled(false);
         googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(place.getLat(), place.getLng()))
                 .title(place.getName())

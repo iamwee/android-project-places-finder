@@ -3,6 +3,7 @@ package com.iamwee.placesfinder.view.main.pager.recent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.widget.PlaceView;
 
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class PlaceRecentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+class PlaceRecentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<Place> places;
 
@@ -38,6 +39,9 @@ public class PlaceRecentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             });
             viewHolder.placeView.setName(getItem(position).getName());
             viewHolder.placeView.setAddress(getItem(position).getAddress());
+            if (places.get(position).getImages().size() > 0) {
+                viewHolder.placeView.setImageUrl(getItem(position).getImages().get(0));
+            }
         }
     }
 
@@ -48,6 +52,11 @@ public class PlaceRecentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public int getItemCount() {
         return places.size();
+    }
+
+    void setPlacesData(ArrayList<Place> places) {
+        this.places = places;
+        notifyDataSetChanged();
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder {

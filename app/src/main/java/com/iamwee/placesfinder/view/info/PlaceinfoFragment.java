@@ -3,6 +3,7 @@ package com.iamwee.placesfinder.view.info;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,12 +24,16 @@ import com.iamwee.placesfinder.view.info.adapter.model.BasePlaceInfoItem;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.Presenter>
-        implements PlaceInfoContractor.View {
+        implements PlaceInfoContractor.View, SwipeRefreshLayout.OnRefreshListener {
 
     private RecyclerView rvPlaceInfo;
+    private PlaceInfoAdapter placeInfoAdapter;
+    //private SwipeRefreshLayout swipeRefreshLayout;
 
     public PlaceInfoFragment() {
 
@@ -99,8 +104,12 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
 
     @Override
     protected void setupView(View rootView) {
+        placeInfoAdapter = new PlaceInfoAdapter(new ArrayList<BasePlaceInfoItem>());
+        rvPlaceInfo.setAdapter(placeInfoAdapter);
+
         Place place = getArguments().getParcelable("place");
         getPresenter().convertToAdapterModel(place);
+
     }
 
     @Override
@@ -115,8 +124,12 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
 
     @Override
     public void onSetAdapter(List<BasePlaceInfoItem> basePlaceInfoItems) {
-        PlaceInfoAdapter placeInfoAdapter = new PlaceInfoAdapter(basePlaceInfoItems);
-        rvPlaceInfo.setAdapter(placeInfoAdapter);
+        placeInfoAdapter.update(basePlaceInfoItems);
+    }
+
+    @Override
+    public void onRefreshed() {
+        //swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -127,5 +140,11 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.fragment_info_place_menu, menu);
+    }
+
+    @Override
+    public void onRefresh() {
+        Place place = getArguments().getParcelable("place");
+        getPresenter().getPlaceById(place.getId());
     }
 }

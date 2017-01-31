@@ -43,7 +43,7 @@ public interface ApiService {
     Call<ArrayList<Place>> getAllPlace(@Query("secret") String secret, @Query("token") String token);
 
     @GET("place/{id}")
-    Call<List<Place>> getPlaceById(@Path("id") String id);
+    Call<List<Place>> getPlaceById(@Path("id") String id, @Query("secret") String secret, @Query("token") String token);
 
     @GET("place/tag/{tag}")
     Call<List<Place>> getPlaceByTag(@Path("tag") String tag);

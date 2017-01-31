@@ -5,6 +5,9 @@ public class BasePlaceInfoItem {
 
     private int type;
 
+    public BasePlaceInfoItem() {
+    }
+
     public BasePlaceInfoItem(int type) {
         this.type = type;
     }
