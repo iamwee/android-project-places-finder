@@ -42,7 +42,7 @@ public interface ApiService {
     @GET("place")
     Call<ArrayList<Place>> getAllPlace(@Query("secret") String secret, @Query("token") String token);
 
-    @GET("place/{id}")
+    @GET("place/id/{id}")
     Call<List<Place>> getPlaceById(@Path("id") String id, @Query("secret") String secret, @Query("token") String token);
 
     @GET("place/tag/{tag}")
@@ -57,14 +57,11 @@ public interface ApiService {
     @POST("place")
     Call<ServerResponse> suggestPlace(@Body RequestBody body);
 
-    @POST("place/photo")
-    Call<ServerResponse> addPhoto(@Body RequestBody body);
+    @PUT("place/photo")
+    Call<ServerResponse> uploadPhoto(@Body RequestBody body);
 
     @POST("place/type")
     Call<ArrayList<PlaceType>> getPlaceType(@Body RequestBody body);
-
-    @GET("place/review/{placeId}")
-    Call<Objects> getReviewByPlaceId(@Path("placeId") String placeId);
 
     @POST("place/review")
     Call<ServerResponse> sendReview(@Body RequestBody body);

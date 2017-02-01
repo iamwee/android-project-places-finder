@@ -22,7 +22,6 @@ import com.iamwee.placesfinder.view.login.LoginActivity;
 import com.iamwee.placesfinder.view.logout.LogoutActivity;
 import com.iamwee.placesfinder.view.profile.ProfileActivity;
 import com.iamwee.placesfinder.view.search.SearchActivity;
-import com.iamwee.placesfinder.view.suggest.choosephoto.ChoosePhotoActivity;
 import com.iamwee.placesfinder.view.suggest.SuggestPlaceActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -93,7 +92,7 @@ public class MainActivity extends PlacesFinderActivity
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            openActivity(new Intent(this, ChoosePhotoActivity.class));
+            openActivity(new Intent(this, SettingsActivity.class));
             return true;
         } else if (id == R.id.action_search) {
             openActivity(new Intent(this, SearchActivity.class));

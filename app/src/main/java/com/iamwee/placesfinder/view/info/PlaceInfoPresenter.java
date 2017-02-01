@@ -18,11 +18,14 @@ import com.iamwee.placesfinder.view.info.adapter.model.BasePlaceInfoItem;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +33,8 @@ import retrofit2.Response;
 
 class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
         implements PlaceInfoContractor.Presenter {
+
+    private Call<ServerResponse> call;
 
     private PlaceInfoPresenter(PlaceInfoContractor.View view) {
         super(view);
@@ -47,7 +52,7 @@ class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
 
     @Override
     public void onStop() {
-
+        cancelCall();
     }
 
     @Override
@@ -98,6 +103,56 @@ class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
             getView().onNetworkConnectionFailure();
         }
     }
+
+    @Override
+    public void uploadImage(String imagePath, Place place) {
+        File imageFile = new File(imagePath);
+        MediaType MEDIA_TYPE_JPG = MediaType.parse("image/jpg");
+        RequestBody body = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", imageFile.getName(),
+                        RequestBody.create(MEDIA_TYPE_JPG, imageFile))
+                .addFormDataPart("place_id", place.getId())
+                .addFormDataPart("secret", SessionUtil.getSecretCode())
+                .addFormDataPart("token", SessionUtil.getToken())
+                .build();
+        if (NetworkUtil.isNetworkAvailable(getContext())) {
+            call = HttpManager.getServices().uploadPhoto(body);
+            call.enqueue(uploadCallback);
+            getView().onExecuting();
+        } else {
+            getView().onNetworkConnectionFailure();
+        }
+    }
+
+    @Override
+    public void cancelCall() {
+        if (call != null && call.isExecuted()) call.cancel();
+    }
+
+    private Callback<ServerResponse> uploadCallback = new Callback<ServerResponse>() {
+        @Override
+        public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+            getView().onPostExecute();
+            if (response.isSuccessful()) {
+                getView().onShowToastMessage(response.body().getMessage());
+            } else if (response.code() == HttpManager.BAD_REQUEST) {
+                try {
+                    ServerResponse serverResponse = GsonUtil.getInstance()
+                            .fromJson(response.errorBody().string(), ServerResponse.class);
+                    getView().onShowToastMessage(serverResponse.getMessage());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<ServerResponse> call, Throwable t) {
+            getView().onPostExecute();
+            t.printStackTrace();
+        }
+    };
 
     private Callback<List<Place>> getPlaceByIdCallback = new Callback<List<Place>>() {
         @Override

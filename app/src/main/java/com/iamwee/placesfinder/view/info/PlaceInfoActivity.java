@@ -67,14 +67,12 @@ public class PlaceInfoActivity extends PlacesFinderActivity {
     @Subscribe
     public void onOpenActivity(OpenActivity event) {
         if (SessionUtil.hasLoggedIn()) {
+
             switch (event.getStatus()) {
                 case OpenActivity.WRITE_REVIEW:
                     Intent intent = new Intent(this, WriteReviewActivity.class);
                     intent.putExtra("place", place);
                     openActivity(intent);
-                    break;
-                case OpenActivity.CHOOSE_PHOTO:
-                    startActivityForResult(new Intent(this, ChoosePhotoActivity.class), 1);
                     break;
                 case OpenActivity.DIRECTION:
                     Intent directionIntent = new Intent(this, PlaceDirectionActivity.class);

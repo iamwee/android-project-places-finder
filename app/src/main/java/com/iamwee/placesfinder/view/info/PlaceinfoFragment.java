@@ -1,6 +1,8 @@
 package com.iamwee.placesfinder.view.info;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -14,23 +16,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.event.OpenActivity;
+import com.iamwee.placesfinder.util.ProgressDialogHelper;
 import com.iamwee.placesfinder.view.info.adapter.PlaceInfoAdapter;
 import com.iamwee.placesfinder.view.info.adapter.model.BasePlaceInfoItem;
+import com.iamwee.placesfinder.view.suggest.choosephoto.ChoosePhotoActivity;
+import com.iamwee.placesfinder.widget.PlaceView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.Presenter>
-        implements PlaceInfoContractor.View, SwipeRefreshLayout.OnRefreshListener {
+        implements PlaceInfoContractor.View, SwipeRefreshLayout.OnRefreshListener, ProgressDialogHelper.Callback {
 
+    private static final int CHOOSE_PHOTO = 1;
     private RecyclerView rvPlaceInfo;
     private PlaceInfoAdapter placeInfoAdapter;
     //private SwipeRefreshLayout swipeRefreshLayout;
@@ -93,6 +97,8 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
                     })
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
+        } else if (event.getStatus() == OpenActivity.CHOOSE_PHOTO) {
+            startActivityForResult(new Intent(getActivity(), ChoosePhotoActivity.class), CHOOSE_PHOTO);
         }
     }
 
@@ -146,5 +152,45 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
     public void onRefresh() {
         Place place = getArguments().getParcelable("place");
         getPresenter().getPlaceById(place.getId());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CHOOSE_PHOTO && resultCode == Activity.RESULT_OK) {
+            PlaceView placeView = new PlaceView(getActivity());
+            placeView.setImageUrl(data.getStringExtra("image_path"));
+            placeView.setName("");
+            placeView.setAddress("");
+            new AlertDialog.Builder(getActivity())
+                    .setView(placeView)
+                    .setPositiveButton("Upload", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Place place = getArguments().getParcelable("place");
+                            getPresenter().uploadImage(
+                                    data.getStringExtra("image_path"),
+                                    place
+                            );
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .show();
+        }
+    }
+
+    @Override
+    public void onExecuting() {
+        ProgressDialogHelper.show(getActivity(), this);
+    }
+
+    @Override
+    public void onPostExecute() {
+        ProgressDialogHelper.dismiss();
+    }
+
+    @Override
+    public void onProgressDialogCancelled() {
+        getPresenter().cancelCall();
     }
 }

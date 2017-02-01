@@ -2,7 +2,6 @@ package com.iamwee.placesfinder.view.info;
 
 
 import com.iamwee.placesfinder.base.BasePresenterImpl;
-import com.iamwee.placesfinder.base.BaseView;
 import com.iamwee.placesfinder.base.ServiceView;
 import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.view.info.adapter.model.BasePlaceInfoItem;
@@ -17,9 +16,13 @@ interface PlaceInfoContractor {
         void submitPlace(String placeId);
 
         void getPlaceById(String id);
+
+        void uploadImage(String imagePath, Place place);
+
+        void cancelCall();
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View extends ServiceView<Presenter> {
 
         void onSetAdapter(List<BasePlaceInfoItem> basePlaceInfoItems);
 

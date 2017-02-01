@@ -2,6 +2,7 @@ package com.iamwee.placesfinder.view.suggest.choosephoto;
 
 import android.Manifest;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -9,8 +10,8 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
+
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
 import com.iamwee.placesfinder.event.OpenActivity;
@@ -23,7 +24,6 @@ import com.iamwee.placesfinder.view.suggest.choosephoto.model.BaseChoosePhotoIte
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -38,9 +38,8 @@ public class ChoosePhotoActivity extends PlacesFinderActivity
 
     private static final int REQUEST_TAKE_PHOTO = 1;
     private static final int REQUEST_CHOOSE_PHOTO = 2;
-    private static final String TAG = "ChoosePhotoActivity";
     private RecyclerView rvChoosePhoto;
-    private String mCurrentPhotoPath;
+    private File photoFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +79,11 @@ public class ChoosePhotoActivity extends PlacesFinderActivity
         } else if (event.getStatus() == OpenActivity.CHOOSE_PHOTO) {
             getImageFromGallery();
         }
+    }
+
+    @Subscribe
+    public void onPhotoSelected(String path) {
+        sendResult(path);
     }
 
     @Override
@@ -122,8 +126,6 @@ public class ChoosePhotoActivity extends PlacesFinderActivity
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-
-        //File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File storageDir = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES
         );
@@ -137,14 +139,13 @@ public class ChoosePhotoActivity extends PlacesFinderActivity
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
+            photoFile = null;
             try {
                 photoFile = createImageFile();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             if (photoFile != null) {
-                mCurrentPhotoPath = "content:/" + photoFile.getAbsolutePath();
                 Uri photoURI = FileProvider.getUriForFile(this,
                         "com.example.android.fileprovider",
                         photoFile);
@@ -160,16 +161,44 @@ public class ChoosePhotoActivity extends PlacesFinderActivity
         startActivityForResult(pickPhoto, REQUEST_CHOOSE_PHOTO);
     }
 
+    private String findPath(Uri imageUri) {
+        String imagePath;
+        String[] columns = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(imageUri, columns, null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            imagePath = cursor.getString(columnIndex);
+        } else {
+            imagePath = imageUri.getPath();
+        }
+        return imagePath;
+    }
+
+    private void saveImageToGallery() {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        Uri contentUri = Uri.fromFile(photoFile);
+        mediaScanIntent.setData(contentUri);
+        sendBroadcast(mediaScanIntent);
+    }
+
+    private void sendResult(String imagePath) {
+        Intent intent = new Intent();
+        intent.putExtra("image_path", imagePath);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Uri imageUri;
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            imageUri = Uri.parse(mCurrentPhotoPath);
-            Log.i(TAG, "onActivityResult: " + imageUri);
-        } else if (requestCode == REQUEST_CHOOSE_PHOTO && resultCode == -1) {
-            imageUri = data.getData();
-            Log.i(TAG, "onActivityResult: " + imageUri);
+            saveImageToGallery();
+            sendResult(photoFile.getPath());
+        } else if (requestCode == REQUEST_CHOOSE_PHOTO && resultCode == RESULT_OK) {
+            Uri imageUri = data.getData();
+            sendResult(findPath(imageUri));
         }
     }
 }
