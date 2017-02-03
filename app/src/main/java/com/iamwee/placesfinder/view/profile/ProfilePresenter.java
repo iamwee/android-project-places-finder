@@ -42,16 +42,6 @@ class ProfilePresenter extends BasePresenter<ProfileContractor.View>
     }
 
     @Override
-    public Bundle onSaveInstanceState() {
-        return null;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedState) {
-
-    }
-
-    @Override
     public void saveProfile(String codeName) {
         RequestBody body = new FormBody.Builder()
                 .add("secret", SessionUtil.getSecretCode())

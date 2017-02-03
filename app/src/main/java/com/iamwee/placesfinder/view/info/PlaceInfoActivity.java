@@ -11,7 +11,7 @@ import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.event.OpenActivity;
 import com.iamwee.placesfinder.util.SessionUtil;
 import com.iamwee.placesfinder.view.login.LoginActivity;
-import com.iamwee.placesfinder.view.suggest.choosephoto.ChoosePhotoActivity;
+import com.iamwee.placesfinder.view.report.ReportActivity;
 import com.iamwee.placesfinder.view.writereview.WriteReviewActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -67,7 +67,6 @@ public class PlaceInfoActivity extends PlacesFinderActivity {
     @Subscribe
     public void onOpenActivity(OpenActivity event) {
         if (SessionUtil.hasLoggedIn()) {
-
             switch (event.getStatus()) {
                 case OpenActivity.WRITE_REVIEW:
                     Intent intent = new Intent(this, WriteReviewActivity.class);
@@ -86,6 +85,13 @@ public class PlaceInfoActivity extends PlacesFinderActivity {
         } else {
             openActivity(new Intent(this, LoginActivity.class), true);
         }
+    }
+
+    @Subscribe
+    public void onReportPlace(Place place) {
+        Intent intent = new Intent(this, ReportActivity.class);
+        intent.putExtra("place", place);
+        openActivity(intent);
     }
 
     @Override

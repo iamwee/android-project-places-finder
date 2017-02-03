@@ -56,16 +56,6 @@ class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
     }
 
     @Override
-    public Bundle onSaveInstanceState() {
-        return null;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedState) {
-
-    }
-
-    @Override
     public void convertToAdapterModel(Place place) {
         List<BasePlaceInfoItem> basePlaceInfoItems = new ArrayList<>();
         PlaceInfoConverter converter = new PlaceInfoConverter();

@@ -43,16 +43,6 @@ class MainPresenter extends BasePresenter<MainContractor.View>
     }
 
     @Override
-    public Bundle onSaveInstanceState() {
-        return new Bundle();
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedState) {
-
-    }
-
-    @Override
     public void getCurrentProfile() {
         RequestBody body = new FormBody.Builder()
                 .add("secret", SessionUtil.getSecretCode())

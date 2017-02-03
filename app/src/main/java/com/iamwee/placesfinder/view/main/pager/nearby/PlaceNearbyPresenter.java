@@ -66,16 +66,6 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
     }
 
     @Override
-    public Bundle onSaveInstanceState() {
-        return null;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedState) {
-
-    }
-
-    @Override
     public void initLocationServiceClient() {
         if (googleApiClient == null) {
             googleApiClient = new GoogleApiClient.Builder(getContext())

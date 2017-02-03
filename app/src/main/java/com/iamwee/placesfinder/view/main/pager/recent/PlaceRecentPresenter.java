@@ -45,16 +45,6 @@ class PlaceRecentPresenter extends BasePresenter<PlaceRecentContractor.View>
     }
 
     @Override
-    public Bundle onSaveInstanceState() {
-        return null;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedState) {
-
-    }
-
-    @Override
     public void getPlacesData() {
         if (NetworkUtil.isNetworkAvailable(getContext())) {
             HttpManager.getServices().getAllPlace(

@@ -42,16 +42,6 @@ class WriteReviewPresenter extends BasePresenter<WriteReviewContractor.View>
     }
 
     @Override
-    public Bundle onSaveInstanceState() {
-        return null;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedState) {
-
-    }
-
-    @Override
     public void submitReview(String placeId, String reviewMessage) {
         if (reviewMessage.isEmpty()) {
             getView().onShowToastMessage("Enter review message.");

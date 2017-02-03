@@ -37,16 +37,6 @@ class LogoutPresenter extends BasePresenter<LogoutContractor.View>
     }
 
     @Override
-    public Bundle onSaveInstanceState() {
-        return new Bundle();
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedState) {
-
-    }
-
-    @Override
     public void logout() {
         RequestBody body = new FormBody.Builder()
                 .add("token", SessionUtil.getToken())

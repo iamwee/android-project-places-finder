@@ -2,16 +2,27 @@ package com.iamwee.placesfinder.view.report;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
+import com.iamwee.placesfinder.util.ProgressDialogHelper;
+import com.iamwee.placesfinder.util.SessionUtil;
 
 
 public class ReportFragment extends PlacesFinderFragment<ReportContractor.Presenter>
-        implements ReportContractor.View {
+        implements ReportContractor.View, ProgressDialogHelper.Callback {
+
+    private TextInputEditText edtEmail;
+    private TextInputEditText edtTitle;
+    private TextInputEditText edtDescription;
 
     public ReportFragment() {
     }
@@ -27,6 +38,7 @@ public class ReportFragment extends PlacesFinderFragment<ReportContractor.Presen
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ReportPresenter.newInstance(this);
+        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -41,22 +53,57 @@ public class ReportFragment extends PlacesFinderFragment<ReportContractor.Presen
     }
 
     @Override
-    public void onExecuting() {
+    protected void initView(View rootView) {
+        edtEmail = (TextInputEditText) rootView.findViewById(R.id.edt_email);
+        edtTitle = (TextInputEditText) rootView.findViewById(R.id.edt_title);
+        edtDescription = (TextInputEditText) rootView.findViewById(R.id.edt_description);
+    }
 
+    @Override
+    protected void setupView(View rootView) {
+        edtEmail.setText(SessionUtil.getUserProfile().getEmail());
+    }
+
+    @Override
+    public void onExecuting() {
+        ProgressDialogHelper.show(getActivity(), this);
     }
 
     @Override
     public void onPostExecute() {
+        ProgressDialogHelper.dismiss();
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_send){
+            getPresenter().sendReport(
+                    edtEmail.getText().toString(),
+                    edtTitle.getText().toString(),
+                    edtDescription.getText().toString()
+            );
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.send_action_menu, menu);
     }
 
     @Override
     public void onNetworkConnectionFailure() {
-
+        onShowToastMessage(getString(R.string.error_check_internet_connection));
     }
 
     @Override
     public void onShowToastMessage(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void onProgressDialogCancelled() {
+        getPresenter().cancelCall();
     }
 }

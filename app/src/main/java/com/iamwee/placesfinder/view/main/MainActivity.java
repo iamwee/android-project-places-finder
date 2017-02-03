@@ -15,7 +15,7 @@ import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
 import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.util.SessionUtil;
-import com.iamwee.placesfinder.view.SettingsActivity;
+import com.iamwee.placesfinder.view.settings.SettingsActivity;
 import com.iamwee.placesfinder.view.feedback.FeedbackActivity;
 import com.iamwee.placesfinder.view.info.PlaceInfoActivity;
 import com.iamwee.placesfinder.view.login.LoginActivity;

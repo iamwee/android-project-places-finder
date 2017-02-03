@@ -46,16 +46,6 @@ class LoginPresenter extends BasePresenter<LoginContractor.View>
     }
 
     @Override
-    public Bundle onSaveInstanceState() {
-        return new Bundle();
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedState) {
-
-    }
-
-    @Override
     public void login(String email, String password) {
         if (!isFormValidated(email, password)) {
             getView().onLoginFailure(

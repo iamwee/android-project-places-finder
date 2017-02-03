@@ -105,8 +105,8 @@ public class SuggestPlaceFragment extends PlacesFinderFragment<SuggestPlaceContr
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState != null)
             getPresenter().onRestoreInstanceState(savedInstanceState.getBundle("presenter"));
     }

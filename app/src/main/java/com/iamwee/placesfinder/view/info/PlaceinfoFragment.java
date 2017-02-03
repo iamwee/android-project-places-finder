@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 import com.iamwee.placesfinder.dao.Place;
@@ -28,6 +29,7 @@ import com.iamwee.placesfinder.widget.PlaceView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,6 +142,11 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_report) {
+            Place place = getArguments().getParcelable("place");
+            EventBus.getDefault().post(place);
+        }
         return super.onOptionsItemSelected(item);
     }
 

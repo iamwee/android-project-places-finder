@@ -43,16 +43,6 @@ class ChangePasswordPresenter extends BasePresenter<ChangePasswordContractor.Vie
     }
 
     @Override
-    public Bundle onSaveInstanceState() {
-        return null;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedState) {
-
-    }
-
-    @Override
     public void changePassword(String newPassword, String confirmPassword) {
         if(newPassword.isEmpty() || confirmPassword.isEmpty()){
             getView().onShowToastMessage("Please input your new password and confirm password.");

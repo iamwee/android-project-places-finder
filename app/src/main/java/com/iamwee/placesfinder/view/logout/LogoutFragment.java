@@ -80,14 +80,11 @@ public class LogoutFragment extends PlacesFinderFragment<LogoutContractor.Presen
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBundle("getPresenter", getPresenter().onSaveInstanceState());
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(savedInstanceState != null)
-            getPresenter().onRestoreInstanceState(savedInstanceState.getBundle("getPresenter"));
     }
 
     @Override

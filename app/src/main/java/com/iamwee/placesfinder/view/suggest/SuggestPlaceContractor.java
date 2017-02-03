@@ -1,5 +1,7 @@
 package com.iamwee.placesfinder.view.suggest;
 
+import android.os.Bundle;
+
 import com.google.android.gms.maps.model.LatLng;
 import com.iamwee.placesfinder.base.BasePresenterImpl;
 import com.iamwee.placesfinder.base.BaseView;
@@ -24,6 +26,10 @@ interface SuggestPlaceContractor {
                          String typeText,
                          String address,
                          String detail);
+
+        Bundle onSaveInstanceState();
+
+        void onRestoreInstanceState(Bundle savedState);
     }
 
     interface View extends ServiceView<Presenter> {

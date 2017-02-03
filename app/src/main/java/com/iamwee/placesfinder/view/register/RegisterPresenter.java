@@ -44,16 +44,6 @@ class RegisterPresenter extends BasePresenter<RegisterContractor.View>
     }
 
     @Override
-    public Bundle onSaveInstanceState() {
-        return null;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedState) {
-
-    }
-
-    @Override
     public void createAccount(String email, String password,
                               String confirmPassword,
                               String codeName) {

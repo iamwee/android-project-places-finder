@@ -13,4 +13,5 @@
     <dimen name="edittext_non_background_height">48dp</dimen>
     <dimen name="recycler_view_landscape_padding">120dp</dimen>
     <dimen name="recycler_view_all_padding">2dp</dimen>
+    <dimen name="zero_size_dp">0dp</dimen>
 </resources>

@@ -26,13 +26,4 @@ class ReportPresenter extends BasePresenter<ReportContractor.View>
 
     }
 
-    @Override
-    public Bundle onSaveInstanceState() {
-        return null;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedState) {
-
-    }
 }

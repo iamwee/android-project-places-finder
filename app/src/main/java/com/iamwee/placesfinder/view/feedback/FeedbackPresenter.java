@@ -44,16 +44,6 @@ class FeedbackPresenter extends BasePresenter<FeedbackContractor.View>
     }
 
     @Override
-    public Bundle onSaveInstanceState() {
-        return null;
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedState) {
-
-    }
-
-    @Override
     public void sendFeedback(String email, String title, String feedback) {
         if (email.isEmpty() || title.isEmpty() || feedback.isEmpty()){
             getView().onShowToastMessage("Please enter information.");

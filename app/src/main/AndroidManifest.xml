@@ -89,9 +89,6 @@
             android:name=".view.suggest.chooselocation.ChooseLocationActivity"
             android:label="@string/choose_location" />
         <activity
-            android:name=".view.SettingsActivity"
-            android:label="@string/action_settings" />
-        <activity
             android:name=".view.info.PlaceDirectionActivity"
             android:label="@string/direction" />
         <activity
@@ -104,6 +101,9 @@
         <activity
             android:name=".view.report.ReportActivity"
             android:label="@string/action_report" />
+        <activity
+            android:name=".view.settings.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
     </application>
 
 </manifest>
