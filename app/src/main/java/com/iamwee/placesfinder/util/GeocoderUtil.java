@@ -1,11 +1,13 @@
 package com.iamwee.placesfinder.util;
 
 import android.accounts.NetworkErrorException;
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.iamwee.placesfinder.R;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,10 +25,15 @@ public class GeoCoderUtil {
     public void findAddress(final Callback c) {
         this.callback = c;
         if (latLng == null) {
-            c.onFindAddressFailure(new IllegalStateException("You must set your location before find address."));
+            c.onFindAddressFailure(new IllegalStateException(getContext()
+                    .getString(R.string.error_you_must_set_your_location_before_find_address)));
             return;
         }
         new GetAddressTask().execute(latLng);
+    }
+
+    private Context getContext() {
+        return Contextor.getInstance().getContext();
     }
 
     private class GetAddressTask extends AsyncTask<LatLng, Void, Address> {
@@ -54,11 +61,14 @@ public class GeoCoderUtil {
         protected void onPostExecute(Address address) {
             super.onPostExecute(address);
             if (address == null && callback != null) {
-                callback.onFindAddressFailure(new NetworkErrorException("You must connect to the internet before find address."));
+                callback.onFindAddressFailure(new NetworkErrorException(getContext().getString(
+                        R.string.error_you_must_connect_to_the_internet_before_find_address))
+                );
                 return;
             } else {
-                new NetworkErrorException("You must connect to the internet before find address.")
-                        .printStackTrace();
+                new NetworkErrorException(getContext().getString(
+                        R.string.error_you_must_connect_to_the_internet_before_find_address
+                )).printStackTrace();
             }
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < address.getMaxAddressLineIndex(); i++) {
