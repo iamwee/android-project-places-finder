@@ -1,7 +1,7 @@
 package com.iamwee.placesfinder.view.report;
 
 import com.iamwee.placesfinder.base.BasePresenterImpl;
-import com.iamwee.placesfinder.base.ServiceView;
+import com.iamwee.placesfinder.base.ServiceViewImpl;
 
 interface ReportContractor {
 
@@ -12,7 +12,7 @@ interface ReportContractor {
         void sendReport(String email, String title, String description);
     }
 
-    interface View extends ServiceView<Presenter> {
+    interface View extends ServiceViewImpl<Presenter> {
 
         void onReportSent();
     }

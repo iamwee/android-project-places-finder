@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.iamwee.placesfinder.util.Contextor;
 
-public class BasePresenter<T extends BaseView> {
+public class BasePresenter<T extends BaseViewImpl> {
 
     private T view;
 

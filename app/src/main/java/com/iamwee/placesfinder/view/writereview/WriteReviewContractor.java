@@ -1,7 +1,7 @@
 package com.iamwee.placesfinder.view.writereview;
 
 import com.iamwee.placesfinder.base.BasePresenterImpl;
-import com.iamwee.placesfinder.base.ServiceView;
+import com.iamwee.placesfinder.base.ServiceViewImpl;
 
 
 
@@ -14,7 +14,7 @@ interface WriteReviewContractor {
         void cancelCall();
     }
 
-    interface View extends ServiceView<Presenter> {
+    interface View extends ServiceViewImpl<Presenter> {
 
         void onReviewSubmitted(String message);
     }

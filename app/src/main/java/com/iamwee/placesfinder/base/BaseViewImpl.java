@@ -4,7 +4,7 @@ package com.iamwee.placesfinder.base;
  * Created by Zeon on 2/1/2560.
  */
 
-public interface BaseView<T> {
+public interface BaseViewImpl<T> {
 
     void setPresenter(T presenter);
 

@@ -1,7 +1,7 @@
 package com.iamwee.placesfinder.view.main.pager.recent;
 
 import com.iamwee.placesfinder.base.BasePresenterImpl;
-import com.iamwee.placesfinder.base.BaseView;
+import com.iamwee.placesfinder.base.BaseViewImpl;
 import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.view.main.pager.recent.adapter.BaseRecentPlaceItem;
 
@@ -16,7 +16,7 @@ interface PlaceRecentContractor {
         void convertData(List<Place> places);
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View extends BaseViewImpl<Presenter> {
         void onRefreshed();
 
         void onUpdatePlacesData(List<BaseRecentPlaceItem> items);

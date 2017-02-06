@@ -1,7 +1,7 @@
 package com.iamwee.placesfinder.view.logout;
 
 import com.iamwee.placesfinder.base.BasePresenterImpl;
-import com.iamwee.placesfinder.base.BaseView;
+import com.iamwee.placesfinder.base.BaseViewImpl;
 
 /**
  * Created by Zeon on 2/1/2560.
@@ -14,7 +14,7 @@ interface LogoutContractor {
         void logout();
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View extends BaseViewImpl<Presenter> {
 
         void onPostLogout();
     }

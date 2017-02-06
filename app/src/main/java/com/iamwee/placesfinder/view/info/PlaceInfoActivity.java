@@ -21,7 +21,8 @@ import com.iamwee.placesfinder.view.writereview.WriteReviewActivity;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class PlaceInfoActivity extends PlacesFinderActivity implements SwipeRefreshLayout.OnRefreshListener {
+public class PlaceInfoActivity extends PlacesFinderActivity
+        implements SwipeRefreshLayout.OnRefreshListener {
 
     private Place place;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -35,7 +36,6 @@ public class PlaceInfoActivity extends PlacesFinderActivity implements SwipeRefr
         setupPlaceData();
         setupToolbar();
         setupFragment(savedInstanceState);
-        setupView();
     }
 
     @Override

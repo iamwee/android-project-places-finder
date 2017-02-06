@@ -1,7 +1,7 @@
 package com.iamwee.placesfinder.view.changepassword;
 
 import com.iamwee.placesfinder.base.BasePresenterImpl;
-import com.iamwee.placesfinder.base.ServiceView;
+import com.iamwee.placesfinder.base.ServiceViewImpl;
 
 /**
  * Created by zeon on 1/18/17.
@@ -16,7 +16,7 @@ interface ChangePasswordContractor {
         void cancelCall();
     }
 
-    interface View extends ServiceView<Presenter> {
+    interface View extends ServiceViewImpl<Presenter> {
 
         void onChangePasswordSuccess(String message);
 

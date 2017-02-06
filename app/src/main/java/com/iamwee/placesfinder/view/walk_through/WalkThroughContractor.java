@@ -1,7 +1,7 @@
 package com.iamwee.placesfinder.view.walk_through;
 
 import com.iamwee.placesfinder.base.BasePresenterImpl;
-import com.iamwee.placesfinder.base.BaseView;
+import com.iamwee.placesfinder.base.BaseViewImpl;
 
 /**
  * Created by Zeon on 2/1/2560.
@@ -13,7 +13,7 @@ interface WalkThroughContractor {
 
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View extends BaseViewImpl<Presenter> {
 
     }
 }

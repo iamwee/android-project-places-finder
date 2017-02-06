@@ -4,8 +4,7 @@ import android.os.Bundle;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.iamwee.placesfinder.base.BasePresenterImpl;
-import com.iamwee.placesfinder.base.BaseView;
-import com.iamwee.placesfinder.base.ServiceView;
+import com.iamwee.placesfinder.base.ServiceViewImpl;
 import com.iamwee.placesfinder.dao.PlaceType;
 
 import java.util.List;
@@ -32,7 +31,7 @@ interface SuggestPlaceContractor {
         void onRestoreInstanceState(Bundle savedState);
     }
 
-    interface View extends ServiceView<Presenter> {
+    interface View extends ServiceViewImpl<Presenter> {
 
         void onPostGetPlaceType(List<PlaceType> placeTypes);
 

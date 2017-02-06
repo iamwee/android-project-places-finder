@@ -10,15 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.iamwee.placesfinder.R;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
-
 public class PlacesFinderActivity extends AppCompatActivity {
 
     public static final long SHORT_DELAY = 200;
     public static final long DELAY = 400;
-    public static final long LONG_DELAY = 1000;
 
     private boolean delay = false;
 

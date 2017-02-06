@@ -1,7 +1,7 @@
 package com.iamwee.placesfinder.view.feedback;
 
 import com.iamwee.placesfinder.base.BasePresenterImpl;
-import com.iamwee.placesfinder.base.ServiceView;
+import com.iamwee.placesfinder.base.ServiceViewImpl;
 
 
 interface FeedbackContractor {
@@ -13,7 +13,7 @@ interface FeedbackContractor {
         void cancelCall();
     }
 
-    interface View extends ServiceView<Presenter> {
+    interface View extends ServiceViewImpl<Presenter> {
 
         void onFeedbackSent(String message);
     }

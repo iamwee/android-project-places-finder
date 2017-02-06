@@ -4,7 +4,7 @@ import android.location.Location;
 
 import com.google.android.gms.maps.model.Marker;
 import com.iamwee.placesfinder.base.BasePresenterImpl;
-import com.iamwee.placesfinder.base.BaseView;
+import com.iamwee.placesfinder.base.BaseViewImpl;
 import com.iamwee.placesfinder.dao.Place;
 
 /**
@@ -20,7 +20,7 @@ interface PlaceNearbyContractor {
         void initLocationServiceClient();
     }
 
-    interface View extends BaseView<Presenter> {
+    interface View extends BaseViewImpl<Presenter> {
         void onClearMarker();
         void onAddMarker(Place place);
         void onLocationChanged(Location location);
