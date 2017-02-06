@@ -57,7 +57,7 @@ public class PlaceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             case PlaceInfoType.REVIEW_TYPE:
                 return new ReviewViewHolder(inflater.inflate(R.layout.view_place_info_review, parent, false));
             case PlaceInfoType.MORE_PHOTO_HEADER_TYPE:
-                return new MorePhotoHeaderViewHolder(inflater.inflate(R.layout.view_section_photo, parent, false));
+                return new MorePhotoHeaderViewHolder(inflater.inflate(R.layout.view_place_info_section_photo, parent, false));
             case PlaceInfoType.MORE_PHOTO_TYPE:
                 return new PhotoViewHolder(inflater.inflate(R.layout.view_photos, parent, false));
             default:

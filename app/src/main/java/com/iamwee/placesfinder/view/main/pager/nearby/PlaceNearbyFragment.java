@@ -13,6 +13,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -36,6 +37,7 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
         GoogleMap.OnInfoWindowClickListener, PermissionManager.PermissionCallback {
 
     private GoogleMap googleMap;
+    private LatLng centerPosition;
     private boolean animate = false;
 
     public PlaceNearbyFragment() {
@@ -94,11 +96,30 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
         getPresenter().onStop();
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBundle("presenter", getPresenter().onSaveInstanceState());
+        outState.putParcelable("location", googleMap.getCameraPosition().target);
+        outState.putBoolean("animate", animate);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            getPresenter().onRestoreInstanceState(savedInstanceState.getBundle("presenter"));
+            centerPosition = savedInstanceState.getParcelable("location");
+            animate = savedInstanceState.getBoolean("animate", false);
+        }
+    }
+
     private void setupGoogleMap() {
         if (googleMap == null) {
             SupportMapFragment mapFragment = (SupportMapFragment)
                     getChildFragmentManager().findFragmentById(map);
             mapFragment.getMapAsync(this);
+            centerPosition = LocationUtil.getLastLocation();
         }
     }
 
@@ -110,7 +131,7 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
 
     private void setupGoogleMapProperty() {
         CameraPosition cameraPosition = new CameraPosition.Builder()
-                .target(LocationUtil.getLastLocation())
+                .target(centerPosition)
                 .zoom(16)
                 .tilt(60)
                 .build();
@@ -150,6 +171,7 @@ public class PlaceNearbyFragment extends PlacesFinderFragment<PlaceNearbyContrac
             googleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(place.getLat(), place.getLng()))
                     .title(place.getName())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))
                     .snippet(place.getAddress()));
     }
 

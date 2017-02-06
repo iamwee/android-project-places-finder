@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.iamwee.placesfinder.view.walk_through.WalkThroughActivity">
 
-    <include layout="@layout/partial_container"/>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:foreground="#70000000"
+        android:src="@drawable/background" />
+
+    <include layout="@layout/partial_container" />
 
 </RelativeLayout>

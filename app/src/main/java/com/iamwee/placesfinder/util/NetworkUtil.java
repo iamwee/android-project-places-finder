@@ -20,7 +20,7 @@ public class NetworkUtil {
 
     public static String analyzeNetworkException(Throwable t){
         if (t instanceof ConnectException || t instanceof SocketTimeoutException) {
-            return getContext().getString(R.string.msg_cannot_connect_to_server);
+            return getContext().getString(R.string.error_cannot_connect_to_server);
         } else {
             return null;
         }

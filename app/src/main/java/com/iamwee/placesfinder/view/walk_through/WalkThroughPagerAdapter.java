@@ -22,8 +22,23 @@ public class WalkThroughPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        ViewGroup layout = (ViewGroup) LayoutInflater
-                .from(container.getContext()).inflate(R.layout.item_walk_through, container, false);
+        ViewGroup layout;
+        switch (position) {
+            case 0:
+                layout = (ViewGroup) LayoutInflater
+                        .from(container.getContext()).inflate(R.layout.item_walk_through_one, container, false);
+                break;
+            case 1:
+                layout = (ViewGroup) LayoutInflater
+                        .from(container.getContext()).inflate(R.layout.item_walk_through_two, container, false);
+                break;
+            case 2:
+                layout = (ViewGroup) LayoutInflater
+                        .from(container.getContext()).inflate(R.layout.item_walk_through_three, container, false);
+                break;
+            default:
+                throw new NullPointerException("Unexpected position: " + position);
+        }
         container.addView(layout);
         return layout;
     }

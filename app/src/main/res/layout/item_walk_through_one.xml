@@ -4,17 +4,19 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_centerInParent="true"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:padding="@dimen/activity_vertical_margin"
-        android:layout_height="wrap_content">
+        android:padding="@dimen/activity_vertical_margin">
 
         <TextView
-            android:gravity="center"
-            android:text="This is an application that can search places include mosque and halal restaurants"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Search places including restaurants etc."
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

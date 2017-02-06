@@ -14,6 +14,8 @@ import com.iamwee.placesfinder.common.PlacesFinderActivity;
 public class SettingsFragment extends PreferenceFragment
         implements Preference.OnPreferenceClickListener {
 
+    private boolean delaying = false;
+
     public SettingsFragment() {
 
     }
@@ -47,6 +49,7 @@ public class SettingsFragment extends PreferenceFragment
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
+        if (delaying) return true;
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -55,8 +58,14 @@ public class SettingsFragment extends PreferenceFragment
                         .setMessage("Developed by: iamwee\n\n\nhttps://github.com/iamwee")
                         .setPositiveButton(android.R.string.ok, null)
                         .show();
+                toggleDelaying();
             }
         }, PlacesFinderActivity.SHORT_DELAY);
+        toggleDelaying();
         return true;
+    }
+
+    private void toggleDelaying() {
+        this.delaying = !this.delaying;
     }
 }

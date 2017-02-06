@@ -78,8 +78,6 @@ public class SuggestPlaceFragment extends PlacesFinderFragment<SuggestPlaceContr
 
     @Override
     protected void setupView(View rootView) {
-        latLng = LocationUtil.getLastLocation();
-        tvLocation.setText("Location: " + latLng.latitude + "," + latLng.longitude);
         edtAddress.setText(LocationUtil.getAddress());
 
         rootView.findViewById(R.id.btn_get_location).setOnClickListener(this);
@@ -102,13 +100,19 @@ public class SuggestPlaceFragment extends PlacesFinderFragment<SuggestPlaceContr
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBundle("presenter", getPresenter().onSaveInstanceState());
+        outState.putParcelable("location", latLng);
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null)
+        if (savedInstanceState != null) {
             getPresenter().onRestoreInstanceState(savedInstanceState.getBundle("presenter"));
+            latLng = savedInstanceState.getParcelable("location");
+        } else {
+            latLng = LocationUtil.getLastLocation();
+        }
+        tvLocation.setText("Location: " + latLng.latitude + "," + latLng.longitude);
     }
 
     @Override

@@ -22,7 +22,7 @@
     <string name="menu_profile">Profile</string>
     <string name="menu_suggest_place">Suggest Place</string>
     <string name="menu_send_feedback">Send feedback</string>
-    <string name="msg_cannot_connect_to_server">Cannot connect to the server, please try again later.</string>
+    <string name="error_cannot_connect_to_server">Cannot connect to the server, please try again later.</string>
     <string name="msg_logging_out">Logging out . . .</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="code_name">Code name</string>

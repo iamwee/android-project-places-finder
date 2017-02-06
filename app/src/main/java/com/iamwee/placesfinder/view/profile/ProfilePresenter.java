@@ -22,12 +22,12 @@ class ProfilePresenter extends BasePresenter<ProfileContractor.View>
 
     private Call<ServerResponse> call;
 
-    private ProfilePresenter(ProfileContractor.View view){
+    private ProfilePresenter(ProfileContractor.View view) {
         super(view);
         getView().setPresenter(this);
     }
 
-    static ProfilePresenter newInstance(ProfileContractor.View view){
+    static ProfilePresenter newInstance(ProfileContractor.View view) {
         return new ProfilePresenter(view);
     }
 
@@ -56,13 +56,15 @@ class ProfilePresenter extends BasePresenter<ProfileContractor.View>
 
     @Override
     public void cancelCall() {
-        if(call != null && call.isExecuted()) call.cancel();
-        getView().onShowToastMessage(getContext().getString(R.string.msg_cancelled));
+        if (call != null && call.isExecuted()) {
+            call.cancel();
+            getView().onShowToastMessage(getContext().getString(R.string.msg_cancelled));
+        }
     }
 
     @Override
     public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-        if(response.isSuccessful()) {
+        if (response.isSuccessful()) {
             getView().onProfileSaved(response.body().getMessage());
         } else if (response.code() == HttpManager.BAD_REQUEST) {
             try {
@@ -81,7 +83,7 @@ class ProfilePresenter extends BasePresenter<ProfileContractor.View>
     @Override
     public void onFailure(Call<ServerResponse> call, Throwable t) {
         String error = NetworkUtil.analyzeNetworkException(t);
-        if(error != null) getView().onShowToastMessage(error);
+        if (error != null) getView().onShowToastMessage(error);
         else t.printStackTrace();
         getView().onPostExecute();
     }

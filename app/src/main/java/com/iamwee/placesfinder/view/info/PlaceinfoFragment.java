@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,6 +41,7 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
     private static final int REQUEST_CHOOSE_PHOTO = 1;
     private RecyclerView rvPlaceInfo;
     private PlaceInfoAdapter placeInfoAdapter;
+    private int position = 0;
 
     public PlaceInfoFragment() {
 

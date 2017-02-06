@@ -18,7 +18,7 @@
     <string name="menu_logout">ออกจากระบบ</string>
     <string name="menu_profile">ข้อมูลผู้ใช้</string>
     <string name="menu_suggest_place">แนะนำสถานที่</string>
-    <string name="msg_cannot_connect_to_server">ไม่สามารถเชื่อมต่อกับเซิฟเวอร์ได้ โปรดลองใหม่อีกครั้ง</string>
+    <string name="error_cannot_connect_to_server">ไม่สามารถเชื่อมต่อกับเซิฟเวอร์ได้ โปรดลองใหม่อีกครั้ง</string>
     <string name="msg_logging_out">กำลังออกจากระบบ . . .</string>
     <string name="confirm_password">รหัสผ่านยืนยัน</string>
     <string name="code_name">ชื่อ</string>

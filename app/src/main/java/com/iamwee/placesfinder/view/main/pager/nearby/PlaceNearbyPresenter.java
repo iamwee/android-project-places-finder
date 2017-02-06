@@ -67,6 +67,19 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
     }
 
     @Override
+    public Bundle onSaveInstanceState() {
+        Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList("places", places);
+        return bundle;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        places = savedInstanceState.getParcelableArrayList("places");
+        getPlacesData();
+    }
+
+    @Override
     public void initLocationServiceClient() {
         if (googleApiClient == null) {
             googleApiClient = new GoogleApiClient.Builder(getContext())
@@ -180,9 +193,7 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
 
     @Override
     public void onFailure(Call<ArrayList<Place>> call, Throwable t) {
-        String error = NetworkUtil.analyzeNetworkException(t);
-        if (error == null) t.printStackTrace();
-        else getView().onShowToastMessage(error);
+        t.printStackTrace();
     }
 
     @Override
