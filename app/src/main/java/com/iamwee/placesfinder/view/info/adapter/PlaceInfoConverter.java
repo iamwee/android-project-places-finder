@@ -4,6 +4,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.view.info.adapter.model.HeaderItem;
 import com.iamwee.placesfinder.view.info.adapter.model.MapItem;
+import com.iamwee.placesfinder.view.info.adapter.model.MorePhotoHeaderItem;
+import com.iamwee.placesfinder.view.info.adapter.model.MorePhotoItem;
 import com.iamwee.placesfinder.view.info.adapter.model.ReviewItem;
 import com.iamwee.placesfinder.view.info.adapter.model.SectionItem;
 import com.iamwee.placesfinder.view.info.adapter.model.SummaryItem;
@@ -23,6 +25,26 @@ public class PlaceInfoConverter {
     public HeaderItem createHeaderSection(Place place) {
         HeaderItem item = new HeaderItem();
         item.setData(place);
+
+        StringBuilder sb = new StringBuilder();
+        if (place.getApprove() > 1) {
+            sb.append(place.getApprove()).append(" approves");
+        } else {
+            sb.append(place.getApprove()).append(" approve");
+        }
+        sb.append(" • ");
+        if (place.getReviews().size() > 1) {
+            sb.append(place.getReviews().size()).append(" reviews");
+        } else {
+            sb.append(place.getReviews().size()).append(" review");
+        }
+        sb.append(" • ");
+        if (place.getImages().size() > 1) {
+            sb.append(place.getImages().size()).append(" photos");
+        } else {
+            sb.append(place.getImages().size()).append(" photo");
+        }
+        item.setSummary(sb.toString());
         item.setImageUrl(place.getImages().size() > 0 ? place.getImages().get(0) : "");
         return item;
     }
@@ -57,5 +79,15 @@ public class PlaceInfoConverter {
             reviewItems.add(item);
         }
         return reviewItems;
+    }
+
+    public MorePhotoHeaderItem createPhotoHeaderSection() {
+        return new MorePhotoHeaderItem();
+    }
+
+    public MorePhotoItem createPhotoListSection(List<String> photoList) {
+        MorePhotoItem item = new MorePhotoItem();
+        item.setImageUrl(photoList);
+        return item;
     }
 }

@@ -1,7 +1,7 @@
 package com.iamwee.placesfinder.view.main.pager.recent;
 
-import android.os.Bundle;
 import android.util.Log;
+
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.Place;
@@ -10,12 +10,16 @@ import com.iamwee.placesfinder.event.OpenActivity;
 import com.iamwee.placesfinder.manager.HttpManager;
 import com.iamwee.placesfinder.util.GsonUtil;
 import com.iamwee.placesfinder.util.NetworkUtil;
+import com.iamwee.placesfinder.util.PlaceUtil;
 import com.iamwee.placesfinder.util.SessionUtil;
+import com.iamwee.placesfinder.view.main.pager.recent.adapter.BaseRecentPlaceItem;
+import com.iamwee.placesfinder.view.main.pager.recent.adapter.RecentPlaceConverter;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,10 +62,22 @@ class PlaceRecentPresenter extends BasePresenter<PlaceRecentContractor.View>
     }
 
     @Override
+    public void convertData(List<Place> places) {
+        List<BaseRecentPlaceItem> items = new ArrayList<>();
+        if (places.size() > 0) {
+            items.addAll(RecentPlaceConverter.createPlaceItemAll(places));
+        } else {
+            getView().onShowToastMessage("Not found");
+            items.add(RecentPlaceConverter.createPlaceNotFound());
+        }
+        getView().onUpdatePlacesData(items);
+    }
+
+    @Override
     public void onResponse(Call<ArrayList<Place>> call, Response<ArrayList<Place>> response) {
         getView().onRefreshed();
         if (response.isSuccessful()) {
-            getView().onUpdatePlacesData(response.body());
+            convertData(response.body());
         } else if (response.code() == HttpManager.BAD_REQUEST) {
             try {
                 ServerResponse serverResponse = GsonUtil.getInstance()
@@ -73,6 +89,11 @@ class PlaceRecentPresenter extends BasePresenter<PlaceRecentContractor.View>
         } else if (response.code() == HttpManager.UNAUTHORIZED) {
             getView().onShowToastMessage(getContext().getString(R.string.error_session_expired));
             EventBus.getDefault().post(new OpenActivity(OpenActivity.LOGIN_ACTIVITY));
+        } else if (response.code() == HttpManager.NOT_FOUND) {
+            PlaceUtil.clear();
+            List<BaseRecentPlaceItem> items = new ArrayList<>();
+            items.add(RecentPlaceConverter.createPlaceNotFound());
+            getView().onUpdatePlacesData(items);
         }
     }
 

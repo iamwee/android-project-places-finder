@@ -2,6 +2,7 @@ package com.iamwee.placesfinder.view.info.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +11,20 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.event.OpenActivity;
+import com.iamwee.placesfinder.manager.HttpManager;
 import com.iamwee.placesfinder.view.info.adapter.model.BasePlaceInfoItem;
 import com.iamwee.placesfinder.view.info.adapter.model.HeaderItem;
 import com.iamwee.placesfinder.view.info.adapter.model.MapItem;
+import com.iamwee.placesfinder.view.info.adapter.model.MorePhotoHeaderItem;
+import com.iamwee.placesfinder.view.info.adapter.model.MorePhotoItem;
 import com.iamwee.placesfinder.view.info.adapter.model.PlaceInfoType;
 import com.iamwee.placesfinder.view.info.adapter.model.ReviewItem;
 import com.iamwee.placesfinder.view.info.adapter.model.SectionItem;
 import com.iamwee.placesfinder.view.info.adapter.model.SummaryItem;
 import com.iamwee.placesfinder.view.info.adapter.viewholder.HeaderViewHolder;
 import com.iamwee.placesfinder.view.info.adapter.viewholder.MapViewHolder;
+import com.iamwee.placesfinder.view.info.adapter.viewholder.MorePhotoHeaderViewHolder;
+import com.iamwee.placesfinder.view.info.adapter.viewholder.PhotoViewHolder;
 import com.iamwee.placesfinder.view.info.adapter.viewholder.ReviewViewHolder;
 import com.iamwee.placesfinder.view.info.adapter.viewholder.SectionViewHolder;
 import com.iamwee.placesfinder.view.info.adapter.viewholder.SummaryViewHolder;
@@ -52,6 +58,10 @@ public class PlaceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 return new MapViewHolder(inflater.inflate(R.layout.view_place_info_map, parent, false));
             case PlaceInfoType.REVIEW_TYPE:
                 return new ReviewViewHolder(inflater.inflate(R.layout.view_place_info_review, parent, false));
+            case PlaceInfoType.MORE_PHOTO_HEADER_TYPE:
+                return new MorePhotoHeaderViewHolder(inflater.inflate(R.layout.view_section_photo, parent, false));
+            case PlaceInfoType.MORE_PHOTO_TYPE:
+                return new PhotoViewHolder(inflater.inflate(R.layout.view_photos, parent, false));
             default:
                 throw new NullPointerException("View type : " + viewType + " doesn't match.");
         }
@@ -84,16 +94,39 @@ public class PlaceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ReviewViewHolder reviewViewHolder = (ReviewViewHolder) holder;
             ReviewItem item = (ReviewItem) basePlaceInfoItems.get(position);
             setupReviewSection(reviewViewHolder, item);
+        } else if (holder instanceof MorePhotoHeaderViewHolder) {
+            MorePhotoHeaderViewHolder morePhotoHeaderViewHolder = (MorePhotoHeaderViewHolder) holder;
+            setupPhotoHeaderSection(morePhotoHeaderViewHolder);
+        } else if (holder instanceof PhotoViewHolder) {
+            PhotoViewHolder photoViewHolder = (PhotoViewHolder) holder;
+            MorePhotoItem item = (MorePhotoItem) basePlaceInfoItems.get(position);
+            setupPhotoListSection(photoViewHolder, item);
         }
+    }
+
+    private void setupPhotoHeaderSection(MorePhotoHeaderViewHolder holder) {
+        holder.rootLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new OpenActivity(OpenActivity.PHOTO_LIST));
+            }
+        });
+    }
+
+    private void setupPhotoListSection(PhotoViewHolder holder, MorePhotoItem item) {
+        holder.rvPhotos.setAdapter(new MorePhotoInfoAdapter(item.getImageUrl()));
     }
 
     private void setupHeaderSection(HeaderViewHolder holder, HeaderItem item) {
         if (!item.getImageUrl().isEmpty()) {
             Glide.with(holder.itemView.getContext())
-                    .load(item.getImageUrl())
+                    .load(HttpManager.DEV_IMAGE_BASE_URL + item.getImageUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.ivImg);
         }
+
+        holder.tvName.setText(item.getData().getName());
+        holder.tvSummary.setText(item.getSummary());
 
         holder.mvSubmitPlace.setOnClickListener(new MenuView.OnClickListener() {
             @Override

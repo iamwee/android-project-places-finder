@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.iamwee.placesfinder.R;
+import com.iamwee.placesfinder.manager.HttpManager;
 
 /**
  * Created by zeon on 1/17/17.

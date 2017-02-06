@@ -2,6 +2,7 @@ package com.iamwee.placesfinder.view.feedback;
 
 import android.os.Bundle;
 
+import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
@@ -67,6 +68,7 @@ class FeedbackPresenter extends BasePresenter<FeedbackContractor.View>
     @Override
     public void cancelCall() {
         if (call != null && call.isExecuted()) call.cancel();
+        getView().onShowToastMessage(getContext().getString(R.string.msg_cancelled));
     }
 
     @Override

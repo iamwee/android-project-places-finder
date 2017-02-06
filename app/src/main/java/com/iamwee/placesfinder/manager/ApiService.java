@@ -57,7 +57,7 @@ public interface ApiService {
     @POST("place")
     Call<ServerResponse> suggestPlace(@Body RequestBody body);
 
-    @PUT("place/photo")
+    @POST("place/photo")
     Call<ServerResponse> uploadPhoto(@Body RequestBody body);
 
     @POST("place/type")

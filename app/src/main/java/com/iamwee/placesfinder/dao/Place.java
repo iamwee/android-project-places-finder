@@ -178,6 +178,13 @@ public class Place implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return getName() + "\n" +
+                "Address: " + getAddress() + "\n\n" +
+                getLat() + "," + getLng();
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

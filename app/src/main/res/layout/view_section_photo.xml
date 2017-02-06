@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:clickable="true"
+    android:background="?selectableItemBackground"
+    android:id="@+id/more_photo_header"
+    android:orientation="horizontal"
+    android:weightSum="2">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:paddingEnd="@dimen/zero_size_dp"
+        android:textSize="16sp"
+        android:paddingStart="@dimen/activity_vertical_margin"
+        android:text="Photos"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:textSize="16sp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="end|center_vertical"
+        android:paddingEnd="32dp"
+        android:paddingStart="@dimen/zero_size_dp"
+        android:text="More"
+        android:textAllCaps="true"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold" />
+</LinearLayout>

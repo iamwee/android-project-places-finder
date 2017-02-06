@@ -29,11 +29,11 @@ public class SettingsFragment extends PreferenceFragment
 
         Preference preference = findPreference("app_version");
         try {
-            String appVersion = getActivity().getPackageManager().getPackageInfo(
+            PackageManager packageManager = getActivity().getPackageManager();
+            String appVersion = packageManager.getPackageInfo(
                     getActivity().getPackageName(),
                     0
             ).versionName;
-
             preference.setSummary("v " + appVersion);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();

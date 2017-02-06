@@ -7,7 +7,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
@@ -111,8 +110,6 @@ public class SearchActivity extends PlacesFinderActivity
 
     @Override
     public void onFailure(Call<List<Place>> call, Throwable t) {
-        String error = NetworkUtil.analyzeNetworkException(t);
-        if (error != null) Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-        else t.printStackTrace();
+        t.printStackTrace();
     }
 }

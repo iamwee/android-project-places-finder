@@ -19,4 +19,5 @@ public class BasePresenter<T extends BaseView> {
     protected Context getContext() {
         return Contextor.getInstance().getContext();
     }
+
 }

@@ -58,4 +58,6 @@
     <string name="description">Description</string>
     <string name="error_you_must_connect_to_the_internet_before_find_address">You must connect to the internet before find address.</string>
     <string name="error_you_must_set_your_location_before_find_address">You must set your location before find address.</string>
+    <string name="error_email_not_match">Email not match.</string>
+    <string name="error_please_fill_these_form">Please fill these form.</string>
 </resources>

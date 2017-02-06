@@ -14,6 +14,7 @@ interface ReportContractor {
 
     interface View extends ServiceView<Presenter> {
 
+        void onReportSent();
     }
 
 }

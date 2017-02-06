@@ -1,6 +1,5 @@
 package com.iamwee.placesfinder.view.info;
 
-import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -63,6 +62,13 @@ class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
         basePlaceInfoItems.add(converter.createTitleSection("About"));
         basePlaceInfoItems.add(converter.createSummarySection(place));
         basePlaceInfoItems.add(converter.createMapSection(new LatLng(place.getLat(), place.getLng())));
+
+        if (place.getImages().size() > 0){
+            basePlaceInfoItems.add(converter.createPhotoHeaderSection());
+            basePlaceInfoItems.add(converter.createPhotoListSection(
+                    place.getImages().subList(0, place.getImages().size() > 5 ? 5 : place.getImages().size())));
+        }
+
         basePlaceInfoItems.addAll(converter.createReviewSection(place.getReviews()));
         getView().onSetAdapter(basePlaceInfoItems);
     }
@@ -174,7 +180,7 @@ class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
     private Callback<ServerResponse> submitPlaceCallback = new Callback<ServerResponse>() {
         @Override
         public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-            getView().onShowToastMessage("Submitted.");
+            getView().onShowToastMessage(response.body().getMessage());
         }
 
         @Override

@@ -1,7 +1,5 @@
 package com.iamwee.placesfinder.view.main;
 
-import android.os.Bundle;
-
 import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.dao.UserProfile;
@@ -57,12 +55,12 @@ class MainPresenter extends BasePresenter<MainContractor.View>
     public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
         if (response.isSuccessful()) {
             SessionUtil.saveUserProfile(response.body());
-        } else {
+        } else if (response.code() == HttpManager.BAD_REQUEST) {
             try {
                 String message = GsonUtil.getInstance()
                         .fromJson(response.errorBody().string(), ServerResponse.class)
                         .getMessage();
-                getView().onShowToastMessage(message);
+                if (message != null) getView().onShowToastMessage(message);
             } catch (IOException e) {
                 e.printStackTrace();
             }

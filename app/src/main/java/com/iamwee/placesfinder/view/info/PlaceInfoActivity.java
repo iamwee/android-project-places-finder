@@ -2,6 +2,8 @@ package com.iamwee.placesfinder.view.info;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -9,26 +11,45 @@ import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderActivity;
 import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.event.OpenActivity;
+import com.iamwee.placesfinder.event.SwipeRefresh;
 import com.iamwee.placesfinder.util.SessionUtil;
 import com.iamwee.placesfinder.view.login.LoginActivity;
+import com.iamwee.placesfinder.view.photo.PhotoListActivity;
 import com.iamwee.placesfinder.view.report.ReportActivity;
 import com.iamwee.placesfinder.view.writereview.WriteReviewActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-public class PlaceInfoActivity extends PlacesFinderActivity {
+public class PlaceInfoActivity extends PlacesFinderActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private Place place;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_info);
+        initView();
+        setupView();
         setupPlaceData();
         setupToolbar();
         setupFragment(savedInstanceState);
         setupView();
+    }
+
+    @Override
+    protected void initView() {
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout);
+        swipeRefreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(this, R.color.colorPrimary),
+                ContextCompat.getColor(this, R.color.colorPrimaryDark)
+        );
+    }
+
+    @Override
+    protected void setupView() {
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     private void setupFragment(Bundle savedInstanceState) {
@@ -65,7 +86,22 @@ public class PlaceInfoActivity extends PlacesFinderActivity {
     }
 
     @Subscribe
+    public void onRefreshed(SwipeRefresh event) {
+        if (event.getStatus() == SwipeRefresh.DISMISS) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Subscribe
     public void onOpenActivity(OpenActivity event) {
+
+        if (event.getStatus() == OpenActivity.PHOTO_LIST) {
+            Intent intent = new Intent(this, PhotoListActivity.class);
+            intent.putExtra("place", place);
+            openActivity(intent);
+            return;
+        }
+
         if (SessionUtil.hasLoggedIn()) {
             switch (event.getStatus()) {
                 case OpenActivity.WRITE_REVIEW:
@@ -116,5 +152,10 @@ public class PlaceInfoActivity extends PlacesFinderActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRefresh() {
+        EventBus.getDefault().post(new SwipeRefresh(SwipeRefresh.REFRESH));
     }
 }

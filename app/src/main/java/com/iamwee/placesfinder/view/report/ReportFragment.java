@@ -13,8 +13,11 @@ import android.widget.Toast;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
+import com.iamwee.placesfinder.event.OpenActivity;
 import com.iamwee.placesfinder.util.ProgressDialogHelper;
 import com.iamwee.placesfinder.util.SessionUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 public class ReportFragment extends PlacesFinderFragment<ReportContractor.Presenter>
@@ -77,7 +80,7 @@ public class ReportFragment extends PlacesFinderFragment<ReportContractor.Presen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_send){
+        if (id == R.id.action_send) {
             getPresenter().sendReport(
                     edtEmail.getText().toString(),
                     edtTitle.getText().toString(),
@@ -105,5 +108,10 @@ public class ReportFragment extends PlacesFinderFragment<ReportContractor.Presen
     @Override
     public void onProgressDialogCancelled() {
         getPresenter().cancelCall();
+    }
+
+    @Override
+    public void onReportSent() {
+        EventBus.getDefault().post(new OpenActivity(OpenActivity.FINISH));
     }
 }

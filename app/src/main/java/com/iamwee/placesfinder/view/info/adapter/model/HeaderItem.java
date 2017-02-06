@@ -10,6 +10,7 @@ public class HeaderItem extends BasePlaceInfoItem {
 
     private String imageUrl;
     private Place data;
+    private String summary;
 
     public HeaderItem() {
         super(PlaceInfoType.HEADER_TYPE);
@@ -30,5 +31,13 @@ public class HeaderItem extends BasePlaceInfoItem {
 
     public void setData(Place data) {
         this.data = data;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getSummary() {
+        return summary;
     }
 }

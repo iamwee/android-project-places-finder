@@ -21,6 +21,7 @@ import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
 import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.event.OpenActivity;
+import com.iamwee.placesfinder.event.SwipeRefresh;
 import com.iamwee.placesfinder.util.ProgressDialogHelper;
 import com.iamwee.placesfinder.view.info.adapter.PlaceInfoAdapter;
 import com.iamwee.placesfinder.view.info.adapter.model.BasePlaceInfoItem;
@@ -39,7 +40,6 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
     private static final int CHOOSE_PHOTO = 1;
     private RecyclerView rvPlaceInfo;
     private PlaceInfoAdapter placeInfoAdapter;
-    //private SwipeRefreshLayout swipeRefreshLayout;
 
     public PlaceInfoFragment() {
 
@@ -84,6 +84,14 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
     }
 
     @Subscribe
+    public void onRefresh(SwipeRefresh refresh) {
+        if (refresh.getStatus() == SwipeRefresh.REFRESH) {
+            Place place = getArguments().getParcelable("place");
+            getPresenter().getPlaceById(place.getId());
+        }
+    }
+
+    @Subscribe
     public void onSubmitPlace(OpenActivity event) {
         if (event.getStatus() == OpenActivity.SUBMIT_PLACE) {
             new AlertDialog.Builder(getActivity())
@@ -114,7 +122,6 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
     protected void setupView(View rootView) {
         placeInfoAdapter = new PlaceInfoAdapter(new ArrayList<BasePlaceInfoItem>());
         rvPlaceInfo.setAdapter(placeInfoAdapter);
-
         Place place = getArguments().getParcelable("place");
         getPresenter().convertToAdapterModel(place);
 
@@ -137,7 +144,7 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
 
     @Override
     public void onRefreshed() {
-        //swipeRefreshLayout.setRefreshing(false);
+        EventBus.getDefault().post(new SwipeRefresh(SwipeRefresh.DISMISS));
     }
 
     @Override
@@ -146,6 +153,16 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
         if (id == R.id.action_report) {
             Place place = getArguments().getParcelable("place");
             EventBus.getDefault().post(place);
+        } else if (id == R.id.action_share) {
+            //A simple share text data to other app, not use facebook sdk
+            Place place = getArguments().getParcelable("place");
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    place.toString());
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
         }
         return super.onOptionsItemSelected(item);
     }
