@@ -70,6 +70,12 @@ public class FeedbackFragment extends PlacesFinderFragment<FeedbackContractor.Pr
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        getPresenter().onStop();
+    }
+
+    @Override
     public void onExecuting() {
         ProgressDialogHelper.show(getActivity(), this);
     }

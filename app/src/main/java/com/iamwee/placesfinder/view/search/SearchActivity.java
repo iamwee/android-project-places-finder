@@ -85,7 +85,7 @@ public class SearchActivity extends PlacesFinderActivity
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if(edtSearch.getText().toString().isEmpty()) return;
-        if (NetworkUtil.isNetworkAvailable(this)) {
+        if (NetworkUtil.isNetworkAvailable()) {
             RequestBody body = new FormBody.Builder()
                     .add("secret", SessionUtil.getSecretCode())
                     .add("token", SessionUtil.getToken())

@@ -15,9 +15,6 @@ import com.iamwee.placesfinder.util.ProgressDialogHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
-/**
- * Created by zeon on 1/17/17.
- */
 
 public class ChangePasswordFragment extends PlacesFinderFragment<ChangePasswordContractor.Presenter>
         implements ChangePasswordContractor.View, View.OnClickListener, ProgressDialogHelper.Callback {
@@ -65,6 +62,12 @@ public class ChangePasswordFragment extends PlacesFinderFragment<ChangePasswordC
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        getPresenter().onStop();
+    }
+
+    @Override
     public void onExecuting() {
         ProgressDialogHelper.show(getActivity(), this);
     }
@@ -100,14 +103,9 @@ public class ChangePasswordFragment extends PlacesFinderFragment<ChangePasswordC
     }
 
     @Override
-    public void onChangePasswordSuccess(String message) {
+    public void onPasswordChanged(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
         EventBus.getDefault().post(new OpenActivity(OpenActivity.FINISH));
-    }
-
-    @Override
-    public void onChangePasswordFailure(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

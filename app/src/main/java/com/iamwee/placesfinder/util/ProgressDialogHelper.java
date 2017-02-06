@@ -10,10 +10,6 @@ import com.iamwee.placesfinder.R;
 
 public class ProgressDialogHelper {
 
-    public interface Callback {
-        void onProgressDialogCancelled();
-    }
-
     private static ProgressDialog dialog;
 
     public static void show(Context context) {
@@ -38,6 +34,10 @@ public class ProgressDialogHelper {
     public static void dismiss() {
         if (dialog != null && dialog.isShowing()) dialog.dismiss();
         dialog = null;
+    }
+
+    public interface Callback {
+        void onProgressDialogCancelled();
     }
 
 }

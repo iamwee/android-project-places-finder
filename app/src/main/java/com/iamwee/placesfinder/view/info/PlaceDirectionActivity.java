@@ -33,16 +33,19 @@ public class PlaceDirectionActivity extends PlacesFinderActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_direction);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        Intent intent = getIntent();
-        this.place = intent.getParcelableExtra("place");
-        getSupportActionBar().setTitle("Direction: " + place.getName());
+        setupToolbar();
         setupGoogleMap();
         PermissionManager.requestPermission(Arrays.asList(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION
         ), this);
+    }
+
+    protected void setupToolbar(){
+        Intent intent = getIntent();
+        place = intent.getParcelableExtra("place");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Direction: " + place.getName());
     }
 
     @Override

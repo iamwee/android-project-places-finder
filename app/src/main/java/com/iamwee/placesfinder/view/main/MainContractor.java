@@ -1,6 +1,7 @@
 package com.iamwee.placesfinder.view.main;
 
 import com.iamwee.placesfinder.base.BasePresenterImpl;
+import com.iamwee.placesfinder.base.BaseViewImpl;
 import com.iamwee.placesfinder.base.ServiceViewImpl;
 
 
@@ -10,7 +11,7 @@ interface MainContractor {
         void getCurrentProfile();
     }
 
-    interface View extends ServiceViewImpl<Presenter> {
+    interface View extends BaseViewImpl<Presenter> {
 
     }
 }

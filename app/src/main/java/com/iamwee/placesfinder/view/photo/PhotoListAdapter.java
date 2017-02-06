@@ -30,7 +30,7 @@ class PhotoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         PhotoViewHolder photoViewHolder = (PhotoViewHolder) holder;
         Glide.with(photoViewHolder.itemView.getContext())
-                .load(HttpManager.DEV_IMAGE_BASE_URL + photoList.get(position))
+                .load(HttpManager.IMAGE_BASE_URL + photoList.get(position))
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(photoViewHolder.ivImg);

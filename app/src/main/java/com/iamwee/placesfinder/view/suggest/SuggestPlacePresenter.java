@@ -60,7 +60,7 @@ class SuggestPlacePresenter extends BasePresenter<SuggestPlaceContractor.View> i
 
     @Override
     public void getTypeOfPlace() {
-        if (NetworkUtil.isNetworkAvailable(getContext())) {
+        if (NetworkUtil.isNetworkAvailable()) {
             RequestBody body = new FormBody.Builder()
                     .add("secret", SessionUtil.getSecretCode())
                     .add("token", SessionUtil.getToken())

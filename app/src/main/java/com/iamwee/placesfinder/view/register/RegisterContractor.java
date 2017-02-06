@@ -3,9 +3,6 @@ package com.iamwee.placesfinder.view.register;
 import com.iamwee.placesfinder.base.BasePresenterImpl;
 import com.iamwee.placesfinder.base.ServiceViewImpl;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
 
 interface RegisterContractor {
 

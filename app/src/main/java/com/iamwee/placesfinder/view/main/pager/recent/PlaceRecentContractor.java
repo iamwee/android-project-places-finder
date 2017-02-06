@@ -14,6 +14,8 @@ interface PlaceRecentContractor {
         void getPlacesData();
 
         void convertData(List<Place> places);
+
+        void cancelCall();
     }
 
     interface View extends BaseViewImpl<Presenter> {

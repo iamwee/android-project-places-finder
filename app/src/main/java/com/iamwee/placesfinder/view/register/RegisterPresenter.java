@@ -1,6 +1,5 @@
 package com.iamwee.placesfinder.view.register;
 
-import android.os.Bundle;
 import android.util.Patterns;
 
 import com.google.gson.Gson;
@@ -40,7 +39,7 @@ class RegisterPresenter extends BasePresenter<RegisterContractor.View>
 
     @Override
     public void onStop() {
-        if (createAccountCall.isExecuted() && createAccountCall != null) createAccountCall.cancel();
+        cancelCall();
     }
 
     @Override

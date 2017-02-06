@@ -6,6 +6,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -87,12 +88,13 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
 
     @Override
     public void onConnectionSuspended(int i) {
-
+        Log.e(getClass().getSimpleName(), String.valueOf(i));
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        Log.e(getClass().getSimpleName(),
+                connectionResult.getErrorCode() + " : " + connectionResult.getErrorMessage());
     }
 
     @Override
@@ -132,7 +134,7 @@ class PlaceNearbyPresenter extends BasePresenter<PlaceNearbyContractor.View>
 
     @Override
     public void getPlacesData() {
-        if (NetworkUtil.isNetworkAvailable(getContext())) {
+        if (NetworkUtil.isNetworkAvailable()) {
             getPlacesFromServer();
         } else {
             places = PlaceUtil.load();

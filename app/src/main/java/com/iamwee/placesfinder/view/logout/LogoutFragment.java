@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.common.PlacesFinderFragment;
@@ -14,13 +15,13 @@ import org.greenrobot.eventbus.EventBus;
 
 
 public class LogoutFragment extends PlacesFinderFragment<LogoutContractor.Presenter>
-        implements LogoutContractor.View{
+        implements LogoutContractor.View {
 
     public LogoutFragment() {
 
     }
 
-    public static LogoutFragment newInstance(){
+    public static LogoutFragment newInstance() {
         LogoutFragment fragment = new LogoutFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -46,22 +47,12 @@ public class LogoutFragment extends PlacesFinderFragment<LogoutContractor.Presen
 
     @Override
     public void onNetworkConnectionFailure() {
-
+        onShowToastMessage(getString(R.string.error_check_internet_connection));
     }
 
     @Override
     public void onShowToastMessage(String message) {
-
-    }
-
-    @Override
-    protected void initView(View rootView) {
-
-    }
-
-    @Override
-    protected void setupView(View rootView) {
-
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -84,16 +84,6 @@ public class MenuView extends FrameLayout implements View.OnClickListener {
         findViewById(R.id.root_layout).setOnClickListener(this);
     }
 
-    public void setIconResource(int imageResource) {
-        this.imageResource = imageResource;
-        setIconResource();
-    }
-
-    public void setMenuText(String menu) {
-        this.menu = menu;
-        setMenuText();
-    }
-
     private void setIconResource() {
         ImageView ivImg = (ImageView) findViewById(R.id.mv_img);
         ivImg.setImageResource(imageResource);

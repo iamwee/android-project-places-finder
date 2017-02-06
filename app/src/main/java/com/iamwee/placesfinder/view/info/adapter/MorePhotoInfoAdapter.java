@@ -14,10 +14,6 @@ import com.iamwee.placesfinder.manager.HttpManager;
 
 import java.util.List;
 
-/**
- * Created by zeon on 2/4/17.
- */
-
 public class MorePhotoInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<String> photoLists;
@@ -35,7 +31,7 @@ public class MorePhotoInfoAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         PhotoViewHolder photoViewHolder = (PhotoViewHolder) holder;
         Glide.with(photoViewHolder.itemView.getContext())
-                .load(HttpManager.DEV_IMAGE_BASE_URL + photoLists.get(position))
+                .load(HttpManager.IMAGE_BASE_URL + photoLists.get(position))
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(photoViewHolder.ivImg);

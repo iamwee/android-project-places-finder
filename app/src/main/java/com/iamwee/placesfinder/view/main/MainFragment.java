@@ -17,6 +17,9 @@ import com.iamwee.placesfinder.view.main.pager.MainPagerAdapter;
 public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
         implements MainContractor.View {
 
+    private TabLayout tabLayout;
+    private ViewPager vpMain;
+
     public MainFragment() {
 
     }
@@ -48,13 +51,12 @@ public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
 
     @Override
     protected void initView(View rootView) {
-
+        vpMain = (ViewPager) rootView.findViewById(R.id.vp_main);
+        tabLayout = (TabLayout) rootView.findViewById(R.id.tab_layout);
     }
 
     @Override
     protected void setupView(View rootView) {
-        ViewPager vpMain = (ViewPager) rootView.findViewById(R.id.vp_main);
-        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tab_layout);
         vpMain.setAdapter(new MainPagerAdapter(getChildFragmentManager()));
         tabLayout.setupWithViewPager(vpMain);
     }
@@ -73,32 +75,12 @@ public class MainFragment extends PlacesFinderFragment<MainContractor.Presenter>
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
     public void onNetworkConnectionFailure() {
-
+        onShowToastMessage(getString(R.string.error_check_internet_connection));
     }
 
     @Override
     public void onShowToastMessage(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onExecuting() {
-
-    }
-
-    @Override
-    public void onPostExecute() {
-
     }
 }

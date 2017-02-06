@@ -74,9 +74,9 @@ public class ChoosePhotoActivity extends PlacesFinderActivity
 
     @Subscribe
     public void onTakeOrChoosePhoto(OpenActivity event) {
-        if (event.getStatus() == OpenActivity.TAKE_PHOTO) {
+        if (event.getStatus() == OpenActivity.TAKE_PHOTO_ACTIVITY) {
             dispatchTakePictureIntent();
-        } else if (event.getStatus() == OpenActivity.CHOOSE_PHOTO) {
+        } else if (event.getStatus() == OpenActivity.CHOOSE_PHOTO_ACTIVITY) {
             getImageFromGallery();
         }
     }

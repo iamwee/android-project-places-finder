@@ -2,7 +2,6 @@ package com.iamwee.placesfinder.view.info.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import com.iamwee.placesfinder.manager.HttpManager;
 import com.iamwee.placesfinder.view.info.adapter.model.BasePlaceInfoItem;
 import com.iamwee.placesfinder.view.info.adapter.model.HeaderItem;
 import com.iamwee.placesfinder.view.info.adapter.model.MapItem;
-import com.iamwee.placesfinder.view.info.adapter.model.MorePhotoHeaderItem;
 import com.iamwee.placesfinder.view.info.adapter.model.MorePhotoItem;
 import com.iamwee.placesfinder.view.info.adapter.model.PlaceInfoType;
 import com.iamwee.placesfinder.view.info.adapter.model.ReviewItem;
@@ -108,7 +106,7 @@ public class PlaceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         holder.rootLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new OpenActivity(OpenActivity.PHOTO_LIST));
+                EventBus.getDefault().post(new OpenActivity(OpenActivity.PHOTO_LIST_ACTIVITY));
             }
         });
     }
@@ -120,7 +118,7 @@ public class PlaceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private void setupHeaderSection(HeaderViewHolder holder, HeaderItem item) {
         if (!item.getImageUrl().isEmpty()) {
             Glide.with(holder.itemView.getContext())
-                    .load(HttpManager.DEV_IMAGE_BASE_URL + item.getImageUrl())
+                    .load(HttpManager.IMAGE_BASE_URL + item.getImageUrl())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(holder.ivImg);
         }
@@ -138,14 +136,14 @@ public class PlaceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         holder.mvWriteReview.setOnClickListener(new MenuView.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new OpenActivity(OpenActivity.WRITE_REVIEW));
+                EventBus.getDefault().post(new OpenActivity(OpenActivity.WRITE_REVIEW_ACTIVITY));
             }
         });
 
         holder.mvAddPhoto.setOnClickListener(new MenuView.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EventBus.getDefault().post(new OpenActivity(OpenActivity.CHOOSE_PHOTO));
+                EventBus.getDefault().post(new OpenActivity(OpenActivity.CHOOSE_PHOTO_ACTIVITY));
             }
         });
     }
@@ -169,7 +167,7 @@ public class PlaceInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         holder.ivMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new OpenActivity(OpenActivity.DIRECTION));
+                EventBus.getDefault().post(new OpenActivity(OpenActivity.DIRECTION_ACTIVITY));
             }
         });
     }

@@ -101,7 +101,7 @@ public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presente
             getPresenter().login(edtEmail.getText().toString(),
                     edtPassword.getText().toString());
         } else if (id == R.id.btn_login_as_guest) {
-            onLoginSuccess();
+            onLoginAsGuest();
         }
     }
 
@@ -122,13 +122,13 @@ public class LoginFragment extends PlacesFinderFragment<LoginContractor.Presente
     }
 
     @Override
-    public void onLoginAsGuest() {
-        EventBus.getDefault().post(new OpenActivity(OpenActivity.MAIN_ACTIVITY, true, true));
+    public void onLoginFailure(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onLoginFailure(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+    public void onLoginAsGuest() {
+        EventBus.getDefault().post(new OpenActivity(OpenActivity.MAIN_ACTIVITY, true, false));
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.iamwee.placesfinder.view.changepassword;
 
-import android.os.Bundle;
-
 import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
@@ -73,7 +71,7 @@ class ChangePasswordPresenter extends BasePresenter<ChangePasswordContractor.Vie
     public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
         if(response.isSuccessful()){
             String message = response.body().getMessage();
-            getView().onChangePasswordSuccess(message);
+            getView().onPasswordChanged(message);
         } else {
             try {
                 String message = GsonUtil.getInstance()

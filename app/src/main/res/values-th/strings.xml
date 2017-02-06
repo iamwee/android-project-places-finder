@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+
+    <string name="action_settings">ตั้งค่า</string>
+    <string name="msg_create_account">สร้างบัญชีข้อมูล</string>
+    <string name="msg_login">เข้าสู่ระบบ</string>
+    <string name="email">อีเมลล์</string>
+    <string name="password">รหัสผ่าน</string>
+    <string name="login_as_guest">เข้าสู่ระบบแบบผู้ใช้ทั่วไป</string>
+    <string name="or">OR</string>
+    <string name="please_login_first_to_use_this_app">โปรดเข้าสู่ระบบก่อนเข้าใช้งาน</string>
+    <string name="action_enable">เปิดใช้งาน</string>
+    <string name="action_dismiss">ยกเลิก</string>
+    <string name="msg_location_disable_error">We need to access to your location, enable location provider to find current location.</string>
+    <string name="msg_please_enter_email_password">กรอกอีเมลล์และรหัสผ่าน</string>
+    <string name="msg_cancelled">ยกเลิกแล้ว</string>
+    <string name="settings">ตั้งค่า</string>
+    <string name="menu_logout">ออกจากระบบ</string>
+    <string name="menu_profile">ข้อมูลผู้ใช้</string>
+    <string name="menu_suggest_place">แนะนำสถานที่</string>
+    <string name="msg_cannot_connect_to_server">ไม่สามารถเชื่อมต่อกับเซิฟเวอร์ได้ โปรดลองใหม่อีกครั้ง</string>
+    <string name="msg_logging_out">กำลังออกจากระบบ . . .</string>
+    <string name="confirm_password">รหัสผ่านยืนยัน</string>
+    <string name="code_name">ชื่อ</string>
+    <string name="back_to_login">กลับไปสู่หน้าล็อคอิน</string>
+    <string name="error_enter_these_form_to_create_new_account">โปรดกรอกข้อมูลทั้งหมดเพื่อสมัครสมาชิก.</string>
+    <string name="msg_loading">กำลังโหลด</string>
+    <string name="new_password">รหัสผ่านใหม่</string>
+    <string name="change_password">เปลี่ยนรหัสผ่าน</string>
+    <string name="action_save">บันทึก</string>
+    <string name="search_title">ค้นหา</string>
+    <string name="error_check_internet_connection">โปรดตรวจสอบเครือข่ายอินเตอร์ของท่าน และลองใหม่อีกครั้ง</string>
+    <string name="action_submit">ยืนยัน</string>
+    <string name="action_setting">ตั้งค่า</string>
+    <string name="place_name">ชื่ิสถานที่</string>
+    <string name="place_type">ประเภทสถานที่</string>
+    <string name="place_address">ที่อยู่</string>
+    <string name="place_detail">รายละเอียด</string>
+    <string name="choose_location">เลือกพิกัด</string>
+    <string name="direction">นำทาง</string>
+    <string name="action_share">เผยแพร่</string>
+    <string name="action_report">รายงาน</string>
+    <string name="choose_photo">เลือกรูปภาพ</string>
+    <string name="action_send">ส่ง</string>
+    <string name="title">หัวข้อ</string>
+    <string name="feedback">ฟีดแบค</string>
+    <string name="error_session_expired">เซสชั่นหมดอายุ โปรดเข้าสู่ระบบใหม่อีกครั้ง</string>
+    <string name="title_activity_settings">ตั้งค่า</string>
+    <string name="description">รายละเอียด</string>
+    <string name="error_email_not_match">อีเมลล์ไม่ตรงกับรูปแบบ</string>
+    <string name="error_please_fill_these_form">กรุณากรอกข้อมูลทั้งหมด</string>
+
+</resources>

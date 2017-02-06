@@ -70,12 +70,12 @@ public class ProfileFragment extends PlacesFinderFragment<ProfileContractor.Pres
 
     @Override
     public void onNetworkConnectionFailure() {
-
+        onShowToastMessage(getString(R.string.error_check_internet_connection));
     }
 
     @Override
     public void onShowToastMessage(String message) {
-
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -135,7 +135,7 @@ public class ProfileFragment extends PlacesFinderFragment<ProfileContractor.Pres
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.btn_change_password) {
-            EventBus.getDefault().post(new OpenActivity(OpenActivity.CHANGE_PASSWORD));
+            EventBus.getDefault().post(new OpenActivity(OpenActivity.CHANGE_PASSWORD_ACTIVITY));
         }
     }
 }

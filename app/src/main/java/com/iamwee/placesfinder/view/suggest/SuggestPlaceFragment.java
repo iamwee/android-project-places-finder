@@ -113,7 +113,7 @@ public class SuggestPlaceFragment extends PlacesFinderFragment<SuggestPlaceContr
 
     @Override
     public void onNetworkConnectionFailure() {
-        Toast.makeText(getActivity(), R.string.error_check_internet_connection, Toast.LENGTH_SHORT).show();
+        onShowToastMessage(getString(R.string.error_check_internet_connection));
     }
 
     @Override

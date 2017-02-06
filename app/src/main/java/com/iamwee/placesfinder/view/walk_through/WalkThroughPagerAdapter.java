@@ -7,9 +7,6 @@ import android.view.ViewGroup;
 
 import com.iamwee.placesfinder.R;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
 
 public class WalkThroughPagerAdapter extends PagerAdapter {
 

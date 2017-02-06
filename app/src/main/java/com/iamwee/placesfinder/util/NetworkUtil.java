@@ -9,15 +9,11 @@ import com.iamwee.placesfinder.R;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
-
 public class NetworkUtil {
 
-    public static boolean isNetworkAvailable(Context context) {
+    public static boolean isNetworkAvailable() {
         ConnectivityManager cm =
-                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = cm.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnectedOrConnecting();
     }

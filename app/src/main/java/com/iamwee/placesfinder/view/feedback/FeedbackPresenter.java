@@ -1,7 +1,5 @@
 package com.iamwee.placesfinder.view.feedback;
 
-import android.os.Bundle;
-
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.ServerResponse;
@@ -49,7 +47,7 @@ class FeedbackPresenter extends BasePresenter<FeedbackContractor.View>
         if (email.isEmpty() || title.isEmpty() || feedback.isEmpty()){
             getView().onShowToastMessage("Please enter information.");
         } else {
-            if (NetworkUtil.isNetworkAvailable(getContext())){
+            if (NetworkUtil.isNetworkAvailable()){
                 RequestBody body = new FormBody.Builder()
                         .add("email", email)
                         .add("title", title)

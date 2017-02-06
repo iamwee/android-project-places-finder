@@ -9,6 +9,7 @@ import com.iamwee.placesfinder.view.info.adapter.model.BasePlaceInfoItem;
 import java.util.List;
 
 interface PlaceInfoContractor {
+
     interface Presenter extends BasePresenterImpl {
 
         void convertToAdapterModel(Place place);

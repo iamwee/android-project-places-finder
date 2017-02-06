@@ -8,7 +8,6 @@ import com.iamwee.placesfinder.dao.UserProfile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -45,12 +44,6 @@ public interface ApiService {
     @GET("place/id/{id}")
     Call<List<Place>> getPlaceById(@Path("id") String id, @Query("secret") String secret, @Query("token") String token);
 
-    @GET("place/tag/{tag}")
-    Call<List<Place>> getPlaceByTag(@Path("tag") String tag);
-
-    @GET("place/type/{type}")
-    Call<List<Place>> getPlaceByType(@Path("type") String type);
-
     @POST("place/search")
     Call<List<Place>> searchPlace(@Body RequestBody body);
 
@@ -72,14 +65,6 @@ public interface ApiService {
     @POST("place/submit")
     Call<ServerResponse> submitPlace(@Body RequestBody body);
 
-    @GET("report/type")
-    Call<Objects> getReportType();
-
     @POST("report")
     Call<ServerResponse> sendReport(@Body RequestBody body);
-
-    @POST("tag")
-    Call<ServerResponse> addTag(@Body RequestBody body);
-
-
 }

@@ -58,7 +58,7 @@ public class RegisterFragment extends PlacesFinderFragment<RegisterContractor.Pr
 
     @Override
     public void onNetworkConnectionFailure() {
-
+        onShowToastMessage(getString(R.string.error_check_internet_connection));
     }
 
     @Override

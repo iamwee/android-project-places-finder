@@ -72,11 +72,13 @@ public class WriteReviewFragment extends PlacesFinderFragment<WriteReviewContrac
     @Override
     public void onStart() {
         super.onStart();
+        getPresenter().onStart();
     }
 
     @Override
     public void onStop() {
         super.onStop();
+        getPresenter().onStop();
     }
 
     @Override

@@ -2,11 +2,14 @@ package com.iamwee.placesfinder.view.settings;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.support.v7.app.AlertDialog;
 
 import com.iamwee.placesfinder.R;
+import com.iamwee.placesfinder.common.PlacesFinderActivity;
 
 public class SettingsFragment extends PreferenceFragment
         implements Preference.OnPreferenceClickListener {
@@ -44,11 +47,16 @@ public class SettingsFragment extends PreferenceFragment
 
     @Override
     public boolean onPreferenceClick(Preference preference) {
-        new AlertDialog.Builder(getActivity())
-                .setTitle("About Places Finder")
-                .setMessage("Developed by: iamwee\n\nhttps://github.com/iamwee")
-                .setPositiveButton(android.R.string.ok, null)
-                .show();
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("About Places Finder")
+                        .setMessage("Developed by: iamwee\n\n\nhttps://github.com/iamwee")
+                        .setPositiveButton(android.R.string.ok, null)
+                        .show();
+            }
+        }, PlacesFinderActivity.SHORT_DELAY);
         return true;
     }
 }

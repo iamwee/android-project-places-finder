@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -71,7 +70,7 @@ public class ChoosePhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new OpenActivity(OpenActivity.TAKE_PHOTO));
+                EventBus.getDefault().post(new OpenActivity(OpenActivity.TAKE_PHOTO_ACTIVITY));
             }
         });
     }
@@ -80,7 +79,7 @@ public class ChoosePhotoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus.getDefault().post(new OpenActivity(OpenActivity.CHOOSE_PHOTO));
+                EventBus.getDefault().post(new OpenActivity(OpenActivity.CHOOSE_PHOTO_ACTIVITY));
             }
         });
     }

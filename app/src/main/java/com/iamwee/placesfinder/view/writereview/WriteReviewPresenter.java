@@ -1,6 +1,5 @@
 package com.iamwee.placesfinder.view.writereview;
 
-import android.os.Bundle;
 import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
@@ -48,7 +47,7 @@ class WriteReviewPresenter extends BasePresenter<WriteReviewContractor.View>
             return;
         }
 
-        if (NetworkUtil.isNetworkAvailable(getContext())) {
+        if (NetworkUtil.isNetworkAvailable()) {
             RequestBody body = new FormBody.Builder()
                     .add("secret", SessionUtil.getSecretCode())
                     .add("token", SessionUtil.getToken())

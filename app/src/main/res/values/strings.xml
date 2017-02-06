@@ -5,8 +5,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="msg_create_account">Create Account</string>
     <string name="msg_login">Login</string>
     <string name="email">Email</string>
@@ -60,4 +58,6 @@
     <string name="error_you_must_set_your_location_before_find_address">You must set your location before find address.</string>
     <string name="error_email_not_match">Email not match.</string>
     <string name="error_please_fill_these_form">Please fill these form.</string>
+    <string name="recent">Recent</string>
+    <string name="nearby">Nearby</string>
 </resources>

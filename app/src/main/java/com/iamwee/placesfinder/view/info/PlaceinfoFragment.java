@@ -37,7 +37,7 @@ import java.util.List;
 public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.Presenter>
         implements PlaceInfoContractor.View, SwipeRefreshLayout.OnRefreshListener, ProgressDialogHelper.Callback {
 
-    private static final int CHOOSE_PHOTO = 1;
+    private static final int REQUEST_CHOOSE_PHOTO = 1;
     private RecyclerView rvPlaceInfo;
     private PlaceInfoAdapter placeInfoAdapter;
 
@@ -107,8 +107,8 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
                     })
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
-        } else if (event.getStatus() == OpenActivity.CHOOSE_PHOTO) {
-            startActivityForResult(new Intent(getActivity(), ChoosePhotoActivity.class), CHOOSE_PHOTO);
+        } else if (event.getStatus() == OpenActivity.CHOOSE_PHOTO_ACTIVITY) {
+            startActivityForResult(new Intent(getActivity(), ChoosePhotoActivity.class), REQUEST_CHOOSE_PHOTO);
         }
     }
 
@@ -181,7 +181,7 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
     @Override
     public void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CHOOSE_PHOTO && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_CHOOSE_PHOTO && resultCode == Activity.RESULT_OK) {
             PlaceView placeView = new PlaceView(getActivity());
             placeView.setImageUrl(data.getStringExtra("image_path"));
             placeView.setName("");

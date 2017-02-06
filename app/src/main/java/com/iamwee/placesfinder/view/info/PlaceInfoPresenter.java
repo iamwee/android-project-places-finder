@@ -80,7 +80,7 @@ class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
                 .add("token", SessionUtil.getToken())
                 .add("place_id", placeId)
                 .build();
-        if (NetworkUtil.isNetworkAvailable(getContext())) {
+        if (NetworkUtil.isNetworkAvailable()) {
             Call<ServerResponse> call = HttpManager.getServices().submitPlace(body);
             call.enqueue(submitPlaceCallback);
         }
@@ -88,7 +88,7 @@ class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
 
     @Override
     public void getPlaceById(String id) {
-        if (NetworkUtil.isNetworkAvailable(getContext())) {
+        if (NetworkUtil.isNetworkAvailable()) {
             HttpManager.getServices().getPlaceById(
                     id,
                     SessionUtil.getSecretCode(),
@@ -112,7 +112,7 @@ class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
                 .addFormDataPart("secret", SessionUtil.getSecretCode())
                 .addFormDataPart("token", SessionUtil.getToken())
                 .build();
-        if (NetworkUtil.isNetworkAvailable(getContext())) {
+        if (NetworkUtil.isNetworkAvailable()) {
             call = HttpManager.getServices().uploadPhoto(body);
             call.enqueue(uploadCallback);
             getView().onExecuting();

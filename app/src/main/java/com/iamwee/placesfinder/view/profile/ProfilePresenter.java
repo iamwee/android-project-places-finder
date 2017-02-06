@@ -38,7 +38,7 @@ class ProfilePresenter extends BasePresenter<ProfileContractor.View>
 
     @Override
     public void onStop() {
-
+        cancelCall();
     }
 
     @Override

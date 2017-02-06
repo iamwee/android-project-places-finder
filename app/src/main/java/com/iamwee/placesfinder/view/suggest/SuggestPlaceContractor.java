@@ -9,11 +9,8 @@ import com.iamwee.placesfinder.dao.PlaceType;
 
 import java.util.List;
 
-/**
- * Created by zeon on 1/20/17.
- */
-
 interface SuggestPlaceContractor {
+
     interface Presenter extends BasePresenterImpl {
 
         void getTypeOfPlace();

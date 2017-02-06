@@ -25,16 +25,6 @@ public class LoginActivity extends PlacesFinderActivity {
     }
 
     @Override
-    protected void initView() {
-
-    }
-
-    @Override
-    protected void setupView() {
-
-    }
-
-    @Override
     protected void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
@@ -48,7 +38,6 @@ public class LoginActivity extends PlacesFinderActivity {
 
     @Subscribe
     public void onOpenActivity(OpenActivity event) {
-        //TODO: Fix issue : after login success it not finish current activity
         if (event.getStatus() == OpenActivity.MAIN_ACTIVITY) {
             if (event.isDelay()) {
                 openActivity(new Intent(this, MainActivity.class), event.isFinish());

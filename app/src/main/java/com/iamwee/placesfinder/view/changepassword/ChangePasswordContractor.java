@@ -17,9 +17,6 @@ interface ChangePasswordContractor {
     }
 
     interface View extends ServiceViewImpl<Presenter> {
-
-        void onChangePasswordSuccess(String message);
-
-        void onChangePasswordFailure(String message);
+        void onPasswordChanged(String message);
     }
 }

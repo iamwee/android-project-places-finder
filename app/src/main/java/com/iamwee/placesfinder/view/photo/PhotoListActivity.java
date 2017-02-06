@@ -14,7 +14,7 @@ public class PhotoListActivity extends PlacesFinderActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_list);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setupToolbar();
 
         if (savedInstanceState == null) {
             Intent intent = getIntent();
@@ -24,6 +24,11 @@ public class PhotoListActivity extends PlacesFinderActivity {
                     .add(R.id.container, PhotoListFragment.newInstance(place))
                     .commit();
         }
+    }
+
+    @Override
+    protected void setupToolbar() {
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
+import com.iamwee.placesfinder.util.PlaceUtil;
 import com.iamwee.placesfinder.util.SessionUtil;
 
 import okhttp3.FormBody;
@@ -44,6 +45,7 @@ class LogoutPresenter extends BasePresenter<LogoutContractor.View>
                 .build();
 
         HttpManager.getServices().logout(body).enqueue(this);
+        PlaceUtil.clear();
     }
 
     @Override

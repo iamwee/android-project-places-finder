@@ -7,23 +7,26 @@ import com.iamwee.placesfinder.base.BasePresenterImpl;
 import com.iamwee.placesfinder.base.BaseViewImpl;
 import com.iamwee.placesfinder.dao.Place;
 
-/**
- * Created by Zeon on 2/1/2560.
- */
 
 interface PlaceNearbyContractor {
 
     interface Presenter extends BasePresenterImpl {
         void getPlacesData();
+
         void getPlacesFromServer();
+
         Place getPlaceByName(Marker marker);
+
         void initLocationServiceClient();
     }
 
     interface View extends BaseViewImpl<Presenter> {
         void onClearMarker();
+
         void onAddMarker(Place place);
+
         void onLocationChanged(Location location);
+
         void onEnableMyLocationButton();
 
         void onAnyPermissionDenied(String message);

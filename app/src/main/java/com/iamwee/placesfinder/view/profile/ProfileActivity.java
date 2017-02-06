@@ -42,7 +42,7 @@ public class ProfileActivity extends PlacesFinderActivity {
     @Subscribe
     public void onFragmentCallback(OpenActivity event) {
         switch (event.getStatus()){
-            case OpenActivity.CHANGE_PASSWORD :
+            case OpenActivity.CHANGE_PASSWORD_ACTIVITY:
                 openActivity(new Intent(this, ChangePasswordActivity.class));
                 break;
             case OpenActivity.FINISH:

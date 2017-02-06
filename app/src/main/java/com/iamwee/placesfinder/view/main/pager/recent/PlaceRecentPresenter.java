@@ -29,6 +29,8 @@ import retrofit2.Response;
 class PlaceRecentPresenter extends BasePresenter<PlaceRecentContractor.View>
         implements PlaceRecentContractor.Presenter, Callback<ArrayList<Place>> {
 
+    private Call<ArrayList<Place>> call;
+
     private PlaceRecentPresenter(PlaceRecentContractor.View view) {
         super(view);
         getView().setPresenter(this);
@@ -45,16 +47,16 @@ class PlaceRecentPresenter extends BasePresenter<PlaceRecentContractor.View>
 
     @Override
     public void onStop() {
-
+        cancelCall();
     }
 
     @Override
     public void getPlacesData() {
-        if (NetworkUtil.isNetworkAvailable(getContext())) {
-            HttpManager.getServices().getAllPlace(
+        if (NetworkUtil.isNetworkAvailable()) {
+            call = HttpManager.getServices().getAllPlace(
                     SessionUtil.getSecretCode(),
-                    SessionUtil.getToken()
-            ).enqueue(this);
+                    SessionUtil.getToken());
+            call.enqueue(this);
         } else {
             getView().onRefreshed();
             getView().onNetworkConnectionFailure();
@@ -71,6 +73,11 @@ class PlaceRecentPresenter extends BasePresenter<PlaceRecentContractor.View>
             items.add(RecentPlaceConverter.createPlaceNotFound());
         }
         getView().onUpdatePlacesData(items);
+    }
+
+    @Override
+    public void cancelCall() {
+        if (call != null && call.isExecuted()) call.cancel();
     }
 
     @Override

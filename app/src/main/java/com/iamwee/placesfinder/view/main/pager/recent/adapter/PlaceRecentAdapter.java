@@ -59,7 +59,7 @@ public class PlaceRecentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         holder.placeView.setAddress(place.getAddress());
         if (place.getImages().size() > 0) {
             holder.placeView.setImageUrl(
-                    HttpManager.DEV_IMAGE_BASE_URL + place.getImages().get(0)
+                    HttpManager.IMAGE_BASE_URL + place.getImages().get(0)
             );
         }
     }

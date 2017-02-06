@@ -1,14 +1,11 @@
 package com.iamwee.placesfinder.view.login;
 
-import android.os.Bundle;
-
 import com.google.gson.Gson;
 import com.iamwee.placesfinder.R;
 import com.iamwee.placesfinder.base.BasePresenter;
 import com.iamwee.placesfinder.dao.ServerResponse;
 import com.iamwee.placesfinder.dao.LoginResponse;
 import com.iamwee.placesfinder.manager.HttpManager;
-import com.iamwee.placesfinder.util.Contextor;
 import com.iamwee.placesfinder.util.NetworkUtil;
 import com.iamwee.placesfinder.util.SessionUtil;
 
@@ -52,7 +49,7 @@ class LoginPresenter extends BasePresenter<LoginContractor.View>
                     getContext().getString(R.string.msg_please_enter_email_password)
             );
             return;
-        } else if (!NetworkUtil.isNetworkAvailable(Contextor.getInstance().getContext())) {
+        } else if (!NetworkUtil.isNetworkAvailable()) {
             getView().onNetworkConnectionFailure();
             return;
         }
