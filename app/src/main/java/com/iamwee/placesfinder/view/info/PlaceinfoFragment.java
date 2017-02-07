@@ -9,7 +9,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +23,7 @@ import com.iamwee.placesfinder.dao.Place;
 import com.iamwee.placesfinder.event.OpenActivity;
 import com.iamwee.placesfinder.event.SwipeRefresh;
 import com.iamwee.placesfinder.util.ProgressDialogHelper;
+import com.iamwee.placesfinder.util.SessionUtil;
 import com.iamwee.placesfinder.view.info.adapter.PlaceInfoAdapter;
 import com.iamwee.placesfinder.view.info.adapter.model.BasePlaceInfoItem;
 import com.iamwee.placesfinder.view.suggest.choosephoto.ChoosePhotoActivity;
@@ -41,7 +41,6 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
     private static final int REQUEST_CHOOSE_PHOTO = 1;
     private RecyclerView rvPlaceInfo;
     private PlaceInfoAdapter placeInfoAdapter;
-    private int position = 0;
 
     public PlaceInfoFragment() {
 
@@ -96,19 +95,12 @@ public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.
     @Subscribe
     public void onSubmitPlace(OpenActivity event) {
         if (event.getStatus() == OpenActivity.SUBMIT_PLACE) {
-            new AlertDialog.Builder(getActivity())
-                    .setMessage("")
-                    .setPositiveButton(R.string.action_submit, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Place place = getArguments().getParcelable("place");
-                            getPresenter().submitPlace(
-                                    place.getId()
-                            );
-                        }
-                    })
-                    .setNegativeButton(android.R.string.cancel, null)
-                    .show();
+            if (SessionUtil.hasLoggedIn()) {
+                Place place = getArguments().getParcelable("place");
+                getPresenter().submitPlace(
+                        place.getId()
+                );
+            }
         } else if (event.getStatus() == OpenActivity.CHOOSE_PHOTO_ACTIVITY) {
             startActivityForResult(new Intent(getActivity(), ChoosePhotoActivity.class), REQUEST_CHOOSE_PHOTO);
         }

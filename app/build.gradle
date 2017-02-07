@@ -16,6 +16,14 @@ repositories {
 
 
 android {
+    signingConfigs {
+        App {
+            keyAlias 'PlacesFinder'
+            keyPassword 'Iamwee123'
+            storeFile file('/Users/zeonzakeru/Desktop/places-finder.jks')
+            storePassword 'Iamwee123'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -25,10 +33,12 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
+            lintOptions {
+                disable 'MissingTranslation'
+            }
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
