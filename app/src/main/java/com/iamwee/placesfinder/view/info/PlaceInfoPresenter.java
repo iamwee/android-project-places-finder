@@ -155,8 +155,10 @@ class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
         public void onResponse(Call<List<Place>> call, Response<List<Place>> response) {
             getView().onRefreshed();
             if (response.isSuccessful()) {
+                Place place = response.body().get(0);
                 getView().onRefreshed();
-                convertToAdapterModel(response.body().get(0));
+                getView().onSetPlace(place);
+                convertToAdapterModel(place);
             } else if (response.code() == HttpManager.BAD_REQUEST) {
                 try {
                     ServerResponse serverResponse = GsonUtil.getInstance()
@@ -180,7 +182,18 @@ class PlaceInfoPresenter extends BasePresenter<PlaceInfoContractor.View>
     private Callback<ServerResponse> submitPlaceCallback = new Callback<ServerResponse>() {
         @Override
         public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-            getView().onShowToastMessage(response.body().getMessage());
+            if (response.isSuccessful()) {
+                getView().onShowToastMessage(response.body().getMessage());
+            } else if (response.code() == HttpManager.BAD_REQUEST){
+                try {
+                    ServerResponse serverResponse = GsonUtil.getInstance()
+                            .fromJson(response.errorBody().string(), ServerResponse.class);
+                    getView().onShowToastMessage(serverResponse.getMessage());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            getView().onGetPlaceFromServer();
         }
 
         @Override

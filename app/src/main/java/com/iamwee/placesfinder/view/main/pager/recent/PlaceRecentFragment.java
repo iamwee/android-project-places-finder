@@ -58,6 +58,12 @@ public class PlaceRecentFragment extends PlacesFinderFragment<PlaceRecentContrac
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        getPresenter().getPlacesData();
+    }
+
+    @Override
     public void onNetworkConnectionFailure() {
         onShowToastMessage(getString(R.string.error_check_internet_connection));
     }

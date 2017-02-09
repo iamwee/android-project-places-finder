@@ -27,6 +27,10 @@ interface PlaceInfoContractor {
 
         void onSetAdapter(List<BasePlaceInfoItem> basePlaceInfoItems);
 
+        void onSetPlace(Place place);
+
         void onRefreshed();
+
+        void onGetPlaceFromServer();
     }
 }

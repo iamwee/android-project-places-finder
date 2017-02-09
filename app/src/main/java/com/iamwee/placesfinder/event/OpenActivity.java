@@ -14,6 +14,7 @@ public class OpenActivity {
     public static final int SUBMIT_PLACE = 9;
     public static final int DIRECTION_ACTIVITY = 10;
     public static final int PHOTO_LIST_ACTIVITY = 11;
+    public static final int REPORT = 12;
     public static final int FINISH = 99;
 
     private int status;

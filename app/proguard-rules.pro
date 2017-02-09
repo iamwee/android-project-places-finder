@@ -23,6 +23,9 @@
 -dontwarn java.nio.file.**
 -keep class java.nio.file.**
 
+-dontwarn com.iamwee.placesfinder.**
+-keep class com.iamwee.placesfinder.**
+
 # Okio
 
 -keep class sun.misc.Unsage { *; }

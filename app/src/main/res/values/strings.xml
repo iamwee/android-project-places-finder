@@ -60,4 +60,5 @@
     <string name="error_please_fill_these_form">Please fill these form.</string>
     <string name="recent">Recent</string>
     <string name="nearby">Nearby</string>
+    <string name="action_upload">Upload</string>
 </resources>

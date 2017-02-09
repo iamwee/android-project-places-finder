@@ -100,6 +100,11 @@ public class PlaceInfoActivity extends PlacesFinderActivity
             intent.putExtra("place", place);
             openActivity(intent);
             return;
+        } else if (event.getStatus() == OpenActivity.REPORT){
+            Intent intent = new Intent(this, ReportActivity.class);
+            intent.putExtra("place", place);
+            openActivity(intent);
+            return;
         }
 
         if (SessionUtil.hasLoggedIn()) {
@@ -124,10 +129,8 @@ public class PlaceInfoActivity extends PlacesFinderActivity
     }
 
     @Subscribe
-    public void onReportPlace(Place place) {
-        Intent intent = new Intent(this, ReportActivity.class);
-        intent.putExtra("place", place);
-        openActivity(intent);
+    public void onSetupPlace(Place place) {
+        this.place = place;
     }
 
     @Override
