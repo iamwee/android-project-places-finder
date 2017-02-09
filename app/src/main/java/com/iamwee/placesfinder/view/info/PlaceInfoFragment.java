@@ -34,7 +34,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoFragment extends PlacesFinderFragment<PlaceInfoContractor.Presenter>
+public class PlaceInfoFragment extends PlacesFinderFragment<PlaceInfoContractor.Presenter>
         implements PlaceInfoContractor.View, ProgressDialogHelper.Callback {
 
     private static final int REQUEST_CHOOSE_PHOTO = 1;
@@ -43,14 +43,14 @@ public class InfoFragment extends PlacesFinderFragment<PlaceInfoContractor.Prese
 
     private Place place;
 
-    public InfoFragment() {
+    public PlaceInfoFragment() {
 
     }
 
-    public static InfoFragment newInstance(Place place) {
+    public static PlaceInfoFragment newInstance(Place place) {
         Bundle args = new Bundle();
         args.putParcelable("place", place);
-        InfoFragment fragment = new InfoFragment();
+        PlaceInfoFragment fragment = new PlaceInfoFragment();
         fragment.setArguments(args);
         return fragment;
     }

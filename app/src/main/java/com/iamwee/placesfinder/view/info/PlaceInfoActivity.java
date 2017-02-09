@@ -55,7 +55,7 @@ public class PlaceInfoActivity extends PlacesFinderActivity
     private void setupFragment(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, InfoFragment.newInstance(place))
+                    .add(R.id.container, PlaceInfoFragment.newInstance(place))
                     .commit();
         }
     }
